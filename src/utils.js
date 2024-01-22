@@ -1,11 +1,9 @@
 // TODO: GET CURRENT YEAR
 const currentYear = 2024
-
-// TODO: GET LOCALE FROM PC
 const locale = "es"
 
 const weekdays = [...Array(7).keys()]
-const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: "long" })
+const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: "short" })
 
 const weekDaysName = weekdays.map((weekDayIndex) => {
 	const date = new Date(2024, 0, weekDayIndex + 1)
