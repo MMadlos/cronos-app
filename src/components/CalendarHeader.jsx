@@ -1,14 +1,25 @@
-function CalendarHeader({ year, month }) {
+function CalendarHeader({ calendarData, onClick }) {
+	const { year, month, monthIndex } = calendarData
+
 	return (
 		<div
 			id="month-selector"
+			data-month-index={monthIndex}
 			className="flex flex-row justify-between items-center ">
-			<i className="fa-solid fa-arrow-left text-3xl text-indigo-500" />
+			<button
+				onClick={onClick}
+				data-type="previous">
+				<i className="fa-solid fa-arrow-left text-3xl text-indigo-500" />
+			</button>
 			<div className="flex flex-col items-center justify-center">
 				<span className="text-indigo-300 text-sm font-medium">{year}</span>
 				<p className="text-3xl font-semibold text-indigo-700">{month}</p>
 			</div>
-			<i className="fa-solid fa-arrow-right text-3xl text-indigo-500" />
+			<button
+				onClick={onClick}
+				data-type="next">
+				<i className="fa-solid fa-arrow-right text-3xl text-indigo-500" />
+			</button>
 		</div>
 	)
 }
