@@ -1,5 +1,5 @@
 // TODO: GET CURRENT YEAR
-const currentYear = 2024
+const currentYear = new Date().getFullYear()
 const locale = "es"
 
 const weekdays = [...Array(7).keys()]
@@ -26,6 +26,10 @@ const calendar = months.map((monthKey) => {
 })
 
 // FUNCIÓN QUE SÓLO GENERE EL MES ACTUAL
+function mappedCalendarData(year, monthIndex, month, maxDays, firstWeekDay, firstWeekDayIndex) {
+	return { year, monthIndex, month, maxDays, firstWeekDay, firstWeekDayIndex }
+}
+
 function getCurrentCalendar() {
 	const intlMonth = new Intl.DateTimeFormat(locale, { month: "long" })
 	const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: "short" })
@@ -34,30 +38,32 @@ function getCurrentCalendar() {
 	const currentYear = currentDate.getFullYear()
 	const currentMonthIndex = currentDate.getMonth()
 
-	const currentMonth = intlMonth.format(new Date(currentYear, currentMonthIndex))
-	const currentMaxDays = new Date(2024, currentMonthIndex + 1, 0).getDate()
-	const firstWeekDay = intlWeekday.format(new Date(2024, 0, 1))
+	const firstWeekdayDateObj = new Date(currentYear, currentMonthIndex, 1)
+	const firstWeekdayIndex = firstWeekdayDateObj.getDay()
 
-	return {
-		currentYear,
-		currentMonth,
-		currentMaxDays,
-		firstWeekDay,
-		currentMonthIndex,
-	}
+	const currentMonth = intlMonth.format(new Date(currentYear, currentMonthIndex))
+	const firstWeekDay = intlWeekday.format(firstWeekdayDateObj)
+	const currentMaxDays = new Date(currentYear, currentMonthIndex + 1, 0).getDate()
+
+	const mappedData = mappedCalendarData(currentYear, currentMonthIndex, currentMonth, currentMaxDays, firstWeekDay, firstWeekdayIndex)
+
+	return mappedData
 }
 
 function getCalendar(monthIndex, year) {
 	const intlMonth = new Intl.DateTimeFormat(locale, { month: "long" })
 	const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: "short" })
 
+	const firstWeekdayDateObj = new Date(year, monthIndex, 1)
+	const firstWeekdayIndex = firstWeekdayDateObj.getDay()
+
 	const month = intlMonth.format(new Date(year, monthIndex))
 	const maxDays = new Date(year, monthIndex + 1, 0).getDate()
-	const firstWeekDay = intlWeekday.format(new Date(2024, monthIndex, 1))
+	const firstWeekDay = intlWeekday.format(firstWeekdayDateObj)
 
-	return { month, maxDays, firstWeekDay }
+	const mappedData = mappedCalendarData(year, monthIndex, month, maxDays, firstWeekDay, firstWeekdayIndex)
+
+	return mappedData
 }
-
-console.log(getCalendar(3, 2024))
 
 export { weekDaysName, calendar, getCurrentCalendar, getCalendar }
