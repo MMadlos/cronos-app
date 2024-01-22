@@ -1,9 +1,10 @@
+/* eslint-disable comma-dangle */
 module.exports = {
 	env: {
 		browser: true,
 		es2021: true,
 	},
-	extends: ["standard", "plugin:react/recommended"],
+	extends: ["standard", "plugin:react/recommended", "plugin:react/jsx-runtime"],
 	overrides: [
 		{
 			env: {
@@ -21,6 +22,10 @@ module.exports = {
 	},
 	plugins: ["react"],
 	rules: {
-		quotes: ["double"],
+		quotes: ["error", "double"],
+		indent: ["error", "tab"],
+		"no-tabs": ["error", { allowIndentationTabs: true }],
+		"react/prop-types": ["off"],
+		"space-before-function-paren": ["off"],
 	},
 }
