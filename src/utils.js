@@ -13,10 +13,10 @@ const weekDaysName = weekdays.map((weekDayIndex) => {
 })
 
 const months = [...Array(12).keys()]
-const intl = new Intl.DateTimeFormat(locale, { month: "long" })
+const intlMonth = new Intl.DateTimeFormat(locale, { month: "long" })
 
 const calendar = months.map((monthKey) => {
-	const monthName = intl.format(new Date(currentYear, monthKey))
+	const monthName = intlMonth.format(new Date(currentYear, monthKey))
 
 	const nextMonthIndex = monthKey + 1
 	const daysOfMonth = new Date(2024, nextMonthIndex, 0).getDate()
@@ -25,4 +25,27 @@ const calendar = months.map((monthKey) => {
 	return { monthName, daysOfMonth, startsOn }
 })
 
-export { weekDaysName, calendar }
+// FUNCIÓN QUE SÓLO GENERE EL MES ACTUAL
+function getCurrentCalendar() {
+	const intlMonth = new Intl.DateTimeFormat(locale, { month: "long" })
+	const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: "short" })
+
+	const currentDate = new Date()
+	const currentYear = currentDate.getFullYear()
+	const currentMonthIndex = currentDate.getMonth()
+
+	const currentMonth = intlMonth.format(new Date(currentYear, currentMonthIndex))
+	const currentMaxDays = new Date(2024, currentMonthIndex + 1, 0).getDate()
+	const firstWeekDay = intlWeekday.format(new Date(2024, 0, 1))
+
+	return {
+		currentYear,
+		currentMonth,
+		currentMaxDays,
+		firstWeekDay,
+	}
+}
+
+console.log(getCurrentCalendar())
+
+export { weekDaysName, calendar, getCurrentCalendar }
