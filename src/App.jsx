@@ -11,14 +11,17 @@ function App() {
 			<main className="bg-indigo-100 h-full flex flex-col justify-center items-center">
 				<div className="my-8 flex flex-col gap-4">
 					{calendar.map((month, index) => {
-						const { monthName, daysOfMonth } = month
+						const { monthName, daysOfMonth, startsOn } = month
 						return (
 							<div
 								id="calendar"
 								key={index}
 								className="w-[800px]  bg-indigo-50 p-8 flex flex-col gap-8 rounded-xl">
 								<CalendarHeader month={monthName} />
-								<CalendarBody daysOfMonth={daysOfMonth} />
+								<CalendarBody
+									daysOfMonth={daysOfMonth}
+									startsOn={startsOn}
+								/>
 							</div>
 						)
 					})}
