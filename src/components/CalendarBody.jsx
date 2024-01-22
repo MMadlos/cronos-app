@@ -11,8 +11,9 @@ function CalendarCell({ text, startDay, isFirstDay }) {
 	return <div className={className}>{text}</div>
 }
 
-export default function CalendarBody({ daysOfMonth, startsOn }) {
-	const allDays = [...Array(daysOfMonth).keys()]
+export default function CalendarBody({ calendarData }) {
+	const { maxDays, firstWeekDayIndex } = calendarData
+	const allDays = [...Array(maxDays).keys()]
 	return (
 		<div
 			id="all-dates"
@@ -39,7 +40,7 @@ export default function CalendarBody({ daysOfMonth, startsOn }) {
 						<CalendarCell
 							key={index}
 							text={date + 1}
-							startDay={isFirstDay && startsOn}
+							startDay={isFirstDay && firstWeekDayIndex}
 							isFirstDay={isFirstDay}
 						/>
 					)
