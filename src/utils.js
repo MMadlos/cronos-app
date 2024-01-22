@@ -1,5 +1,5 @@
 // TODO: GET CURRENT YEAR
-const actualYear = 2024
+const currentYear = 2024
 
 // TODO: GET LOCALE FROM PC
 const locale = "es"
@@ -18,7 +18,7 @@ const months = [...Array(12).keys()]
 const intl = new Intl.DateTimeFormat(locale, { month: "long" })
 
 const calendar = months.map((monthKey) => {
-	const monthName = intl.format(new Date(actualYear, monthKey))
+	const monthName = intl.format(new Date(currentYear, monthKey))
 
 	const nextMonthIndex = monthKey + 1
 	const daysOfMonth = new Date(2024, nextMonthIndex, 0).getDate()
