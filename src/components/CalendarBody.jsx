@@ -1,18 +1,23 @@
 import { weekDaysName } from "../utils"
 
-function CalendarCell({ text, startDay, isFirstDay }) {
+function CalendarCell({ text, startDay, isFirstDay, isToday }) {
 	const classes = {
-		base: "p-2 bg-indigo-200 text-indigo-700 rounded-lg",
+		base: "p-2 rounded-lg",
 		colStart: `col-start-${startDay}`,
+		isToday: "bg-indigo-200 text-indigo-700",
+		isNotToday: "bg-indigo-900 text-indigo-200",
 	}
 
-	const className = isFirstDay ? `${classes.base} ${classes.colStart}` : `${classes.base}`
+	const classIfFirstDay = isFirstDay ? classes.colStart : ""
+	const classIfIsToday = isToday ? classes.isToday : classes.isNotToday
 
-	return <div className={className}>{text}</div>
+	return <div className={classes.base + classIfFirstDay + classIfIsToday}>{text}</div>
 }
 
 export default function CalendarBody({ calendarData }) {
 	const { maxDays, firstWeekDayIndex } = calendarData
+	const currentDate = new Date().getDate()
+
 	const allDays = [...Array(maxDays).keys()]
 	return (
 		<div
@@ -35,6 +40,7 @@ export default function CalendarBody({ calendarData }) {
 				className="grid grid-cols-7 w-full text-center gap-1">
 				{allDays.map((date, index) => {
 					const isFirstDay = index === 0
+					const isToday = date === currentDate
 
 					return (
 						<CalendarCell
@@ -42,6 +48,7 @@ export default function CalendarBody({ calendarData }) {
 							text={date + 1}
 							startDay={isFirstDay && firstWeekDayIndex}
 							isFirstDay={isFirstDay}
+							isToday={isToday}
 						/>
 					)
 				})}
