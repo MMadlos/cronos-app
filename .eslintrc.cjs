@@ -28,5 +28,6 @@ module.exports = {
 		"react/prop-types": ["off"],
 		"space-before-function-paren": ["off"],
 		"comma-dangle": ["off"],
+		"no-unused-vars": ["warn"],
 	},
 }
