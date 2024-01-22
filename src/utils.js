@@ -43,9 +43,21 @@ function getCurrentCalendar() {
 		currentMonth,
 		currentMaxDays,
 		firstWeekDay,
+		currentMonthIndex,
 	}
 }
 
-console.log(getCurrentCalendar())
+function getCalendar(monthIndex, year) {
+	const intlMonth = new Intl.DateTimeFormat(locale, { month: "long" })
+	const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: "short" })
 
-export { weekDaysName, calendar, getCurrentCalendar }
+	const month = intlMonth.format(new Date(year, monthIndex))
+	const maxDays = new Date(year, monthIndex + 1, 0).getDate()
+	const firstWeekDay = intlWeekday.format(new Date(2024, monthIndex, 1))
+
+	return { month, maxDays, firstWeekDay }
+}
+
+console.log(getCalendar(3, 2024))
+
+export { weekDaysName, calendar, getCurrentCalendar, getCalendar }
