@@ -24,8 +24,9 @@ module.exports = {
 	rules: {
 		quotes: ["error", "double"],
 		indent: ["error", "tab"],
-		"no-tabs": ["error", { allowIndentationTabs: true }],
+		"no-tabs": ["off"],
 		"react/prop-types": ["off"],
 		"space-before-function-paren": ["off"],
+		"comma-dangle": ["off"],
 	},
 }
