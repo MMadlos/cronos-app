@@ -5,32 +5,11 @@ import { getCurrentCalendar, getCalendar, getIntlMonthShort, getIntlWeekdayShort
 import CalendarHeader from "./CalendarHeader"
 import CalendarBody from "./CalendarBody"
 
-// const initSelectedDays = [
-// 	{
-// 		year: 2024,
-// 		month: "enero",
-// 		day: "mar",
-// 		date: 2,
-// 	},
-// 	{
-// 		year: 2024,
-// 		month: "enero",
-// 		day: "lun",
-// 		date: 8,
-// 	},
-// 	{
-// 		year: 2024,
-// 		month: "enero",
-// 		day: "vie",
-// 		date: 19,
-// 	},
-// ]
-
-const newSelectedDates = [new Date(2024, 0, 2), new Date(2024, 0, 3), new Date(2024, 0, 19)]
+const mockSelectedDates = [new Date(2024, 0, 2), new Date(2024, 0, 3), new Date(2024, 0, 19)]
 
 function Calendar() {
 	const [calendar, setCalendar] = useState(getCurrentCalendar())
-	const [selectedDays, setSelectedDays] = useState(newSelectedDates)
+	const [selectedDays, setSelectedDays] = useState(mockSelectedDates)
 
 	function handleMonthArrows(e) {
 		const currentMonthIndexEl = e.target.closest("[data-month-index]")
@@ -44,28 +23,25 @@ function Calendar() {
 	}
 
 	function handleAddSelectedDays(e) {
-		const getDate = e.target.closest("[data-date]").dataset.date
-		const formattedDate = getDate.split("-").map((num) => Number(num))
+		const dataDate = e.target.closest("[data-date]").dataset.date
+		const formattedDate = dataDate.split("-").map((num) => Number(num))
 
 		const [year, monthIndex, date] = formattedDate
 
-		const dateObject = new Date(year, monthIndex, date)
+		const newDate = new Date(year, monthIndex, date)
 
-		const locale = "es"
-		const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: "short" })
-		const intlMonth = new Intl.DateTimeFormat(locale, { month: "short" })
+		// Check if the selected date is already in selectedDays
+		const selectedInMS = selectedDays.map((dates) => dates.getTime())
+		const isIncluded = selectedInMS.includes(newDate.getTime())
 
-		const month = intlMonth.format(dateObject)
-		const weekday = intlWeekday.format(dateObject)
+		if (isIncluded) return
 
-		const newSelectedDate = {
-			year,
-			month,
-			day: weekday,
-			date,
-		}
+		// Sort array before adding it to setSelectedDays
+		const newSelectedDays = [...selectedDays, newDate]
+		const sortedSelectedDaysInMS = newSelectedDays.map((dates) => dates.getTime()).sort()
+		const sortedSelectedDays = sortedSelectedDaysInMS.map((datesMS) => new Date(datesMS))
 
-		setSelectedDays((prev) => [...prev, newSelectedDate])
+		setSelectedDays(sortedSelectedDays)
 	}
 
 	return (
