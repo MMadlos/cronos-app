@@ -1,4 +1,4 @@
-import { weekDaysName } from "../utils"
+import { getWeekdays } from "../utils"
 
 function WeekdayCell({ text }) {
 	return <div className="p-2 rounded-xl hover:opacity-50 hover:cursor-pointer bg-indigo-400 text-indigo-100">{text}</div>
@@ -28,10 +28,14 @@ function DateCell({ text, startDay, isFirstDay, isToday, date, onClickAddDate })
 export default function CalendarBody({ calendarData, onClickAddDate }) {
 	const { maxDays, firstWeekDayIndex, year, monthIndex } = calendarData
 
+	const locale = "es"
+	const format = "short"
+
 	const currentDate = new Date().getDate()
 	const currentMonth = new Date().getMonth()
-
+	const isCurrentMonth = currentMonth === monthIndex
 	const allDays = [...Array(maxDays).keys()]
+
 	return (
 		<div
 			id="all-dates"
@@ -39,7 +43,7 @@ export default function CalendarBody({ calendarData, onClickAddDate }) {
 			<div
 				id="weekDays"
 				className="grid grid-cols-7 w-full text-center gap-1">
-				{weekDaysName.map((day, index) => {
+				{getWeekdays(locale, format).map((day, index) => {
 					return (
 						<WeekdayCell
 							key={index}
@@ -53,7 +57,7 @@ export default function CalendarBody({ calendarData, onClickAddDate }) {
 				className="grid grid-cols-7 w-full text-center gap-1">
 				{allDays.map((date, index) => {
 					const isFirstDay = index === 0
-					const isToday = date === currentDate && monthIndex === currentMonth
+					const isToday = date === currentDate && isCurrentMonth
 
 					return (
 						<DateCell

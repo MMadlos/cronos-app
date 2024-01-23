@@ -1,38 +1,26 @@
-// TODO: GET CURRENT YEAR
 const currentYear = new Date().getFullYear()
 const locale = "es"
 
-const weekdays = [...Array(7).keys()]
-const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: "short" })
+function getWeekdays(locale = "en", format = "long") {
+	const weekdays = [...Array(7).keys()]
+	const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: format })
+	const weekdaysName = weekdays.map((weekDayIndex) => {
+		const date = new Date(2024, 0, weekDayIndex + 1)
+		const weekdayName = intlWeekday.format(date)
 
-const weekDaysName = weekdays.map((weekDayIndex) => {
-	const date = new Date(2024, 0, weekDayIndex + 1)
-	const weekDayName = intlWeekday.format(date)
+		return weekdayName
+	})
 
-	return weekDayName
-})
+	return weekdaysName
+}
 
-const months = [...Array(12).keys()]
-const intlMonth = new Intl.DateTimeFormat(locale, { month: "long" })
-
-const calendar = months.map((monthKey) => {
-	const monthName = intlMonth.format(new Date(currentYear, monthKey))
-
-	const nextMonthIndex = monthKey + 1
-	const daysOfMonth = new Date(2024, nextMonthIndex, 0).getDate()
-	const startsOn = new Date(2024, monthKey, 1).getDay()
-
-	return { monthName, daysOfMonth, startsOn }
-})
-
-// FUNCIÓN QUE SÓLO GENERE EL MES ACTUAL
 function mappedCalendarData(year, monthIndex, month, maxDays, firstWeekDay, firstWeekDayIndex) {
 	return { year, monthIndex, month, maxDays, firstWeekDay, firstWeekDayIndex }
 }
 
 function getCurrentCalendar() {
 	const intlMonth = new Intl.DateTimeFormat(locale, { month: "long" })
-	const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: "short" })
+	const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: "long" })
 
 	const currentDate = new Date()
 	const currentYear = currentDate.getFullYear()
@@ -66,6 +54,12 @@ function getCalendar(monthIndex, year) {
 	return mappedData
 }
 
+function getIntlMonthLong(date, locale = "es") {
+	const intlMonth = new Intl.DateTimeFormat(locale, { month: "long" })
+	const month = intlMonth.format(date)
+	return month
+}
+
 function getIntlMonthShort(date, locale = "es") {
 	const intlMonth = new Intl.DateTimeFormat(locale, { month: "short" })
 	const month = intlMonth.format(date)
@@ -78,4 +72,4 @@ function getIntlWeekdayShort(date, locale = "es") {
 	return weekday
 }
 
-export { weekDaysName, calendar, getCurrentCalendar, getCalendar, getIntlMonthShort, getIntlWeekdayShort }
+export { getWeekdays, getCurrentCalendar, getCalendar, getIntlMonthShort, getIntlWeekdayShort }
