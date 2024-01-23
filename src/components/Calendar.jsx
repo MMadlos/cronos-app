@@ -13,13 +13,10 @@ function Calendar() {
 	const [selectedDays, setSelectedDays] = useState(mockSelectedDates)
 
 	function handleMonthArrows(e) {
-		const currentMonthIndexEl = e.target.closest("[data-month-index]")
-		const currentMonthIndex = Number(currentMonthIndexEl.dataset.monthIndex)
-		const arrowType = e.target.closest("[data-type]").dataset.type
+		const newMonthIndexEl = e.target.closest("[data-index]")
+		const newMonthIndex = Number(newMonthIndexEl.dataset.index)
 
-		const monthIndex = arrowType === "next" ? currentMonthIndex + 1 : currentMonthIndex - 1
-
-		const newCalendar = getCalendar(monthIndex, calendar.year)
+		const newCalendar = getCalendar(newMonthIndex, calendar.year)
 		setCalendar(newCalendar)
 	}
 

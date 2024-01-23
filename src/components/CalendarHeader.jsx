@@ -4,11 +4,10 @@ function CalendarHeader({ calendarData, onClick }) {
 	return (
 		<div
 			id="calendar-header"
-			data-month-index={monthIndex}
 			className="flex flex-row justify-between items-center ">
 			<button
 				onClick={onClick}
-				data-type="previous">
+				data-index={monthIndex - 1}>
 				<i className="fa-solid fa-arrow-left text-3xl text-indigo-500" />
 			</button>
 			<div className="flex flex-col items-center justify-center">
@@ -17,7 +16,7 @@ function CalendarHeader({ calendarData, onClick }) {
 			</div>
 			<button
 				onClick={onClick}
-				data-type="next">
+				data-index={monthIndex + 1}>
 				<i className="fa-solid fa-arrow-right text-3xl text-indigo-500" />
 			</button>
 		</div>
