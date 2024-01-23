@@ -1,4 +1,4 @@
-import { getWeekdays, getAllDaysArray } from "../utils"
+import { getWeekdays } from "../utils"
 
 function WeekdayCell({ text }) {
 	return <div className="p-2 rounded-xl hover:opacity-50 hover:cursor-pointer bg-indigo-400 text-indigo-100">{text}</div>
@@ -10,14 +10,16 @@ function DateCell({ text, startDay, isFirstDay, isToday, date, onClickAddDate, i
 		colStart: `col-start-${startDay}`,
 		isToday: "bg-indigo-400 text-indigo-100",
 		isNotToday: "bg-indigo-200 text-indigo-900",
+		isSelected: "bg-gray-200",
 	}
 
 	const classIfFirstDay = isFirstDay ? classes.colStart : ""
 	const classIfIsToday = isToday ? classes.isToday : classes.isNotToday
+	const classIfSelected = isSelected ? classes.isSelected : ""
 
 	return (
 		<div
-			className={`${classes.base} ${classIfFirstDay} ${classIfIsToday}`}
+			className={`${classes.base} ${classIfFirstDay} ${classIfIsToday} ${classIfSelected}`}
 			data-date={date}
 			onClick={onClickAddDate}
 			data-selected={isSelected}>
