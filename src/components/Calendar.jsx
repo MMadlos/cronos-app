@@ -1,80 +1,36 @@
 import { useState } from "react"
 
-import { getCurrentCalendar, getCalendar } from "../utils"
+import { getCurrentCalendar, getCalendar, getIntlMonthShort, getIntlWeekdayShort } from "../utils"
 
 import CalendarHeader from "./CalendarHeader"
 import CalendarBody from "./CalendarBody"
 
-const initSelectedDays = [
-	{
-		year: 2024,
-		month: "enero",
-		day: "mar",
-		date: 2,
-	},
-	{
-		year: 2024,
-		month: "enero",
-		day: "lun",
-		date: 8,
-	},
-	{
-		year: 2024,
-		month: "enero",
-		day: "vie",
-		date: 19,
-	},
-]
+// const initSelectedDays = [
+// 	{
+// 		year: 2024,
+// 		month: "enero",
+// 		day: "mar",
+// 		date: 2,
+// 	},
+// 	{
+// 		year: 2024,
+// 		month: "enero",
+// 		day: "lun",
+// 		date: 8,
+// 	},
+// 	{
+// 		year: 2024,
+// 		month: "enero",
+// 		day: "vie",
+// 		date: 19,
+// 	},
+// ]
 
 const newSelectedDates = [new Date(2024, 0, 2), new Date(2024, 0, 3), new Date(2024, 0, 19)]
 
-const firstDate = new Date(2024, 0, 2)
-const secondDate = new Date(2024, 0, 2)
-
-const firstDateTime = firstDate.getTime()
-const secondDateTime = secondDate.getTime()
-
-// const areSame = firstDate === secondDate
-// const areSame = typeof firstDate === typeof secondDate
-const areSame = firstDateTime === secondDateTime
-const isThisTheSame = firstDate === secondDate
-
-console.log({ firstDateTime, secondDateTime, areSame })
-console.log({ firstDate, secondDate, isThisTheSame })
-
-// const fullFormattedDates = newSelectedDates.map((dates) => {
-// 	const locale = "es"
-// 	const options = {
-// 		weekday: "short",
-// 		year: "numeric",
-// 		month: "short",
-// 		day: "numeric",
-// 	}
-// 	const intlFull = new Intl.DateTimeFormat(locale, options)
-
-// 	return intlFull.format(dates)
-// })
-
-const getDataSelectedDates = newSelectedDates.map((dates) => {
-	const year = dates.getFullYear()
-	const monthIndex = dates.getMonth()
-	const dayIndex = dates.getDay()
-	const date = dates.getDate()
-
-	const intlMonth = new Intl.DateTimeFormat("es", { month: "short" })
-	const intlWeekday = new Intl.DateTimeFormat("es", { weekday: "short" })
-
-	const month = intlMonth.format(monthIndex)
-	const weekday = intlWeekday.format(dayIndex)
-
-	return { year, month, weekday, date }
-})
-
-console.log(getDataSelectedDates)
-
 function Calendar() {
 	const [calendar, setCalendar] = useState(getCurrentCalendar())
-	const [selectedDays, setSelectedDays] = useState(initSelectedDays)
+	const [selectedDays, setSelectedDays] = useState(newSelectedDates)
 
 	function handleMonthArrows(e) {
 		const currentMonthIndexEl = e.target.closest("[data-month-index]")
@@ -118,12 +74,14 @@ function Calendar() {
 				<p>Selected days</p>
 				<div className="flex gap-4">
 					{selectedDays.map((dayObj, index) => {
-						const { month, day, date } = dayObj
+						const month = getIntlMonthShort(dayObj)
+						const weekday = getIntlWeekdayShort(dayObj)
+						const date = dayObj.getDate()
 
 						return (
 							<div key={index}>
 								<p>{month}</p>
-								<p>{day}</p>
+								<p>{weekday}</p>
 								<p>{date}</p>
 							</div>
 						)
