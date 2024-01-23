@@ -5,8 +5,6 @@ function WeekdayCell({ text }) {
 }
 
 function DateCell({ text, startDay, isFirstDay, isToday, date, onClickAddDate }) {
-	console.log(isFirstDay, startDay)
-
 	const classes = {
 		base: "p-2 rounded-xl hover:opacity-50 hover:cursor-pointer ",
 		colStart: `col-start-${startDay}`,
@@ -29,7 +27,9 @@ function DateCell({ text, startDay, isFirstDay, isToday, date, onClickAddDate })
 
 export default function CalendarBody({ calendarData, onClickAddDate }) {
 	const { maxDays, firstWeekDayIndex, year, monthIndex } = calendarData
+
 	const currentDate = new Date().getDate()
+	const currentMonth = new Date().getMonth()
 
 	const allDays = [...Array(maxDays).keys()]
 	return (
@@ -53,7 +53,7 @@ export default function CalendarBody({ calendarData, onClickAddDate }) {
 				className="grid grid-cols-7 w-full text-center gap-1">
 				{allDays.map((date, index) => {
 					const isFirstDay = index === 0
-					const isToday = date === currentDate
+					const isToday = date === currentDate && monthIndex === currentMonth
 
 					return (
 						<DateCell
