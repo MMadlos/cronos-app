@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { getCurrentCalendar, getCalendar, getIntlMonthShort, getIntlWeekdayShort } from "../utils"
+import { getCurrentCalendar, getCalendar } from "../utils"
 
 import SelectedDates from "./SelectedDates"
 import CalendarHeader from "./CalendarHeader"
