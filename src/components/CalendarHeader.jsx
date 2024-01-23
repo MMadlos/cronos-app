@@ -3,7 +3,7 @@ function CalendarHeader({ calendarData, onClick }) {
 
 	return (
 		<div
-			id="month-selector"
+			id="calendar-header"
 			data-month-index={monthIndex}
 			className="flex flex-row justify-between items-center ">
 			<button
