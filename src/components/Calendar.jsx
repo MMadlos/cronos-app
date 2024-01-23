@@ -26,6 +26,52 @@ const initSelectedDays = [
 	},
 ]
 
+const newSelectedDates = [new Date(2024, 0, 2), new Date(2024, 0, 3), new Date(2024, 0, 19)]
+
+const firstDate = new Date(2024, 0, 2)
+const secondDate = new Date(2024, 0, 2)
+
+const firstDateTime = firstDate.getTime()
+const secondDateTime = secondDate.getTime()
+
+// const areSame = firstDate === secondDate
+// const areSame = typeof firstDate === typeof secondDate
+const areSame = firstDateTime === secondDateTime
+const isThisTheSame = firstDate === secondDate
+
+console.log({ firstDateTime, secondDateTime, areSame })
+console.log({ firstDate, secondDate, isThisTheSame })
+
+// const fullFormattedDates = newSelectedDates.map((dates) => {
+// 	const locale = "es"
+// 	const options = {
+// 		weekday: "short",
+// 		year: "numeric",
+// 		month: "short",
+// 		day: "numeric",
+// 	}
+// 	const intlFull = new Intl.DateTimeFormat(locale, options)
+
+// 	return intlFull.format(dates)
+// })
+
+const getDataSelectedDates = newSelectedDates.map((dates) => {
+	const year = dates.getFullYear()
+	const monthIndex = dates.getMonth()
+	const dayIndex = dates.getDay()
+	const date = dates.getDate()
+
+	const intlMonth = new Intl.DateTimeFormat("es", { month: "short" })
+	const intlWeekday = new Intl.DateTimeFormat("es", { weekday: "short" })
+
+	const month = intlMonth.format(monthIndex)
+	const weekday = intlWeekday.format(dayIndex)
+
+	return { year, month, weekday, date }
+})
+
+console.log(getDataSelectedDates)
+
 function Calendar() {
 	const [calendar, setCalendar] = useState(getCurrentCalendar())
 	const [selectedDays, setSelectedDays] = useState(initSelectedDays)
@@ -42,18 +88,14 @@ function Calendar() {
 	}
 
 	function handleAddSelectedDays(e) {
-		// Seleccionar elemento celda
-		const dataDate = e.target.closest("[data-date]").dataset.date
+		const getDate = e.target.closest("[data-date]").dataset.date
+		const formattedDate = getDate.split("-").map((num) => Number(num))
 
-		const dateArray = dataDate.split("-").map((num) => Number(num))
-		console.log(dateArray)
-
-		const [year, monthIndex, date] = dateArray
+		const [year, monthIndex, date] = formattedDate
 
 		const dateObject = new Date(year, monthIndex, date)
 
 		const locale = "es"
-
 		const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: "short" })
 		const intlMonth = new Intl.DateTimeFormat(locale, { month: "short" })
 
