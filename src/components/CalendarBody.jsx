@@ -33,7 +33,6 @@ export default function CalendarBody({ calendarData, selectedDates, onClickAddDa
 
 	const getFilteredDates = selectedDates.filter((date) => date.getMonth() === monthIndex)
 	const filteredSelectedDates = getFilteredDates.map((dates) => dates.getDate())
-	console.log(filteredSelectedDates)
 
 	const locale = "es"
 	const format = "short"

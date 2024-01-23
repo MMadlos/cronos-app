@@ -21,7 +21,6 @@ function Calendar() {
 	}
 
 	function handleAddSelectedDays(e) {
-		// TODO - If the selected day is already selected (in UI) => return
 		const dataDate = e.target.closest("[data-date]").dataset.date
 		const formattedDate = dataDate.split("-").map((num) => Number(num))
 
@@ -34,14 +33,24 @@ function Calendar() {
 		const currentSelectedInMS = selectedDays.map((dates) => dates.getTime())
 		const isIncluded = currentSelectedInMS.includes(newDateInMS)
 
-		if (isIncluded) return
+		if (isIncluded) {
+			// Logic to remove a date
 
-		// Date objects needs to be in .getTime() format to sort them
-		const newSelectedDays = [...selectedDays, newDate]
-		const sortedSelectedDaysInMS = newSelectedDays.map((dates) => dates.getTime()).sort()
-		const sortedSelectedDays = sortedSelectedDaysInMS.map((datesMS) => new Date(datesMS))
+			const newSelectedDays = currentSelectedInMS.filter((selected) => selected !== newDateInMS).map((datesMS) => new Date(datesMS))
 
-		setSelectedDays(sortedSelectedDays)
+			setSelectedDays(newSelectedDays)
+		}
+
+		if (!isIncluded) {
+			// Logic to add a date
+
+			// Date objects needs to be in .getTime() format to sort them
+			const newSelectedDays = [...selectedDays, newDate]
+			const sortedSelectedDaysInMS = newSelectedDays.map((dates) => dates.getTime()).sort()
+			const sortedSelectedDays = sortedSelectedDaysInMS.map((datesMS) => new Date(datesMS))
+
+			setSelectedDays(sortedSelectedDays)
+		}
 	}
 
 	return (
