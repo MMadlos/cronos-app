@@ -6,7 +6,7 @@ import SelectedDates from "./SelectedDates"
 import CalendarHeader from "./CalendarHeader"
 import CalendarBody from "./CalendarBody"
 
-const mockSelectedDates = [new Date(2024, 0, 2), new Date(2024, 0, 3), new Date(2024, 0, 19)]
+const mockSelectedDates = [new Date(2024, 0, 2), new Date(2024, 0, 3), new Date(2024, 0, 19), new Date(2024, 1, 3)]
 
 function Calendar() {
 	const [calendar, setCalendar] = useState(getCurrentCalendar())
@@ -59,6 +59,7 @@ function Calendar() {
 				/>
 				<CalendarBody
 					calendarData={calendar}
+					selectedDates={selectedDays}
 					onClickAddDate={handleAddSelectedDays}
 				/>
 			</div>
