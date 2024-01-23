@@ -2,6 +2,7 @@ import { useState } from "react"
 
 import { getCurrentCalendar, getCalendar, getIntlMonthShort, getIntlWeekdayShort } from "../utils"
 
+import SelectedDates from "./SelectedDates"
 import CalendarHeader from "./CalendarHeader"
 import CalendarBody from "./CalendarBody"
 
@@ -23,20 +24,22 @@ function Calendar() {
 	}
 
 	function handleAddSelectedDays(e) {
+		// TODO - If the selected day is already selected (in UI) => return
 		const dataDate = e.target.closest("[data-date]").dataset.date
 		const formattedDate = dataDate.split("-").map((num) => Number(num))
 
 		const [year, monthIndex, date] = formattedDate
 
 		const newDate = new Date(year, monthIndex, date)
+		const newDateInMS = newDate.getTime()
 
 		// Check if the selected date is already in selectedDays
-		const selectedInMS = selectedDays.map((dates) => dates.getTime())
-		const isIncluded = selectedInMS.includes(newDate.getTime())
+		const currentSelectedInMS = selectedDays.map((dates) => dates.getTime())
+		const isIncluded = currentSelectedInMS.includes(newDateInMS)
 
 		if (isIncluded) return
 
-		// Sort array before adding it to setSelectedDays
+		// Date objects needs to be in .getTime() format to sort them
 		const newSelectedDays = [...selectedDays, newDate]
 		const sortedSelectedDaysInMS = newSelectedDays.map((dates) => dates.getTime()).sort()
 		const sortedSelectedDays = sortedSelectedDaysInMS.map((datesMS) => new Date(datesMS))
@@ -48,21 +51,7 @@ function Calendar() {
 		<div className="my-8 flex flex-col gap-4">
 			<div>
 				<p>Selected days</p>
-				<div className="flex gap-4">
-					{selectedDays.map((dayObj, index) => {
-						const month = getIntlMonthShort(dayObj)
-						const weekday = getIntlWeekdayShort(dayObj)
-						const date = dayObj.getDate()
-
-						return (
-							<div key={index}>
-								<p>{month}</p>
-								<p>{weekday}</p>
-								<p>{date}</p>
-							</div>
-						)
-					})}
-				</div>
+				<SelectedDates dates={selectedDays} />
 			</div>
 			<div
 				id="calendar"
