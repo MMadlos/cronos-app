@@ -1,21 +1,34 @@
 import { weekDaysName } from "../utils"
 
-function CalendarCell({ text, startDay, isFirstDay, isToday }) {
+function WeekdayCell({ text }) {
+	return <div className="p-2 rounded-xl hover:opacity-50 hover:cursor-pointer bg-indigo-400 text-indigo-100">{text}</div>
+}
+
+function DateCell({ text, startDay, isFirstDay, isToday, date, onClickAddDate }) {
+	console.log(isFirstDay, startDay)
+
 	const classes = {
-		base: "p-2 rounded-lg",
+		base: "p-2 rounded-xl hover:opacity-50 hover:cursor-pointer ",
 		colStart: `col-start-${startDay}`,
-		isToday: "bg-indigo-200 text-indigo-700",
-		isNotToday: "bg-indigo-900 text-indigo-200",
+		isToday: "bg-indigo-400 text-indigo-100",
+		isNotToday: "bg-indigo-200 text-indigo-900",
 	}
 
 	const classIfFirstDay = isFirstDay ? classes.colStart : ""
 	const classIfIsToday = isToday ? classes.isToday : classes.isNotToday
 
-	return <div className={classes.base + classIfFirstDay + classIfIsToday}>{text}</div>
+	return (
+		<div
+			className={`${classes.base} ${classIfFirstDay} ${classIfIsToday}`}
+			data-date={date}
+			onClick={onClickAddDate}>
+			{text}
+		</div>
+	)
 }
 
-export default function CalendarBody({ calendarData }) {
-	const { maxDays, firstWeekDayIndex } = calendarData
+export default function CalendarBody({ calendarData, onClickAddDate }) {
+	const { maxDays, firstWeekDayIndex, year, monthIndex } = calendarData
 	const currentDate = new Date().getDate()
 
 	const allDays = [...Array(maxDays).keys()]
@@ -28,7 +41,7 @@ export default function CalendarBody({ calendarData }) {
 				className="grid grid-cols-7 w-full text-center gap-1">
 				{weekDaysName.map((day, index) => {
 					return (
-						<CalendarCell
+						<WeekdayCell
 							key={index}
 							text={day}
 						/>
@@ -43,12 +56,14 @@ export default function CalendarBody({ calendarData }) {
 					const isToday = date === currentDate
 
 					return (
-						<CalendarCell
+						<DateCell
 							key={index}
 							text={date + 1}
-							startDay={isFirstDay && firstWeekDayIndex}
+							startDay={firstWeekDayIndex}
 							isFirstDay={isFirstDay}
 							isToday={isToday}
+							date={`${year}-${monthIndex}-${date + 1}`}
+							onClickAddDate={onClickAddDate}
 						/>
 					)
 				})}
