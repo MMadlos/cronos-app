@@ -20,7 +20,7 @@ function Calendar() {
 		setCalendar(newCalendar)
 	}
 
-	function handleAddSelectedDays(e) {
+	function handleSelectDays(e) {
 		const dataDate = e.target.closest("[data-date]").dataset.date
 		const formattedDate = dataDate.split("-").map((num) => Number(num))
 
@@ -29,25 +29,23 @@ function Calendar() {
 		const newDate = new Date(year, monthIndex, date)
 		const newDateInMS = newDate.getTime()
 
-		// Check if the selected date is already in selectedDays
 		const currentSelectedInMS = selectedDays.map((dates) => dates.getTime())
 		const isIncluded = currentSelectedInMS.includes(newDateInMS)
 
 		if (isIncluded) {
-			// Logic to remove a date
-
-			const newSelectedDays = currentSelectedInMS.filter((selected) => selected !== newDateInMS).map((datesMS) => new Date(datesMS))
+			const newSelectedDays = currentSelectedInMS
+				.filter((selected) => selected !== newDateInMS)
+				.sort()
+				.map((datesMS) => new Date(datesMS))
 
 			setSelectedDays(newSelectedDays)
 		}
 
 		if (!isIncluded) {
-			// Logic to add a date
-
-			// Date objects needs to be in .getTime() format to sort them
-			const newSelectedDays = [...selectedDays, newDate]
-			const sortedSelectedDaysInMS = newSelectedDays.map((dates) => dates.getTime()).sort()
-			const sortedSelectedDays = sortedSelectedDaysInMS.map((datesMS) => new Date(datesMS))
+			const sortedSelectedDays = [...selectedDays, newDate]
+				.map((dates) => dates.getTime())
+				.sort()
+				.map((datesMS) => new Date(datesMS))
 
 			setSelectedDays(sortedSelectedDays)
 		}
@@ -69,7 +67,7 @@ function Calendar() {
 				<CalendarBody
 					calendarData={calendar}
 					selectedDates={selectedDays}
-					onClickAddDate={handleAddSelectedDays}
+					onClickAddDate={handleSelectDays}
 				/>
 			</div>
 		</div>
