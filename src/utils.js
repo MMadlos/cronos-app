@@ -66,4 +66,16 @@ function getCalendar(monthIndex, year) {
 	return mappedData
 }
 
-export { weekDaysName, calendar, getCurrentCalendar, getCalendar }
+function getIntlMonthShort(date, locale = "es") {
+	const intlMonth = new Intl.DateTimeFormat(locale, { month: "short" })
+	const month = intlMonth.format(date)
+	return month
+}
+
+function getIntlWeekdayShort(date, locale = "es") {
+	const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: "short" })
+	const weekday = intlWeekday.format(date)
+	return weekday
+}
+
+export { weekDaysName, calendar, getCurrentCalendar, getCalendar, getIntlMonthShort, getIntlWeekdayShort }
