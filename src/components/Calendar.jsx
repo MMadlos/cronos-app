@@ -53,13 +53,13 @@ function Calendar() {
 
 	return (
 		<div className="my-8 flex flex-col gap-4">
-			<div>
-				<p>Selected days</p>
+			<div className="p-4 bg-indigo-50 flex flex-col gap-4">
+				<p className="text-indigo-300">Selected days</p>
 				<SelectedDates dates={selectedDays} />
 			</div>
 			<div
 				id="calendar"
-				className="w-[800px]  bg-indigo-50 p-8 flex flex-col gap-6 rounded-xl">
+				className="w-[800px] bg-zinc-50 p-8 flex flex-col gap-6 rounded-xl">
 				<CalendarHeader
 					calendarData={calendar}
 					onClick={handleMonthArrows}
