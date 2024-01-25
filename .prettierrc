@@ -1,0 +1,10 @@
+{
+	"plugins": ["prettier-plugin-tailwindcss"],
+	"tailwindConfig": "./tailwind.config.js",
+	"trailingComma": "es5",
+	"tabWidth": 4,
+	"semi": false,
+	"singleQuote": false,
+	"useTabs": true,
+	"arrowParens": "always"
+}
