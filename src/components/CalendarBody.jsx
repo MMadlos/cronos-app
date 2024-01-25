@@ -1,4 +1,4 @@
-import { getWeekdays } from "../utils"
+import { getCalendar, getWeekdays } from "../utils"
 
 function WeekdayCell({ text }) {
 	return <div className="p-2 rounded-xl hover:opacity-50 hover:cursor-pointer bg-indigo-400 text-indigo-100">{text}</div>
@@ -28,8 +28,36 @@ function DateCell({ text, startDay, isFirstDay, isToday, date, onClickAddDate, i
 	)
 }
 
+function getMonthArray(firstIndex, lastIndex) {
+	const calendarArray = Array(35).fill()
+
+	let count = 1
+	calendarArray.forEach((_, index) => {
+		if (index < firstIndex - 1) return
+		if (index - firstIndex + 1 > lastIndex - 1) return
+
+		calendarArray[index] = count
+		count++
+	})
+
+	return calendarArray
+}
+
 export default function CalendarBody({ calendarData, selectedDates, onClickAddDate }) {
 	const { maxDays, firstWeekDayIndex, year, monthIndex } = calendarData
+	const fullMonth = getMonthArray(firstWeekDayIndex, maxDays)
+	// States: default / hovered / selected / today / empty / notAvailable
+	/*
+	- Renderizar 5 filas de 7 celdas -> 35 celdas
+	const allCells = Array(35).fill("")
+
+	- Ver a partir de qué fila deben dejar de ser "empty"
+	- Empezar a renderizar números a partir de firstWeekDayIndex
+	- Si es el día anterior al de hoy, deben ser notAvailable
+	- Volver a renderizar empty a partir del último número
+	- Renderizar today
+
+	*/
 
 	const getFilteredDates = selectedDates.filter((date) => date.getMonth() === monthIndex)
 	const filteredSelectedDates = getFilteredDates.map((dates) => dates.getDate())
@@ -62,26 +90,39 @@ export default function CalendarBody({ calendarData, selectedDates, onClickAddDa
 			</div>
 			<div
 				id="dates"
-				className="grid grid-cols-7 w-full text-center gap-1">
-				{allDays.map((date, index) => {
-					const isFirstDay = index === 0
-					const isToday = date === currentDate && isCurrentMonth
-					const isSelected = filteredSelectedDates.includes(date)
-
+				className="grid grid-cols-7 w-full items-center justify-items-center gap-1">
+				{fullMonth.map((date, index) => {
 					return (
-						<DateCell
+						<div
 							key={index}
-							text={date}
-							startDay={firstWeekDayIndex}
-							isFirstDay={isFirstDay}
-							isToday={isToday}
-							date={`${year}-${monthIndex}-${date}`}
-							onClickAddDate={onClickAddDate}
-							isSelected={isSelected}
-						/>
+							className="size-12 bg-zinc-100 flex justify-center items-center rounded-lg">
+							<p className="text-zinc-600 font-medium ">{date}</p>
+						</div>
 					)
 				})}
 			</div>
 		</div>
 	)
 }
+
+// Backup
+/*
+{allDays.map((date, index) => {
+	const isFirstDay = index === 0
+	const isToday = date === currentDate && isCurrentMonth
+	const isSelected = filteredSelectedDates.includes(date)
+
+	return (
+		<DateCell
+			key={index}
+			text={date}
+			startDay={firstWeekDayIndex}
+			isFirstDay={isFirstDay}
+			isToday={isToday}
+			date={`${year}-${monthIndex}-${date}`}
+			onClickAddDate={onClickAddDate}
+			isSelected={isSelected}
+		/>
+	)
+})}
+*/
