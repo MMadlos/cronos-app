@@ -1,10 +1,13 @@
-/* eslint-disable comma-dangle */
 module.exports = {
 	env: {
 		browser: true,
 		es2021: true,
 	},
-	extends: ["standard", "plugin:react/recommended", "plugin:react/jsx-runtime"],
+	extends: [
+		"plugin:react/recommended",
+		"plugin:react/jsx-runtime",
+		"standard",
+	],
 	overrides: [
 		{
 			env: {
@@ -29,5 +32,6 @@ module.exports = {
 		"space-before-function-paren": ["off"],
 		"comma-dangle": ["off"],
 		"no-unused-vars": ["warn"],
+		semi: ["error", "never"],
 	},
 }

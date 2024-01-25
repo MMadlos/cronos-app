@@ -6,7 +6,12 @@ import SelectedDates from "./SelectedDates"
 import CalendarHeader from "./CalendarHeader"
 import CalendarBody from "./CalendarBody"
 
-const mockSelectedDates = [new Date(2024, 0, 2), new Date(2024, 0, 3), new Date(2024, 0, 19), new Date(2024, 1, 3)]
+const mockSelectedDates = [
+	new Date(2024, 0, 2),
+	new Date(2024, 0, 3),
+	new Date(2024, 0, 19),
+	new Date(2024, 1, 3),
+]
 
 function Calendar() {
 	const [calendar, setCalendar] = useState(getCurrentCalendar())
@@ -53,13 +58,14 @@ function Calendar() {
 
 	return (
 		<div className="my-8 flex flex-col gap-4">
-			<div className="p-4 bg-indigo-50 flex flex-col gap-4">
+			<div className="flex flex-col gap-4 bg-indigo-50 p-4 ">
 				<p className="text-indigo-300">Selected days</p>
 				<SelectedDates dates={selectedDays} />
 			</div>
 			<div
 				id="calendar"
-				className="w-[800px] bg-zinc-50 p-8 flex flex-col gap-6 rounded-xl">
+				className="flex w-[800px] flex-col gap-6 rounded-xl bg-zinc-50 p-8"
+			>
 				<CalendarHeader
 					calendarData={calendar}
 					onClick={handleMonthArrows}
