@@ -1,29 +1,69 @@
 import { getCalendar, getWeekdays } from "../utils"
 
 function WeekdayCell({ text }) {
-	return <div className="p-2 rounded-xl hover:opacity-50 hover:cursor-pointer bg-indigo-400 text-indigo-100">{text}</div>
+	return (
+		<div className="rounded-xl bg-indigo-400 p-2 text-indigo-100 hover:cursor-pointer hover:opacity-50">
+			{text}
+		</div>
+	)
 }
 
-function DateCell({ text, startDay, isFirstDay, isToday, date, onClickAddDate, isSelected }) {
+function DateCell({ date, onClickAddDate, monthIndex, filteredDates }) {
+	const dateToday = new Date()
+
+	const isPastDate =
+		date < dateToday.getDate() && monthIndex === dateToday.getMonth()
+
+	const isSelected = filteredDates.includes(date)
+
 	const classes = {
-		base: "p-2 rounded-xl hover:opacity-50 hover:cursor-pointer ",
-		colStart: `col-start-${startDay}`,
-		isToday: "bg-indigo-400 text-indigo-100",
-		isNotToday: "bg-indigo-200 text-indigo-900",
-		isSelected: "bg-gray-200",
+		base: "flex justify-center rounded-md font-medium items-center size-12 border-2",
+		isEmpty: "bg-zinc-100 border-zinc-100",
+		notAvailable: "bg-zinc-100 border-zinc-100 text-zinc-300",
+		isToday: "bg-zinc-50 border-zinc-500 text-zinc-700 hover:bg-zinc-200",
+		isSelected: "bg-zinc-400 border-zinc-400 text-zinc-500",
+		default:
+			"bg-zinc-50 border-zinc-200 text-zinc-600 hover:bg-zinc-200 hover:cursor-pointer",
 	}
 
-	const classIfFirstDay = isFirstDay ? classes.colStart : ""
-	const classIfIsToday = isToday ? classes.isToday : classes.isNotToday
-	const classIfSelected = isSelected ? classes.isSelected : ""
+	const getClasses = () => {
+		if (date === undefined) return classes.isEmpty
+		if (isPastDate) return classes.notAvailable
+		if (isSelected) return classes.isSelected
+		return classes.default
+	}
+
+	const classType = getClasses()
 
 	return (
 		<div
-			className={`${classes.base} ${classIfFirstDay} ${classIfIsToday} ${classIfSelected}`}
+			className={`${classes.base} ${classType}`}
 			data-date={date}
 			onClick={onClickAddDate}
-			data-selected={isSelected}>
-			{text}
+			data-selected={isSelected}
+		>
+			{date}
+		</div>
+	)
+}
+
+function DateGrid({ firstWeekDayIndex, maxDays, monthIndex, filteredDates }) {
+	const fullMonth = getMonthArray(firstWeekDayIndex, maxDays)
+	return (
+		<div
+			id="dates"
+			className="grid w-full grid-cols-7 items-center justify-items-center gap-1 "
+		>
+			{fullMonth.map((date, index) => {
+				return (
+					<DateCell
+						key={index}
+						date={date}
+						monthIndex={monthIndex}
+						filteredDates={filteredDates}
+					/>
+				)
+			})}
 		</div>
 	)
 }
@@ -43,24 +83,19 @@ function getMonthArray(firstIndex, lastIndex) {
 	return calendarArray
 }
 
-export default function CalendarBody({ calendarData, selectedDates, onClickAddDate }) {
+export default function CalendarBody({
+	calendarData,
+	selectedDates,
+	onClickAddDate,
+}) {
 	const { maxDays, firstWeekDayIndex, year, monthIndex } = calendarData
-	const fullMonth = getMonthArray(firstWeekDayIndex, maxDays)
-	// States: default / hovered / selected / today / empty / notAvailable
-	/*
-	- Renderizar 5 filas de 7 celdas -> 35 celdas
-	const allCells = Array(35).fill("")
 
-	- Ver a partir de qué fila deben dejar de ser "empty"
-	- Empezar a renderizar números a partir de firstWeekDayIndex
-	- Si es el día anterior al de hoy, deben ser notAvailable
-	- Volver a renderizar empty a partir del último número
-	- Renderizar today
-
-	*/
-
-	const getFilteredDates = selectedDates.filter((date) => date.getMonth() === monthIndex)
-	const filteredSelectedDates = getFilteredDates.map((dates) => dates.getDate())
+	const getFilteredDates = selectedDates.filter(
+		(date) => date.getMonth() === monthIndex
+	)
+	const filteredSelectedDates = getFilteredDates.map((dates) =>
+		dates.getDate()
+	)
 
 	const locale = "es"
 	const format = "short"
@@ -75,54 +110,22 @@ export default function CalendarBody({ calendarData, selectedDates, onClickAddDa
 	return (
 		<div
 			id="all-dates"
-			className="flex flex-col justify-center items-center gap-4">
+			className="flex flex-col items-center justify-center gap-4 "
+		>
 			<div
 				id="weekDays"
-				className="grid grid-cols-7 w-full text-center gap-1">
+				className="grid w-full grid-cols-7 gap-1 text-center"
+			>
 				{getWeekdays(locale, format).map((day, index) => {
-					return (
-						<WeekdayCell
-							key={index}
-							text={day}
-						/>
-					)
+					return <WeekdayCell div key={index} text={day} />
 				})}
 			</div>
-			<div
-				id="dates"
-				className="grid grid-cols-7 w-full items-center justify-items-center gap-1">
-				{fullMonth.map((date, index) => {
-					return (
-						<div
-							key={index}
-							className="size-12 bg-zinc-100 flex justify-center items-center rounded-lg">
-							<p className="text-zinc-600 font-medium ">{date}</p>
-						</div>
-					)
-				})}
-			</div>
+			<DateGrid
+				firstWeekDayIndex={firstWeekDayIndex}
+				maxDays={maxDays}
+				monthIndex={monthIndex}
+				filteredDates={filteredSelectedDates}
+			/>
 		</div>
 	)
 }
-
-// Backup
-/*
-{allDays.map((date, index) => {
-	const isFirstDay = index === 0
-	const isToday = date === currentDate && isCurrentMonth
-	const isSelected = filteredSelectedDates.includes(date)
-
-	return (
-		<DateCell
-			key={index}
-			text={date}
-			startDay={firstWeekDayIndex}
-			isFirstDay={isFirstDay}
-			isToday={isToday}
-			date={`${year}-${monthIndex}-${date}`}
-			onClickAddDate={onClickAddDate}
-			isSelected={isSelected}
-		/>
-	)
-})}
-*/
