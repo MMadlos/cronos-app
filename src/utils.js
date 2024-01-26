@@ -99,10 +99,26 @@ function getIntlWeekdayShort(date, locale = "es") {
 	return weekday
 }
 
+function getMonthArray(firstIndex, lastIndex) {
+	const calendarArray = Array(35).fill()
+
+	let count = 1
+	calendarArray.forEach((_, index) => {
+		if (index < firstIndex - 1) return
+		if (index - firstIndex + 1 > lastIndex - 1) return
+
+		calendarArray[index] = count
+		count++
+	})
+
+	return calendarArray
+}
+
 export {
 	getWeekdays,
 	getCurrentCalendar,
 	getCalendar,
 	getIntlMonthShort,
 	getIntlWeekdayShort,
+	getMonthArray,
 }

@@ -1,41 +1,5 @@
-import { getCalendar, getWeekdays } from "../utils"
+import { getMonthArray, getWeekdays } from "../utils"
 import CalendarCell from "./CalendarCell"
-
-function DateGrid({ firstWeekDayIndex, maxDays, monthIndex, filteredDates }) {
-	const fullMonth = getMonthArray(firstWeekDayIndex, maxDays)
-	return (
-		<div
-			id="dates"
-			className="grid w-full grid-cols-7 items-center justify-items-center gap-1 "
-		>
-			{fullMonth.map((date, index) => {
-				return (
-					<CalendarCell
-						key={index}
-						date={date}
-						monthIndex={monthIndex}
-						filteredDates={filteredDates}
-					/>
-				)
-			})}
-		</div>
-	)
-}
-
-function getMonthArray(firstIndex, lastIndex) {
-	const calendarArray = Array(35).fill()
-
-	let count = 1
-	calendarArray.forEach((_, index) => {
-		if (index < firstIndex - 1) return
-		if (index - firstIndex + 1 > lastIndex - 1) return
-
-		calendarArray[index] = count
-		count++
-	})
-
-	return calendarArray
-}
 
 export default function CalendarBody({
 	calendarData,
@@ -89,6 +53,27 @@ export default function CalendarBody({
 				monthIndex={monthIndex}
 				filteredDates={filteredSelectedDates}
 			/>
+		</div>
+	)
+}
+
+function DateGrid({ firstWeekDayIndex, maxDays, monthIndex, filteredDates }) {
+	const fullMonth = getMonthArray(firstWeekDayIndex, maxDays)
+	return (
+		<div
+			id="dates"
+			className="grid w-full grid-cols-7 items-center justify-items-center gap-1 "
+		>
+			{fullMonth.map((date, index) => {
+				return (
+					<CalendarCell
+						key={index}
+						date={date}
+						monthIndex={monthIndex}
+						filteredDates={filteredDates}
+					/>
+				)
+			})}
 		</div>
 	)
 }
