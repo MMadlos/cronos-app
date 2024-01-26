@@ -7,9 +7,9 @@ import CalendarHeader from "./CalendarHeader"
 import CalendarBody from "./CalendarBody"
 
 const mockSelectedDates = [
-	new Date(2024, 0, 2),
-	new Date(2024, 0, 3),
-	new Date(2024, 0, 19),
+	new Date(2024, 1, 2),
+	new Date(2024, 1, 3),
+	new Date(2024, 0, 29),
 	new Date(2024, 1, 3),
 ]
 
@@ -64,7 +64,7 @@ function Calendar() {
 			</div>
 			<div
 				id="calendar"
-				className="flex w-[800px] flex-col gap-6 rounded-xl bg-zinc-50 p-8"
+				className="flex w-fit flex-col gap-6 rounded-xl bg-zinc-50 p-8"
 			>
 				<CalendarHeader
 					calendarData={calendar}

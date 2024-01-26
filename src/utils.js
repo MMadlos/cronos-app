@@ -1,7 +1,7 @@
 const currentYear = new Date().getFullYear()
 const locale = "es"
 
-function getWeekdays(locale = "en", format = "long") {
+function getWeekdays(locale = "es", format = "short") {
 	const weekdays = [...Array(7).keys()]
 	const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: format })
 	const weekdaysName = weekdays.map((weekDayIndex) => {
@@ -14,7 +14,14 @@ function getWeekdays(locale = "en", format = "long") {
 	return weekdaysName
 }
 
-function mappedCalendarData(year, monthIndex, month, maxDays, firstWeekDay, firstWeekDayIndex) {
+function mappedCalendarData(
+	year,
+	monthIndex,
+	month,
+	maxDays,
+	firstWeekDay,
+	firstWeekDayIndex
+) {
 	return { year, monthIndex, month, maxDays, firstWeekDay, firstWeekDayIndex }
 }
 
@@ -29,11 +36,24 @@ function getCurrentCalendar() {
 	const firstWeekdayDateObj = new Date(currentYear, currentMonthIndex, 1)
 	const firstWeekdayIndex = firstWeekdayDateObj.getDay()
 
-	const currentMonth = intlMonth.format(new Date(currentYear, currentMonthIndex))
+	const currentMonth = intlMonth.format(
+		new Date(currentYear, currentMonthIndex)
+	)
 	const firstWeekDay = intlWeekday.format(firstWeekdayDateObj)
-	const currentMaxDays = new Date(currentYear, currentMonthIndex + 1, 0).getDate()
+	const currentMaxDays = new Date(
+		currentYear,
+		currentMonthIndex + 1,
+		0
+	).getDate()
 
-	const mappedData = mappedCalendarData(currentYear, currentMonthIndex, currentMonth, currentMaxDays, firstWeekDay, firstWeekdayIndex)
+	const mappedData = mappedCalendarData(
+		currentYear,
+		currentMonthIndex,
+		currentMonth,
+		currentMaxDays,
+		firstWeekDay,
+		firstWeekdayIndex
+	)
 
 	return mappedData
 }
@@ -49,7 +69,14 @@ function getCalendar(monthIndex, year) {
 	const maxDays = new Date(year, monthIndex + 1, 0).getDate()
 	const firstWeekDay = intlWeekday.format(firstWeekdayDateObj)
 
-	const mappedData = mappedCalendarData(year, monthIndex, month, maxDays, firstWeekDay, firstWeekdayIndex)
+	const mappedData = mappedCalendarData(
+		year,
+		monthIndex,
+		month,
+		maxDays,
+		firstWeekDay,
+		firstWeekdayIndex
+	)
 
 	return mappedData
 }
@@ -72,4 +99,10 @@ function getIntlWeekdayShort(date, locale = "es") {
 	return weekday
 }
 
-export { getWeekdays, getCurrentCalendar, getCalendar, getIntlMonthShort, getIntlWeekdayShort }
+export {
+	getWeekdays,
+	getCurrentCalendar,
+	getCalendar,
+	getIntlMonthShort,
+	getIntlWeekdayShort,
+}
