@@ -4,7 +4,7 @@ import CalendarCell from "./CalendarCell"
 export default function CalendarBody({
 	calendarData,
 	selectedDates,
-	onClickAddDate,
+	onClickDate,
 }) {
 	const { maxDays, firstWeekDayIndex, year, monthIndex } = calendarData
 
@@ -52,12 +52,19 @@ export default function CalendarBody({
 				maxDays={maxDays}
 				monthIndex={monthIndex}
 				filteredDates={filteredSelectedDates}
+				onClickDate={onClickDate}
 			/>
 		</div>
 	)
 }
 
-function DateGrid({ firstWeekDayIndex, maxDays, monthIndex, filteredDates }) {
+function DateGrid({
+	firstWeekDayIndex,
+	maxDays,
+	monthIndex,
+	filteredDates,
+	onClickDate,
+}) {
 	const fullMonth = getMonthArray(firstWeekDayIndex, maxDays)
 	return (
 		<div
@@ -71,6 +78,7 @@ function DateGrid({ firstWeekDayIndex, maxDays, monthIndex, filteredDates }) {
 						date={date}
 						monthIndex={monthIndex}
 						filteredDates={filteredDates}
+						onClickDate={onClickDate}
 					/>
 				)
 			})}

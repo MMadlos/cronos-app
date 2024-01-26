@@ -1,4 +1,4 @@
-function CalendarCell({ date, onClickAddDate, monthIndex, filteredDates }) {
+function CalendarCell({ date, onClickDate, monthIndex, filteredDates }) {
 	const dateToday = new Date()
 
 	const isPastDate =
@@ -29,7 +29,7 @@ function CalendarCell({ date, onClickAddDate, monthIndex, filteredDates }) {
 		<div
 			className={`${classes.base} ${classType}`}
 			data-date={date}
-			onClick={onClickAddDate}
+			onClick={onClickDate}
 			data-selected={isSelected}
 		>
 			{date}

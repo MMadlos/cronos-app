@@ -27,19 +27,18 @@ function Calendar() {
 
 	function handleSelectDays(e) {
 		const dataDate = e.target.closest("[data-date]").dataset.date
-		const formattedDate = dataDate.split("-").map((num) => Number(num))
 
-		const [year, monthIndex, date] = formattedDate
+		const { year, monthIndex } = calendar
 
-		const newDate = new Date(year, monthIndex, date)
-		const newDateInMS = newDate.getTime()
+		const selectedDate = new Date(year, monthIndex, dataDate)
+		const selectedDateTime = selectedDate.getTime()
 
 		const currentSelectedInMS = selectedDays.map((dates) => dates.getTime())
-		const isIncluded = currentSelectedInMS.includes(newDateInMS)
+		const isIncluded = currentSelectedInMS.includes(selectedDateTime)
 
 		if (isIncluded) {
 			const newSelectedDays = currentSelectedInMS
-				.filter((selected) => selected !== newDateInMS)
+				.filter((selected) => selected !== selectedDateTime)
 				.sort()
 				.map((datesMS) => new Date(datesMS))
 
@@ -47,7 +46,7 @@ function Calendar() {
 		}
 
 		if (!isIncluded) {
-			const sortedSelectedDays = [...selectedDays, newDate]
+			const sortedSelectedDays = [...selectedDays, selectedDate]
 				.map((dates) => dates.getTime())
 				.sort()
 				.map((datesMS) => new Date(datesMS))
@@ -70,7 +69,7 @@ function Calendar() {
 				<CalendarBody
 					calendarData={calendar}
 					selectedDates={selectedDays}
-					onClickAddDate={handleSelectDays}
+					onClickDate={handleSelectDays}
 				/>
 			</div>
 		</div>
