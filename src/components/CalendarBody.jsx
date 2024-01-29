@@ -1,4 +1,4 @@
-import { getMonthArray, getWeekdays } from "../utils"
+import { getWeekdays, getMonthGridContent } from "../utils"
 import CalendarCell from "./CalendarCell"
 
 export default function CalendarBody({
@@ -6,10 +6,8 @@ export default function CalendarBody({
 	selectedDates,
 	onClickDate,
 }) {
-	const { maxDays, firstWeekDayIndex, year, monthIndex } = calendarData
-
 	const getFilteredDates = selectedDates.filter(
-		(date) => date.getMonth() === monthIndex
+		(date) => date.getMonth() === calendarData.monthIndex
 	)
 	const filteredSelectedDates = getFilteredDates.map((dates) =>
 		dates.getDate()
@@ -17,14 +15,7 @@ export default function CalendarBody({
 
 	const locale = "es"
 	const format = "short"
-
 	const allWeekDays = getWeekdays(locale, format)
-	const currentDate = new Date().getDate()
-	const currentMonth = new Date().getMonth()
-	const isCurrentMonth = currentMonth === monthIndex
-
-	const maxDaysArray = [...Array(maxDays).keys()]
-	const allDays = maxDaysArray.map((number) => number + 1)
 
 	return (
 		<div
@@ -48,9 +39,7 @@ export default function CalendarBody({
 				})}
 			</div>
 			<DateGrid
-				firstWeekDayIndex={firstWeekDayIndex}
-				maxDays={maxDays}
-				monthIndex={monthIndex}
+				calendarData={calendarData}
 				filteredDates={filteredSelectedDates}
 				onClickDate={onClickDate}
 			/>
@@ -58,20 +47,17 @@ export default function CalendarBody({
 	)
 }
 
-function DateGrid({
-	firstWeekDayIndex,
-	maxDays,
-	monthIndex,
-	filteredDates,
-	onClickDate,
-}) {
-	const fullMonth = getMonthArray(firstWeekDayIndex, maxDays)
+function DateGrid({ calendarData, filteredDates, onClickDate }) {
+	const { year, monthIndex } = calendarData
+
+	const gridMonthContent = getMonthGridContent(year, monthIndex)
+
 	return (
 		<div
 			id="dates"
 			className="grid w-full grid-cols-7 items-center justify-items-center gap-1 "
 		>
-			{fullMonth.map((date, index) => {
+			{gridMonthContent.map((date, index) => {
 				return (
 					<CalendarCell
 						key={index}

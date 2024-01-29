@@ -1,4 +1,3 @@
-const currentYear = new Date().getFullYear()
 const locale = "es"
 
 function getWeekdays(locale = "es", format = "short") {
@@ -14,75 +13,11 @@ function getWeekdays(locale = "es", format = "short") {
 	return weekdaysName
 }
 
-function mappedCalendarData(
-	year,
-	monthIndex,
-	month,
-	maxDays,
-	firstWeekDay,
-	firstWeekDayIndex
-) {
-	return { year, monthIndex, month, maxDays, firstWeekDay, firstWeekDayIndex }
-}
-
-function getCurrentCalendar() {
+function getIntlMonthLong(monthIndex, locale = "es") {
 	const intlMonth = new Intl.DateTimeFormat(locale, { month: "long" })
-	const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: "long" })
+	const date = new Date()
 
-	const currentDate = new Date()
-	const currentYear = currentDate.getFullYear()
-	const currentMonthIndex = currentDate.getMonth()
-
-	const firstWeekdayDateObj = new Date(currentYear, currentMonthIndex, 1)
-	const firstWeekdayIndex = firstWeekdayDateObj.getDay()
-
-	const currentMonth = intlMonth.format(
-		new Date(currentYear, currentMonthIndex)
-	)
-	const firstWeekDay = intlWeekday.format(firstWeekdayDateObj)
-	const currentMaxDays = new Date(
-		currentYear,
-		currentMonthIndex + 1,
-		0
-	).getDate()
-
-	const mappedData = mappedCalendarData(
-		currentYear,
-		currentMonthIndex,
-		currentMonth,
-		currentMaxDays,
-		firstWeekDay,
-		firstWeekdayIndex
-	)
-
-	return mappedData
-}
-
-function getCalendar(monthIndex, year) {
-	const intlMonth = new Intl.DateTimeFormat(locale, { month: "long" })
-	const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: "short" })
-
-	const firstWeekdayDateObj = new Date(year, monthIndex, 1)
-	const firstWeekdayIndex = firstWeekdayDateObj.getDay()
-
-	const month = intlMonth.format(new Date(year, monthIndex))
-	const maxDays = new Date(year, monthIndex + 1, 0).getDate()
-	const firstWeekDay = intlWeekday.format(firstWeekdayDateObj)
-
-	const mappedData = mappedCalendarData(
-		year,
-		monthIndex,
-		month,
-		maxDays,
-		firstWeekDay,
-		firstWeekdayIndex
-	)
-
-	return mappedData
-}
-
-function getIntlMonthLong(date, locale = "es") {
-	const intlMonth = new Intl.DateTimeFormat(locale, { month: "long" })
+	date.setMonth(monthIndex)
 	const month = intlMonth.format(date)
 	return month
 }
@@ -99,13 +34,21 @@ function getIntlWeekdayShort(date, locale = "es") {
 	return weekday
 }
 
-function getMonthArray(firstIndex, lastIndex) {
+function getMonthGridContent(year, monthIndex) {
+	const date = new Date(year, monthIndex, 1)
+	const firstWeekDayIndex = date.getDay()
+
+	date.setMonth(monthIndex + 1)
+	date.setDate(0)
+
+	const maxDays = date.getDate()
+
 	const calendarArray = Array(35).fill()
 
 	let count = 1
 	calendarArray.forEach((_, index) => {
-		if (index < firstIndex - 1) return
-		if (index - firstIndex + 1 > lastIndex - 1) return
+		if (index < firstWeekDayIndex - 1) return
+		if (index - firstWeekDayIndex + 1 > maxDays - 1) return
 
 		calendarArray[index] = count
 		count++
@@ -116,9 +59,8 @@ function getMonthArray(firstIndex, lastIndex) {
 
 export {
 	getWeekdays,
-	getCurrentCalendar,
-	getCalendar,
+	getIntlMonthLong,
 	getIntlMonthShort,
 	getIntlWeekdayShort,
-	getMonthArray,
+	getMonthGridContent,
 }

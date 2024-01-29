@@ -1,21 +1,25 @@
+import { getIntlMonthLong } from "../utils"
+
 function CalendarHeader({ calendarData, onClick }) {
-	const { year, month, monthIndex } = calendarData
+	const { year, monthIndex } = calendarData
+
+	const month = getIntlMonthLong(monthIndex)
 
 	return (
-		<div
-			id="calendar-header"
-			className="flex flex-col items-center gap-2">
-			<span className="text-zinc-300 text-sm font-medium">{year}</span>
-			<div className="flex flex-row justify-between items-center w-full">
+		<div id="calendar-header" className="flex flex-col items-center gap-2">
+			<span className="text-sm font-medium text-zinc-300">{year}</span>
+			<div className="flex w-full flex-row items-center justify-between">
 				<MonthArrow
 					orientation={"left"}
 					onClick={onClick}
 					monthIndex={monthIndex}
 				/>
-				<Month
-					year={year}
-					month={month}
-				/>
+				<button className="rounded bg-zinc-100 px-6 py-2 hover:bg-zinc-200">
+					<p className="text-3xl font-semibold text-zinc-600">
+						{month}
+					</p>
+				</button>
+
 				<MonthArrow
 					orientation={"right"}
 					onClick={onClick}
@@ -44,18 +48,10 @@ function MonthArrow({ orientation, onClick, monthIndex }) {
 	}
 
 	return (
-		<button
-			onClick={!isDisabled && onClick}
-			data-index={dataIndex}>
-			<i className={`${classes.icon} ${classes.base} ${classes.isDisabled[isDisabled]}`} />
-		</button>
-	)
-}
-
-function Month({ month }) {
-	return (
-		<button className="px-6 py-2 bg-zinc-100 hover:bg-zinc-200 rounded">
-			<p className="text-3xl font-semibold text-zinc-600">{month}</p>
+		<button onClick={!isDisabled && onClick} data-index={dataIndex}>
+			<i
+				className={`${classes.icon} ${classes.base} ${classes.isDisabled[isDisabled]}`}
+			/>
 		</button>
 	)
 }

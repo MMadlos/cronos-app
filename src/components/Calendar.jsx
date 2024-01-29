@@ -1,7 +1,5 @@
 import { useState } from "react"
 
-import { getCurrentCalendar, getCalendar } from "../utils"
-
 import SelectedDates from "./SelectedDates"
 import CalendarHeader from "./CalendarHeader"
 import CalendarBody from "./CalendarBody"
@@ -13,22 +11,33 @@ const mockSelectedDates = [
 	new Date(2024, 1, 3),
 ]
 
+const currentDate = new Date()
+const currentMonthIndex = currentDate.getMonth()
+const currentYear = currentDate.getFullYear()
+const initiCalendarData = {
+	year: currentYear,
+	monthIndex: currentMonthIndex,
+}
+
 function Calendar() {
-	const [calendar, setCalendar] = useState(getCurrentCalendar())
+	const [calendarData, setCalendarData] = useState(initiCalendarData)
 	const [selectedDays, setSelectedDays] = useState(mockSelectedDates)
 
 	function handleMonthArrows(e) {
-		const newMonthIndexEl = e.target.closest("[data-index]")
-		const newMonthIndex = Number(newMonthIndexEl.dataset.index)
+		const newMonthIndexEl = e.target.closest("[data-index]").dataset.index
+		const newMonthIndex = Number(newMonthIndexEl)
 
-		const newCalendar = getCalendar(newMonthIndex, calendar.year)
-		setCalendar(newCalendar)
+		const newCalendarData = {
+			year: calendarData.year,
+			monthIndex: newMonthIndex,
+		}
+		setCalendarData(newCalendarData)
 	}
 
 	function handleSelectDays(e) {
 		const dataDate = e.target.closest("[data-date]").dataset.date
 
-		const { year, monthIndex } = calendar
+		const { year, monthIndex } = calendarData
 
 		const selectedDate = new Date(year, monthIndex, dataDate)
 		const selectedDateTime = selectedDate.getTime()
@@ -63,11 +72,11 @@ function Calendar() {
 				className="flex w-fit flex-col gap-6 rounded-xl bg-zinc-50 p-8"
 			>
 				<CalendarHeader
-					calendarData={calendar}
+					calendarData={calendarData}
 					onClick={handleMonthArrows}
 				/>
 				<CalendarBody
-					calendarData={calendar}
+					calendarData={calendarData}
 					selectedDates={selectedDays}
 					onClickDate={handleSelectDays}
 				/>
