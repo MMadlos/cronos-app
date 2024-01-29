@@ -1,5 +1,7 @@
 import { useState } from "react"
 
+import { getAllSelectedWeekdayDates } from "../utils"
+
 import SelectedDates from "./SelectedDates"
 import CalendarHeader from "./CalendarHeader"
 import CalendarBody from "./CalendarBody"
@@ -69,42 +71,26 @@ function Calendar() {
 
 		const { year, monthIndex } = calendarData
 
-		const date = new Date(year, monthIndex, 1)
-		const firstWeekdayIndex = date.getDay()
-
-		date.setMonth(monthIndex + 1)
-		date.setDate(0)
-
-		const lastDate = date.getDate()
-		const firstDate = weekdayIndex - firstWeekdayIndex + 1
-
-		const today = new Date()
-		const todayDate = today.getDate()
-		const todayMonth = today.getMonth()
-
-		const selectedDatesArray = []
-		for (let i = firstDate; i <= lastDate; i += 7) {
-			if (i <= 0) continue
-			if (i < todayDate && monthIndex === todayMonth) continue
-
-			selectedDatesArray.push(i)
-		}
+		const selectedDatesArray = getAllSelectedWeekdayDates(
+			year,
+			monthIndex,
+			weekdayIndex
+		)
 
 		const selectedDatesTime = selectedDatesArray.map((date) => {
-			const _date = new Date(year, monthIndex, date)
-			const _dateTime = _date.getTime()
-			return _dateTime
+			const newDate = new Date(year, monthIndex, date)
+			return newDate.getTime()
 		})
 
 		const currentSelectedDaysTime = selectedDays.map((dates) => {
 			return dates.getTime()
 		})
 
-		const allAlreadySelected = selectedDatesTime.every((dates) =>
+		const areAllAlreadySelected = selectedDatesTime.every((dates) =>
 			currentSelectedDaysTime.includes(dates)
 		)
 
-		if (!allAlreadySelected) {
+		if (!areAllAlreadySelected) {
 			selectedDatesTime.forEach((dateTime) => {
 				const isIncluded = currentSelectedDaysTime.includes(dateTime)
 				if (isIncluded) return
@@ -119,7 +105,7 @@ function Calendar() {
 			setSelectedDays(newSelectedDays)
 		}
 
-		if (allAlreadySelected) {
+		if (areAllAlreadySelected) {
 			const newSelectedDays = currentSelectedDaysTime
 				.filter((datesTime) => {
 					const isIncluded = selectedDatesTime.includes(datesTime)

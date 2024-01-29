@@ -57,10 +57,36 @@ function getMonthGridContent(year, monthIndex) {
 	return calendarArray
 }
 
+function getAllSelectedWeekdayDates(year, monthIndex, dataWeekdayIndex) {
+	const date = new Date(year, monthIndex, 1)
+	const firstWeekdayIndex = date.getDay()
+
+	date.setMonth(monthIndex + 1)
+	date.setDate(0)
+
+	const lastDate = date.getDate()
+	const firstDate = dataWeekdayIndex - firstWeekdayIndex + 1
+
+	const today = new Date()
+	const todayDate = today.getDate()
+	const todayMonth = today.getMonth()
+
+	const selectedDatesArray = []
+	for (let i = firstDate; i <= lastDate; i += 7) {
+		if (i <= 0) continue
+		if (i < todayDate && monthIndex === todayMonth) continue
+
+		selectedDatesArray.push(i)
+	}
+
+	return selectedDatesArray
+}
+
 export {
 	getWeekdays,
 	getIntlMonthLong,
 	getIntlMonthShort,
 	getIntlWeekdayShort,
 	getMonthGridContent,
+	getAllSelectedWeekdayDates,
 }
