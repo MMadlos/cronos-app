@@ -42,25 +42,25 @@ function Calendar() {
 		const selectedDate = new Date(year, monthIndex, dataDate)
 		const selectedDateTime = selectedDate.getTime()
 
-		const currentSelectedInMS = selectedDays.map((dates) => dates.getTime())
-		const isIncluded = currentSelectedInMS.includes(selectedDateTime)
+		const selectedDaysTime = selectedDays.map((dates) => dates.getTime())
+		const isIncluded = selectedDaysTime.includes(selectedDateTime)
 
 		if (isIncluded) {
-			const newSelectedDays = currentSelectedInMS
+			const newSelectedDays = selectedDaysTime
 				.filter((selected) => selected !== selectedDateTime)
 				.sort()
-				.map((datesMS) => new Date(datesMS))
+				.map((datesTime) => new Date(datesTime))
 
 			setSelectedDays(newSelectedDays)
 		}
 
 		if (!isIncluded) {
-			const sortedSelectedDays = [...selectedDays, selectedDate]
+			const newSelectedDays = [...selectedDays, selectedDate]
 				.map((dates) => dates.getTime())
 				.sort()
 				.map((datesMS) => new Date(datesMS))
 
-			setSelectedDays(sortedSelectedDays)
+			setSelectedDays(newSelectedDays)
 		}
 	}
 
