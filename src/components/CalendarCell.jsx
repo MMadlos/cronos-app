@@ -11,7 +11,8 @@ function CalendarCell({ date, onClickDate, monthIndex, filteredDates }) {
 		isEmpty: "bg-zinc-100 border-zinc-100",
 		notAvailable: "bg-zinc-100 border-zinc-100 text-zinc-300",
 		isToday: "bg-zinc-50 border-zinc-500 text-zinc-700 hover:bg-zinc-200",
-		isSelected: "bg-zinc-400 border-zinc-400 text-zinc-500",
+		isSelected:
+			"bg-zinc-400 border-zinc-400 text-zinc-500 hover:cursor-pointer",
 		default:
 			"bg-zinc-50 border-zinc-200 text-zinc-600 hover:bg-zinc-200 hover:cursor-pointer",
 	}
