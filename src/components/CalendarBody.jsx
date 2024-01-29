@@ -24,14 +24,14 @@ export default function CalendarBody({
 		>
 			<div
 				id="weekDays"
-				className="grid w-full grid-cols-7 gap-1 text-center"
+				className="grid w-full grid-cols-7 items-center justify-items-center gap-1 border-b-2 border-zinc-600 pb-2"
 			>
 				{allWeekDays.map((day, index) => {
 					return (
 						<button
 							key={index}
 							data-week-index={index + 1}
-							className="rounded-xl bg-indigo-400 p-2 text-indigo-100 hover:cursor-pointer hover:opacity-50"
+							className="flex size-12 items-center justify-center rounded-md border-2 border-transparent bg-zinc-50 font-medium text-zinc-600 hover:cursor-pointer hover:bg-zinc-200"
 						>
 							{day}
 						</button>
