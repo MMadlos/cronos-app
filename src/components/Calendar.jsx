@@ -7,8 +7,8 @@ import CalendarBody from "./CalendarBody"
 const mockSelectedDates = [
 	new Date(2024, 1, 2),
 	new Date(2024, 1, 3),
-	new Date(2024, 0, 29),
-	new Date(2024, 1, 3),
+	new Date(2024, 0, 31),
+	new Date(2024, 1, 8),
 ]
 
 const currentDate = new Date()
