@@ -57,6 +57,33 @@ function getMonthGridContent(year, monthIndex) {
 	return calendarArray
 }
 
+function getGridMonthType(gridMonthContent, monthIndex, filteredSelectedDates) {
+	const dateToday = new Date()
+
+	const gridMonthDataType = []
+	gridMonthContent.forEach((contentCell) => {
+		if (contentCell === undefined) return gridMonthDataType.push("empty")
+
+		const isPastDate =
+			contentCell < dateToday.getDate() &&
+			monthIndex === dateToday.getMonth()
+
+		if (isPastDate) return gridMonthDataType.push("unavailable")
+
+		const isToday =
+			contentCell === dateToday.getDate() &&
+			monthIndex === dateToday.getMonth()
+		if (isToday) return gridMonthDataType.push("today")
+
+		const isSelected = filteredSelectedDates.includes(contentCell)
+		if (isSelected) return gridMonthDataType.push("selected")
+
+		return gridMonthDataType.push("default")
+	})
+
+	return gridMonthDataType
+}
+
 function getAllSelectedWeekdayDates(year, monthIndex, dataWeekdayIndex) {
 	const date = new Date(year, monthIndex, 1)
 	const firstWeekdayIndex = date.getDay()
@@ -82,11 +109,40 @@ function getAllSelectedWeekdayDates(year, monthIndex, dataWeekdayIndex) {
 	return selectedDatesArray
 }
 
+const getCalendarCellType = (currentDate, currentMonthIndex, selectedDates) => {
+	const dateToday = new Date()
+
+	const isPastDate =
+		currentDate < dateToday.getDate() &&
+		currentMonthIndex === dateToday.getMonth()
+
+	const isToday =
+		currentDate === dateToday.getDate() &&
+		currentMonthIndex === dateToday.getMonth()
+
+	const filteredSelectedDates = []
+	selectedDates.forEach((dates) => {
+		const isMatch =
+			dates[0] === currentMonthIndex && dates[1] === currentDate
+		if (isMatch) filteredSelectedDates.push(dates[1])
+	})
+
+	const isSelected = filteredSelectedDates.includes(currentDate)
+
+	if (currentDate === undefined) return "empty"
+	if (isPastDate) return "unavailable"
+	if (isToday) return "today"
+	if (isSelected) return "selected"
+	return "default"
+}
+
 export {
 	getWeekdays,
 	getIntlMonthLong,
 	getIntlMonthShort,
 	getIntlWeekdayShort,
 	getMonthGridContent,
+	getGridMonthType,
 	getAllSelectedWeekdayDates,
+	getCalendarCellType,
 }
