@@ -100,22 +100,36 @@ function Calendar() {
 			return dates.getTime()
 		})
 
-		selectedDatesTime.forEach((dateTime) => {
-			const isIncluded = currentSelectedDaysTime.includes(dateTime)
-			if (isIncluded) {
-				// TODO - Eliminar del array
-				return
-			}
-			if (!isIncluded) currentSelectedDaysTime.push(dateTime)
-		})
-
-		currentSelectedDaysTime.sort()
-
-		const newSelectedDays = currentSelectedDaysTime.map(
-			(datesTime) => new Date(datesTime)
+		const allAlreadySelected = selectedDatesTime.every((dates) =>
+			currentSelectedDaysTime.includes(dates)
 		)
 
-		setSelectedDays(newSelectedDays)
+		if (!allAlreadySelected) {
+			selectedDatesTime.forEach((dateTime) => {
+				const isIncluded = currentSelectedDaysTime.includes(dateTime)
+				if (isIncluded) return
+
+				currentSelectedDaysTime.push(dateTime)
+			})
+
+			const newSelectedDays = currentSelectedDaysTime
+				.sort()
+				.map((datesTime) => new Date(datesTime))
+
+			setSelectedDays(newSelectedDays)
+		}
+
+		if (allAlreadySelected) {
+			const newSelectedDays = currentSelectedDaysTime
+				.filter((datesTime) => {
+					const isIncluded = selectedDatesTime.includes(datesTime)
+					if (!isIncluded) return datesTime
+				})
+				.sort()
+				.map((dates) => new Date(dates))
+
+			setSelectedDays(newSelectedDays)
+		}
 	}
 
 	return (
