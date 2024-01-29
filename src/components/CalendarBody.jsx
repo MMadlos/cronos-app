@@ -5,6 +5,7 @@ export default function CalendarBody({
 	calendarData,
 	selectedDates,
 	onClickDate,
+	onClickWeekday,
 }) {
 	const getFilteredDates = selectedDates.filter(
 		(date) => date.getMonth() === calendarData.monthIndex
@@ -31,6 +32,7 @@ export default function CalendarBody({
 						<button
 							key={index}
 							data-week-index={index + 1}
+							onClick={onClickWeekday}
 							className="flex size-12 items-center justify-center rounded-md border-2 border-transparent bg-zinc-50 font-medium text-zinc-600 hover:cursor-pointer hover:bg-zinc-200"
 						>
 							{day}

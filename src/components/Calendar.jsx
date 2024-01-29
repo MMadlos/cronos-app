@@ -64,6 +64,60 @@ function Calendar() {
 		}
 	}
 
+	function handleSelectWeek(e) {
+		const weekdayIndex = e.target.closest("button").dataset.weekIndex
+
+		const { year, monthIndex } = calendarData
+
+		const date = new Date(year, monthIndex, 1)
+		const firstWeekdayIndex = date.getDay()
+
+		date.setMonth(monthIndex + 1)
+		date.setDate(0)
+
+		const lastDate = date.getDate()
+		const firstDate = weekdayIndex - firstWeekdayIndex + 1
+
+		const today = new Date()
+		const todayDate = today.getDate()
+		const todayMonth = today.getMonth()
+
+		const selectedDatesArray = []
+		for (let i = firstDate; i <= lastDate; i += 7) {
+			if (i <= 0) continue
+			if (i < todayDate && monthIndex === todayMonth) continue
+
+			selectedDatesArray.push(i)
+		}
+
+		const selectedDatesTime = selectedDatesArray.map((date) => {
+			const _date = new Date(year, monthIndex, date)
+			const _dateTime = _date.getTime()
+			return _dateTime
+		})
+
+		const currentSelectedDaysTime = selectedDays.map((dates) => {
+			return dates.getTime()
+		})
+
+		selectedDatesTime.forEach((dateTime) => {
+			const isIncluded = currentSelectedDaysTime.includes(dateTime)
+			if (isIncluded) {
+				// TODO - Eliminar del array
+				return
+			}
+			if (!isIncluded) currentSelectedDaysTime.push(dateTime)
+		})
+
+		currentSelectedDaysTime.sort()
+
+		const newSelectedDays = currentSelectedDaysTime.map(
+			(datesTime) => new Date(datesTime)
+		)
+
+		setSelectedDays(newSelectedDays)
+	}
+
 	return (
 		<div className="my-8 flex flex-col gap-4">
 			<SelectedDates dates={selectedDays} />
@@ -79,6 +133,7 @@ function Calendar() {
 					calendarData={calendarData}
 					selectedDates={selectedDays}
 					onClickDate={handleSelectDays}
+					onClickWeekday={handleSelectWeek}
 				/>
 			</div>
 		</div>
