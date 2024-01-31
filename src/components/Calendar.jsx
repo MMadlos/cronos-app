@@ -33,6 +33,7 @@ function Calendar() {
 			year: calendarData.year,
 			monthIndex: newMonthIndex,
 		}
+
 		setCalendarData(newCalendarData)
 	}
 
@@ -119,11 +120,11 @@ function Calendar() {
 	}
 
 	return (
-		<div className="my-8 flex flex-col gap-4">
+		<div className="my-8 flex flex-col gap-4 ">
 			<SelectedDates dates={selectedDays} />
 			<div
 				id="calendar"
-				className="flex w-fit flex-col gap-6 rounded-xl bg-zinc-50 p-8"
+				className="flex w-fit flex-col gap-6 rounded-xl bg-zinc-50 p-8 shadow-md"
 			>
 				<CalendarHeader
 					calendarData={calendarData}

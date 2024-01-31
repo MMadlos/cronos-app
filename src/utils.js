@@ -13,11 +13,9 @@ function getWeekdays(locale = "es", format = "short") {
 	return weekdaysName
 }
 
-function getIntlMonthLong(monthIndex, locale = "es") {
+function getIntlMonthLong(date, locale = "es") {
 	const intlMonth = new Intl.DateTimeFormat(locale, { month: "long" })
-	const date = new Date()
 
-	date.setMonth(monthIndex)
 	const month = intlMonth.format(date)
 	return month
 }

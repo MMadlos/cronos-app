@@ -3,7 +3,8 @@ import { getIntlMonthLong } from "../utils"
 function CalendarHeader({ calendarData, onClick }) {
 	const { year, monthIndex } = calendarData
 
-	const month = getIntlMonthLong(monthIndex)
+	const date = new Date(year, monthIndex, 1)
+	const month = getIntlMonthLong(date)
 
 	return (
 		<div id="calendar-header" className="flex flex-col items-center gap-2">
