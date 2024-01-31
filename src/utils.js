@@ -109,33 +109,6 @@ function getAllSelectedWeekdayDates(year, monthIndex, dataWeekdayIndex) {
 	return selectedDatesArray
 }
 
-const getCalendarCellType = (currentDate, currentMonthIndex, selectedDates) => {
-	const dateToday = new Date()
-
-	const isPastDate =
-		currentDate < dateToday.getDate() &&
-		currentMonthIndex === dateToday.getMonth()
-
-	const isToday =
-		currentDate === dateToday.getDate() &&
-		currentMonthIndex === dateToday.getMonth()
-
-	const filteredSelectedDates = []
-	selectedDates.forEach((dates) => {
-		const isMatch =
-			dates[0] === currentMonthIndex && dates[1] === currentDate
-		if (isMatch) filteredSelectedDates.push(dates[1])
-	})
-
-	const isSelected = filteredSelectedDates.includes(currentDate)
-
-	if (currentDate === undefined) return "empty"
-	if (isPastDate) return "unavailable"
-	if (isToday) return "today"
-	if (isSelected) return "selected"
-	return "default"
-}
-
 export {
 	getWeekdays,
 	getIntlMonthLong,
@@ -144,5 +117,4 @@ export {
 	getMonthGridContent,
 	getGridMonthType,
 	getAllSelectedWeekdayDates,
-	getCalendarCellType,
 }
