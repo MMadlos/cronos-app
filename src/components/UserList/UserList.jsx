@@ -12,12 +12,13 @@ export default function UserList() {
 	}
 
 	function handleAddParticipants(e) {
-		if (e.key !== "Enter") return
-		if (inputValue === "") return
 		// TODO - Add message for empty input
+		if (inputValue === "") return
 
-		setParticipants((prev) => [...prev, inputValue])
-		setInputValue("")
+		if (e.key === "Enter" || e.type === "click") {
+			setParticipants((prev) => [...prev, inputValue])
+			setInputValue("")
+		}
 	}
 
 	function onClickRemove(e) {
