@@ -1,9 +1,4 @@
-import {
-	getWeekdays,
-	getMonthGridContent,
-	getCalendarCellType,
-	getGridMonthType,
-} from "../utils"
+import { getWeekdays, getMonthGridContent, getGridMonthType } from "../utils"
 import CalendarCell from "./CalendarCell"
 
 export default function CalendarBody({
@@ -12,32 +7,12 @@ export default function CalendarBody({
 	onClickDate,
 	onClickWeekday,
 }) {
-	const locale = "es"
-	const format = "short"
-	const allWeekDays = getWeekdays(locale, format)
-
 	return (
 		<div
 			id="all-dates"
 			className="flex flex-col items-center justify-center gap-4 "
 		>
-			<div
-				id="weekDays"
-				className="grid w-full grid-cols-7 items-center justify-items-center gap-1 border-b-2 border-zinc-600 pb-2"
-			>
-				{allWeekDays.map((day, index) => {
-					return (
-						<button
-							key={index}
-							data-week-index={index + 1}
-							onClick={onClickWeekday}
-							className="flex size-12 items-center justify-center rounded-md border-2 border-transparent bg-zinc-50 font-medium text-zinc-600 hover:cursor-pointer hover:bg-zinc-200"
-						>
-							{day}
-						</button>
-					)
-				})}
-			</div>
+			<DaysGrid onClickWeekday={onClickWeekday} />
 			<DateGrid
 				calendarData={calendarData}
 				selectedDates={selectedDates}
@@ -76,6 +51,32 @@ function DateGrid({ calendarData, selectedDates, onClickDate }) {
 						dataType={gridMonthDataType[index]}
 						onClickDate={onClickDate}
 					/>
+				)
+			})}
+		</div>
+	)
+}
+
+function DaysGrid({ onClickWeekday }) {
+	const locale = "es"
+	const format = "short"
+	const allWeekDays = getWeekdays(locale, format)
+
+	return (
+		<div
+			id="weekDays"
+			className="grid w-full grid-cols-7 items-center justify-items-center gap-1 border-b-2 border-zinc-600 pb-2"
+		>
+			{allWeekDays.map((day, index) => {
+				return (
+					<button
+						key={index}
+						data-week-index={index + 1}
+						onClick={onClickWeekday}
+						className="flex size-12 items-center justify-center rounded-md border-2 border-transparent bg-zinc-50 font-medium text-zinc-600 hover:cursor-pointer hover:bg-zinc-200"
+					>
+						{day}
+					</button>
 				)
 			})}
 		</div>
