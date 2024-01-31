@@ -1,10 +1,10 @@
 import "./App.css"
 
-import Calendar from "./components/Calendar"
+import Calendar from "./components/Calendar/Calendar"
 
 function App() {
 	return (
-		<main className="bg-indigo-100 min-h-screen flex flex-col justify-center items-center">
+		<main className="flex min-h-screen flex-col items-center justify-center bg-indigo-100">
 			<Calendar />
 		</main>
 	)
