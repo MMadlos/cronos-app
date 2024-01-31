@@ -1,6 +1,6 @@
-import { getIntlMonthShort, getIntlWeekdayShort } from "../utils"
+import { getIntlMonthShort, getIntlWeekdayShort } from "../../utils"
 
-function SelectedDates({ dates }) {
+function DatesSelected({ dates }) {
 	return (
 		<div className="flex flex-col gap-4 bg-indigo-50 p-4 ">
 			<p className="text-indigo-300">Selected days</p>
@@ -23,4 +23,4 @@ function SelectedDates({ dates }) {
 	)
 }
 
-export default SelectedDates
+export default DatesSelected
