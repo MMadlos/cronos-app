@@ -1,4 +1,4 @@
-import { getIntlMonthLong } from "../utils"
+import { getIntlMonthLong } from "../../utils"
 
 function CalendarHeader({ calendarData, onClick }) {
 	const { year, monthIndex } = calendarData

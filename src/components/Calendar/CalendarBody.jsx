@@ -1,4 +1,4 @@
-import { getWeekdays, getMonthGridContent, getGridMonthType } from "../utils"
+import { getWeekdays, getMonthGridContent, getGridMonthType } from "../../utils"
 import CalendarCell from "./CalendarCell"
 
 export default function CalendarBody({
