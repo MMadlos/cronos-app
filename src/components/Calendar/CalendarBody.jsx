@@ -29,6 +29,8 @@ function DateGrid({ calendarData, selectedDates, onClickDate }) {
 		.filter((dates) => dates.getMonth() === monthIndex)
 		.map((dates) => dates.getDate())
 
+	console.log(filteredSelectedDates)
+
 	const gridMonthContent = getMonthGridContent(year, monthIndex)
 	const gridMonthDataType = getGridMonthType(
 		gridMonthContent,

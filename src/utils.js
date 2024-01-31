@@ -68,13 +68,13 @@ function getGridMonthType(gridMonthContent, monthIndex, filteredSelectedDates) {
 
 		if (isPastDate) return gridMonthDataType.push("unavailable")
 
+		const isSelected = filteredSelectedDates.includes(contentCell)
+		if (isSelected) return gridMonthDataType.push("selected")
+
 		const isToday =
 			contentCell === dateToday.getDate() &&
 			monthIndex === dateToday.getMonth()
 		if (isToday) return gridMonthDataType.push("today")
-
-		const isSelected = filteredSelectedDates.includes(contentCell)
-		if (isSelected) return gridMonthDataType.push("selected")
 
 		return gridMonthDataType.push("default")
 	})
