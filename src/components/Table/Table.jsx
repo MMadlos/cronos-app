@@ -17,22 +17,21 @@ export default function Table() {
 			const headers = rawHeaders.split(" ")
 			const [time, UUID] = headers
 
-			const dataStatus =
-				element.querySelector("[data-status]").dataset.status
+			const state = element.querySelector("[data-status]").dataset.status
 
-			const data = { time, UUID, state: dataStatus }
+			const data = { time, UUID, state }
 
 			rawData.push(data)
 		})
 
-		// Map from participants to fill availability later
+		// Sort availability by participants.
+		// TODO -> Check with sort() method by date
 		const cleanData = mockParticipants
 		for (let people of cleanData) {
 			people.available = []
 			people.notAvailable = []
 		}
 
-		// Push times to the participantes array
 		for (let data of rawData) {
 			const { UUID, time } = data
 			const [dataToFind] = cleanData.filter(
