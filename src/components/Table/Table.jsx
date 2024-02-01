@@ -1,6 +1,28 @@
 import TableData from "./TableData"
+import { getIntlMonthShort } from "../../utils"
 
-export default function Table({ dates, participants }) {
+const mockSelectedDates = [
+	new Date(2024, 1, 2),
+	new Date(2024, 1, 3),
+	new Date(2024, 1, 7),
+	new Date(2024, 1, 8),
+]
+
+const mockParticipants = [
+	{ id: crypto.randomUUID(), name: "Participant 1" },
+	{ id: crypto.randomUUID(), name: "Participant 2" },
+	{ id: crypto.randomUUID(), name: "Participant 3" },
+	{ id: crypto.randomUUID(), name: "Participant 4" },
+]
+
+export default function Table() {
+	const formattedDates = mockSelectedDates.map((rawDates) => {
+		const month = getIntlMonthShort(rawDates)
+		const date = rawDates.getDate()
+		const formattedDate = `${month} ${date}`
+		return formattedDate
+	})
+
 	return (
 		<div className="bg-zinc-200 p-8">
 			<table className="rounded-3xl bg-zinc-50 ">
@@ -8,36 +30,39 @@ export default function Table({ dates, participants }) {
 				<thead>
 					<tr>
 						<th id="participants">Participants</th>
-						<th id="Feb-1">Feb 1</th>
-						<th id="Feb-2">Feb 2</th>
-						<th id="Feb-5">Feb 5</th>
-						<th id="Feb-6">Feb 6</th>
+						{formattedDates.map((dates, index) => {
+							const headerDate = dates.split(" ").join("-")
+
+							return (
+								<th key={index} id={headerDate}>
+									{dates}
+								</th>
+							)
+						})}
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<th id="participant-1" headers="participants">
-							Participant 1
-						</th>
-						<TableData thID="Feb-1 participant-1" />
-						<TableData thID="Feb-2 participant-1" />
-						<TableData thID="Feb-5 participant-1" />
-						<TableData thID="Feb-6 participant-1" />
-					</tr>
-					<tr>
-						<th scope="row">Participant 2</th>
-						<td>Unknown</td>
-						<td>Unknown</td>
-						<td>Unknown</td>
-						<td>Unknown</td>
-					</tr>
-					<tr>
-						<th scope="row">Participant 3</th>
-						<td>Unknown</td>
-						<td>Unknown</td>
-						<td>Unknown</td>
-						<td>Unknown</td>
-					</tr>
+					{mockParticipants.map((participandData, index) => {
+						const { id, name } = participandData
+
+						return (
+							<tr key={index}>
+								<th id="id" headers="participants">
+									{name}
+								</th>
+								{formattedDates.map((dates, _index) => {
+									const headerDate = dates
+										.split(" ")
+										.join("-")
+									return (
+										<TableData
+											thID={`${headerDate} ${id}`}
+										/>
+									)
+								})}
+							</tr>
+						)
+					})}
 				</tbody>
 			</table>
 		</div>
