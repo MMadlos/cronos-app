@@ -15,10 +15,17 @@ const initiCalendarData = {
 	monthIndex: currentMonthIndex,
 }
 
+const initParticipants = []
+for (let person of mockParticipants) {
+	initParticipants.push(person.name)
+}
+
 function App() {
-	// TODO -> Lift up selectedDates and participants
 	const [calendarData, setCalendarData] = useState(initiCalendarData)
 	const [selectedDays, setSelectedDays] = useState(mockSelectedDates)
+
+	const [participants, setParticipants] = useState(initParticipants)
+	const [inputValue, setInputValue] = useState("")
 
 	function handleMonthArrows(e) {
 		const newMonthIndexEl = e.target.closest("[data-index]").dataset.index
@@ -114,6 +121,26 @@ function App() {
 		}
 	}
 
+	function handleChangeInput(e) {
+		setInputValue(e.target.value)
+	}
+
+	function handleAddParticipants(e) {
+		// TODO - Add message for empty input
+		if (inputValue === "") return
+
+		if (e.key === "Enter" || e.type === "click") {
+			setParticipants((prev) => [...prev, inputValue])
+			setInputValue("")
+		}
+	}
+
+	function handleClickRemove(e) {
+		const userIndex = Number(e.target.closest("button").dataset.index)
+		const list = participants.filter((_, index) => index !== userIndex)
+		setParticipants(list)
+	}
+
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-center bg-indigo-100">
 			<Calendar
@@ -123,7 +150,14 @@ function App() {
 				onClickDate={handleSelectDays}
 				onClickWeekday={handleSelectWeek}
 			/>
-			<UserList />
+			<UserList
+				participants={participants}
+				inputValue={inputValue}
+				onChangeInput={handleChangeInput}
+				onKeyDownEnter={handleAddParticipants}
+				onClickAdd={handleAddParticipants}
+				onClickRemove={handleClickRemove}
+			/>
 			<Table />
 		</main>
 	)

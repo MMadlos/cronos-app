@@ -1,32 +1,11 @@
-import { useState } from "react"
-
-export default function UserList() {
-	const [participants, setParticipants] = useState(
-		["Test 1", "Test 2", "Test 3"].sort()
-	)
-
-	const [inputValue, setInputValue] = useState("")
-
-	function handleChangeInput(e) {
-		setInputValue(e.target.value)
-	}
-
-	function handleAddParticipants(e) {
-		// TODO - Add message for empty input
-		if (inputValue === "") return
-
-		if (e.key === "Enter" || e.type === "click") {
-			setParticipants((prev) => [...prev, inputValue])
-			setInputValue("")
-		}
-	}
-
-	function onClickRemove(e) {
-		const userIndex = Number(e.target.closest("button").dataset.index)
-		const list = participants.filter((_, index) => index !== userIndex)
-		setParticipants(list)
-	}
-
+export default function UserList({
+	participants,
+	inputValue,
+	onKeyDownEnter,
+	onClickAdd,
+	onClickRemove,
+	onChangeInput,
+}) {
 	return (
 		<div className="flex h-[70vh] min-w-[40vw] flex-col gap-6 rounded-xl bg-zinc-50 p-8 shadow-md">
 			<h2 className="text-lg font-medium">Participantes</h2>
@@ -35,14 +14,14 @@ export default function UserList() {
 					id="add-participant"
 					type="text"
 					placeholder="Alejandro Sanz"
-					onChange={handleChangeInput}
+					onChange={onChangeInput}
 					value={inputValue}
 					className="w-full px-4 py-2"
-					onKeyDown={handleAddParticipants}
+					onKeyDown={onKeyDownEnter}
 				/>
 				<button
 					className="flex flex-row items-center gap-4 rounded-lg bg-zinc-200 px-4 py-2 text-zinc-400 hover:bg-zinc-300"
-					onClick={handleAddParticipants}
+					onClick={onClickAdd}
 				>
 					<i className="fa-solid fa-plus" />
 					Add
