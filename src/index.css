@@ -19,4 +19,9 @@
 	#root {
 		@apply min-h-[100dvh] max-w-[100dvw];
 	}
+
+	th,
+	td {
+		@apply border-2 border-zinc-300 p-4;
+	}
 }
