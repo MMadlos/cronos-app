@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const btnStates = ["Unknown", "Confirmed", "Denied"]
+const btnStates = ["Unknown", "Confirmed"]
 
 export default function TableData({ thID }) {
 	const [state, setState] = useState(btnStates[0])
@@ -19,7 +19,7 @@ export default function TableData({ thID }) {
 	return (
 		<td colSpan="1" rowSpan="1" headers={thID} className="text-center">
 			<button className="group" onClick={handleState} data-status={state}>
-				<i className="fa-solid fa-circle text-4xl  text-zinc-200 group-hover:opacity-40 group-data-[status=Confirmed]:text-green-300 group-data-[status=Denied]:text-red-300" />
+				<i className="fa-solid fa-circle text-4xl  text-zinc-200 group-hover:opacity-40 group-data-[status=Confirmed]:text-green-300" />
 			</button>
 		</td>
 	)
