@@ -8,7 +8,7 @@ export default function TableBody({ peopleList, formattedDates }) {
 
 				return (
 					<tr key={index}>
-						<th id="id" headers="participants">
+						<th id={id} headers="participants">
 							{name}
 						</th>
 						{formattedDates.map((dates, _index) => {
