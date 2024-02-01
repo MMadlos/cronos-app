@@ -20,6 +20,8 @@ for (let person of mockParticipants) {
 	initParticipants.push(person.name)
 }
 
+// TODO - Check how participants are passed to the components. Table needs ID and the other components are not using it.
+
 function App() {
 	const [calendarData, setCalendarData] = useState(initiCalendarData)
 	const [selectedDays, setSelectedDays] = useState(mockSelectedDates)
@@ -158,7 +160,11 @@ function App() {
 				onClickAdd={handleAddParticipants}
 				onClickRemove={handleClickRemove}
 			/>
-			<Table />
+
+			<Table
+				participants={mockParticipants}
+				selectedDates={selectedDays}
+			/>
 		</main>
 	)
 }

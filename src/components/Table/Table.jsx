@@ -1,9 +1,8 @@
-import { mockSelectedDates, mockParticipants } from "../../mockData"
-
 import TableHead from "./TableHead"
 import TableBody from "./TableBody"
 
-export default function Table() {
+export default function Table({ selectedDates, participants }) {
+	console.log(participants)
 	function getTableData(e) {
 		const table = e.target.closest("#table")
 		const allHeadersEl = table.querySelectorAll("[headers]")
@@ -26,7 +25,7 @@ export default function Table() {
 
 		// Sort availability by participants.
 		// TODO -> Check with sort() method by date
-		const cleanData = mockParticipants
+		const cleanData = participants
 		for (let people of cleanData) {
 			people.available = []
 			people.notAvailable = []
@@ -37,7 +36,7 @@ export default function Table() {
 			const [dataToFind] = cleanData.filter(
 				(person) => person.id === UUID
 			)
-			const personIndex = mockParticipants.indexOf(dataToFind)
+			const personIndex = participants.indexOf(dataToFind)
 
 			if (data.state === "Confirmed") {
 				cleanData[personIndex].available.push(time)
@@ -52,10 +51,10 @@ export default function Table() {
 	return (
 		<div className="bg-zinc-200 p-8">
 			<table id="table" className="w-fit bg-zinc-50">
-				<TableHead selectedDates={mockSelectedDates} />
+				<TableHead selectedDates={selectedDates} />
 				<TableBody
-					peopleList={mockParticipants}
-					selectedDates={mockSelectedDates}
+					peopleList={participants}
+					selectedDates={selectedDates}
 				/>
 				<button onClick={getTableData}>Test</button>
 			</table>
