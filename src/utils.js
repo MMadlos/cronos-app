@@ -107,6 +107,17 @@ function getAllSelectedWeekdayDates(year, monthIndex, dataWeekdayIndex) {
 	return selectedDatesArray
 }
 
+function getFormattedDates(dates) {
+	const formattedDates = dates.map((rawDates) => {
+		const month = getIntlMonthShort(rawDates)
+		const date = rawDates.getDate()
+		const formattedDate = `${month} ${date}`
+		return formattedDate
+	})
+
+	return formattedDates
+}
+
 export {
 	getWeekdays,
 	getIntlMonthLong,
@@ -115,4 +126,5 @@ export {
 	getMonthGridContent,
 	getGridMonthType,
 	getAllSelectedWeekdayDates,
+	getFormattedDates,
 }

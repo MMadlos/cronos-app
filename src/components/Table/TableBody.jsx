@@ -1,6 +1,6 @@
 import TableData from "./TableData"
 
-export default function TableBody({ peopleList, formattedDates }) {
+export default function TableBody({ peopleList, selectedDates }) {
 	return (
 		<tbody>
 			{peopleList.map((peopleData, index) => {
@@ -11,9 +11,15 @@ export default function TableBody({ peopleList, formattedDates }) {
 						<th id={id} headers="participants">
 							{name}
 						</th>
-						{formattedDates.map((dates, _index) => {
-							const headerDate = dates.split(" ").join("-")
-							return <TableData thID={`${headerDate} ${id}`} />
+						{selectedDates.map((dates) => {
+							const dateTime = dates.getTime()
+
+							return (
+								<TableData
+									key={dateTime}
+									thID={`${dateTime} ${id}`}
+								/>
+							)
 						})}
 					</tr>
 				)
