@@ -1,4 +1,5 @@
-import TableData from "./TableData"
+import TableHead from "./TableHead"
+import TableBody from "./TableBody"
 import { getIntlMonthShort } from "../../utils"
 
 const mockSelectedDates = [
@@ -25,45 +26,12 @@ export default function Table() {
 
 	return (
 		<div className="bg-zinc-200 p-8">
-			<table className="rounded-3xl bg-zinc-50 ">
-				<caption>Calendar grid with participants</caption>
-				<thead>
-					<tr>
-						<th id="participants">Participants</th>
-						{formattedDates.map((dates, index) => {
-							const headerDate = dates.split(" ").join("-")
-
-							return (
-								<th key={index} id={headerDate}>
-									{dates}
-								</th>
-							)
-						})}
-					</tr>
-				</thead>
-				<tbody>
-					{mockParticipants.map((participandData, index) => {
-						const { id, name } = participandData
-
-						return (
-							<tr key={index}>
-								<th id="id" headers="participants">
-									{name}
-								</th>
-								{formattedDates.map((dates, _index) => {
-									const headerDate = dates
-										.split(" ")
-										.join("-")
-									return (
-										<TableData
-											thID={`${headerDate} ${id}`}
-										/>
-									)
-								})}
-							</tr>
-						)
-					})}
-				</tbody>
+			<table className="w-fit bg-zinc-50">
+				<TableHead formattedDates={formattedDates} />
+				<TableBody
+					peopleList={mockParticipants}
+					formattedDates={formattedDates}
+				/>
 			</table>
 		</div>
 	)
