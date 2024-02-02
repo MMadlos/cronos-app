@@ -2,7 +2,6 @@ import TableHead from "./TableHead"
 import TableBody from "./TableBody"
 
 export default function Table({ selectedDates, participants }) {
-	console.log(participants)
 	function getTableData(e) {
 		const table = e.target.closest("#table")
 		const allHeadersEl = table.querySelectorAll("[headers]")
