@@ -20,8 +20,36 @@
 		@apply min-h-[100dvh] max-w-[100dvw];
 	}
 
+	/* table {
+		@apply rounded-lg;
+	} */
+
 	th,
 	td {
-		@apply border-2  border-zinc-100 p-4;
+		@apply p-2;
+	}
+
+	tbody th,
+	thead th:first-of-type {
+		@apply sticky left-0 whitespace-nowrap bg-zinc-100 pl-6 pr-8 text-left;
+	}
+
+	thead th:last-of-type,
+	tbody tr td:last-of-type {
+		@apply pr-12;
+	}
+
+	thead th:nth-of-type(2),
+	tbody tr td:first-of-type {
+		@apply pl-8;
+	}
+
+	thead tr th {
+		@apply pt-6;
+	}
+
+	tbody tr:last-of-type th,
+	tbody tr:last-of-type td {
+		@apply pb-6;
 	}
 }

@@ -48,8 +48,8 @@ export default function Table({ selectedDates, participants }) {
 	}
 
 	return (
-		<div className="bg-zinc-200 p-8">
-			<table id="table" className="w-fit bg-zinc-50">
+		<div className=": w-full overflow-x-auto  bg-zinc-200 md:max-w-[900px] md:rounded-xl">
+			<table id="table" className="w-full border-collapse bg-zinc-50 ">
 				<TableHead selectedDates={selectedDates} />
 				<TableBody
 					peopleList={participants}
