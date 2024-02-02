@@ -5,6 +5,8 @@ export default function UserList({
 	onClickAdd,
 	onClickRemove,
 	onChangeInput,
+	onClickNext,
+	onClickReturn,
 }) {
 	return (
 		<div className="flex h-[70vh] min-w-[40vw] flex-col gap-6 rounded-xl bg-zinc-50 p-8 shadow-md">
@@ -48,7 +50,16 @@ export default function UserList({
 					)
 				})}
 			</div>
-			<button className="rounded-lg bg-zinc-900 p-4 font-semibold text-zinc-50 hover:opacity-80">
+			<button
+				className="font-semibold text-red-500 underline underline-offset-4 hover:opacity-50"
+				onClick={onClickReturn}
+			>
+				Return
+			</button>
+			<button
+				className="rounded-lg bg-zinc-900 p-4 font-semibold text-zinc-50 hover:opacity-80"
+				onClick={onClickNext}
+			>
 				Next
 			</button>
 		</div>

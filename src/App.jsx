@@ -16,6 +16,7 @@ const initiCalendarData = {
 }
 
 const stages = ["calendar", "list", "table"]
+// TODO - Add buttons behaviours in stage 0. When no dates are selected -> Reset not available and done not active.
 
 function App() {
 	const [calendarData, setCalendarData] = useState(initiCalendarData)
@@ -157,11 +158,16 @@ function App() {
 							className="rounded-lg bg-zinc-50 px-6 py-2 font-semibold text-red-600 hover:opacity-50"
 							onClick={() => setSelectedDays([])}
 						>
-							Reset
+							{selectedDays.length === 0
+								? "Select days"
+								: "Reset"}
 						</button>
 						<button
 							className="rounded-lg bg-zinc-900 px-6 py-2 font-semibold text-zinc-50 hover:opacity-50"
-							onClick={() => setStage(stages[1])}
+							onClick={() => {
+								if (selectedDays.length === 0) return
+								setStage(stages[1])
+							}}
 						>
 							Done
 						</button>
@@ -177,6 +183,8 @@ function App() {
 					onKeyDownEnter={handleAddParticipants}
 					onClickAdd={handleAddParticipants}
 					onClickRemove={handleClickRemove}
+					onClickNext={() => setStage(stages[2])}
+					onClickReturn={() => setStage(stages[0])}
 				/>
 			)}
 
