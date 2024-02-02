@@ -56,7 +56,6 @@ export default function Table({ selectedDates, participants }) {
 					peopleList={participants}
 					selectedDates={selectedDates}
 				/>
-				<button onClick={getTableData}>Test</button>
 			</table>
 		</div>
 	)

@@ -49,7 +49,10 @@ function MonthArrow({ orientation, onClick, monthIndex }) {
 	}
 
 	return (
-		<button onClick={!isDisabled && onClick} data-index={dataIndex}>
+		<button
+			onClick={!isDisabled ? onClick : undefined}
+			data-index={dataIndex}
+		>
 			<i
 				className={`${classes.icon} ${classes.base} ${classes.isDisabled[isDisabled]}`}
 			/>
