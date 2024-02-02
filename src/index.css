@@ -20,10 +20,6 @@
 		@apply min-h-[100dvh] max-w-[100dvw];
 	}
 
-	/* table {
-		@apply rounded-lg;
-	} */
-
 	th,
 	td {
 		@apply p-2;
