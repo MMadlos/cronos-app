@@ -1,15 +1,5 @@
-import { useState } from "react"
-
 import CalendarHeader from "./CalendarHeader"
 import CalendarBody from "./CalendarBody"
-
-const currentDate = new Date()
-const currentMonthIndex = currentDate.getMonth()
-const currentYear = currentDate.getFullYear()
-const initiCalendarData = {
-	year: currentYear,
-	monthIndex: currentMonthIndex,
-}
 
 function Calendar({
 	calendarData,
