@@ -29,15 +29,16 @@ export default function UserList({
 			</div>
 
 			<div className="flex grow flex-col items-start gap-1 overflow-y-scroll">
-				{participants.map((name, index) => {
+				{participants.map((person, index) => {
+					const { id, name } = person
 					return (
 						<div
-							key={index}
+							key={id}
 							className="flex w-full flex-row items-center justify-between"
 						>
 							<p>{name}</p>
 							<button
-								data-index={index}
+								data-index={id}
 								onClick={onClickRemove}
 								className="mr-2 p-2"
 							>

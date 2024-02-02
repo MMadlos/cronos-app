@@ -20,13 +20,11 @@ for (let person of mockParticipants) {
 	initParticipants.push(person.name)
 }
 
-// TODO - Check how participants are passed to the components. Table needs ID and the other components are not using it.
-
 function App() {
 	const [calendarData, setCalendarData] = useState(initiCalendarData)
 	const [selectedDays, setSelectedDays] = useState(mockSelectedDates)
 
-	const [participants, setParticipants] = useState(initParticipants)
+	const [participants, setParticipants] = useState(mockParticipants)
 	const [inputValue, setInputValue] = useState("")
 
 	function handleMonthArrows(e) {
@@ -132,14 +130,15 @@ function App() {
 		if (inputValue === "") return
 
 		if (e.key === "Enter" || e.type === "click") {
-			setParticipants((prev) => [...prev, inputValue])
+			const newPerson = { id: crypto.randomUUID(), name: inputValue }
+			setParticipants((prev) => [...prev, newPerson])
 			setInputValue("")
 		}
 	}
 
 	function handleClickRemove(e) {
-		const userIndex = Number(e.target.closest("button").dataset.index)
-		const list = participants.filter((_, index) => index !== userIndex)
+		const userIndex = e.target.closest("button").dataset.index
+		const list = participants.filter((person) => person.id !== userIndex)
 		setParticipants(list)
 	}
 
@@ -161,10 +160,7 @@ function App() {
 				onClickRemove={handleClickRemove}
 			/>
 
-			<Table
-				participants={mockParticipants}
-				selectedDates={selectedDays}
-			/>
+			<Table participants={participants} selectedDates={selectedDays} />
 		</main>
 	)
 }
