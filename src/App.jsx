@@ -15,10 +15,7 @@ const initiCalendarData = {
 	monthIndex: currentMonthIndex,
 }
 
-const initParticipants = []
-for (let person of mockParticipants) {
-	initParticipants.push(person.name)
-}
+const stages = ["calendar", "list", "table"]
 
 function App() {
 	const [calendarData, setCalendarData] = useState(initiCalendarData)
@@ -26,6 +23,8 @@ function App() {
 
 	const [participants, setParticipants] = useState(mockParticipants)
 	const [inputValue, setInputValue] = useState("")
+
+	const [stage, setStage] = useState(stages[0])
 
 	function handleMonthArrows(e) {
 		const newMonthIndexEl = e.target.closest("[data-index]").dataset.index
@@ -144,23 +143,49 @@ function App() {
 
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-center bg-indigo-100">
-			<Calendar
-				calendarData={calendarData}
-				selectedDays={selectedDays}
-				onClickArrows={handleMonthArrows}
-				onClickDate={handleSelectDays}
-				onClickWeekday={handleSelectWeek}
-			/>
-			<UserList
-				participants={participants}
-				inputValue={inputValue}
-				onChangeInput={handleChangeInput}
-				onKeyDownEnter={handleAddParticipants}
-				onClickAdd={handleAddParticipants}
-				onClickRemove={handleClickRemove}
-			/>
+			{stage === stages[0] && (
+				<div>
+					<Calendar
+						calendarData={calendarData}
+						selectedDays={selectedDays}
+						onClickArrows={handleMonthArrows}
+						onClickDate={handleSelectDays}
+						onClickWeekday={handleSelectWeek}
+					/>
+					<div className="mt-8 flex w-full flex-row justify-between">
+						<button
+							className="rounded-lg bg-zinc-50 px-6 py-2 font-semibold text-red-600 hover:opacity-50"
+							onClick={() => setSelectedDays([])}
+						>
+							Reset
+						</button>
+						<button
+							className="rounded-lg bg-zinc-900 px-6 py-2 font-semibold text-zinc-50 hover:opacity-50"
+							onClick={() => setStage(stages[1])}
+						>
+							Done
+						</button>
+					</div>
+				</div>
+			)}
 
-			<Table participants={participants} selectedDates={selectedDays} />
+			{stage === stages[1] && (
+				<UserList
+					participants={participants}
+					inputValue={inputValue}
+					onChangeInput={handleChangeInput}
+					onKeyDownEnter={handleAddParticipants}
+					onClickAdd={handleAddParticipants}
+					onClickRemove={handleClickRemove}
+				/>
+			)}
+
+			{stage === stages[2] && (
+				<Table
+					participants={participants}
+					selectedDates={selectedDays}
+				/>
+			)}
 		</main>
 	)
 }
