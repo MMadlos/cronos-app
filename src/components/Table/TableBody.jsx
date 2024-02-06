@@ -21,6 +21,7 @@ export default function TableBody({ peopleList, selectedDates }) {
 								/>
 							)
 						})}
+						<td></td>
 					</tr>
 				)
 			})}

@@ -18,9 +18,13 @@ export default function TableData({ thID }) {
 
 	return (
 		<td colSpan="1" rowSpan="1" headers={thID} className="text-center">
-			<button className="group" onClick={handleState} data-status={state}>
-				<i className="fa-solid fa-circle text-4xl  text-zinc-200  group-data-[status=Confirmed]:text-green-300" />
-			</button>
+			<div className="flex h-[35px] w-full items-center justify-center">
+				<button
+					className="h-[25px] w-[75px]  rounded-md bg-zinc-300 data-[status=Confirmed]:bg-green-300"
+					onClick={handleState}
+					data-status={state}
+				></button>
+			</div>
 		</td>
 	)
 }
