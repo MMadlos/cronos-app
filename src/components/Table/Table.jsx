@@ -5,7 +5,7 @@ export default function Table({ selectedDates, participants }) {
 	// 8. El total de filas = 1 (mes) + 1 (días) + num total de participantes
 
 	return (
-		<div className=": w-full overflow-x-auto  bg-zinc-200 md:max-w-[1200px] md:rounded-xl">
+		<div className=": flex w-full items-center justify-items-center overflow-x-auto  bg-zinc-50 pb-8 md:max-w-[1100px] ">
 			<table id="table" className="w-full border-collapse bg-zinc-50 ">
 				<TableHead selectedDates={selectedDates} />
 				<TableBody

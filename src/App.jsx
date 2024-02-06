@@ -189,10 +189,19 @@ function App() {
 			)}
 
 			{stage === stages[2] && (
-				<Table
-					participants={participants}
-					selectedDates={selectedDays}
-				/>
+				<div className="container flex h-dvh max-w-[80dvw] flex-col  justify-center bg-slate-50 px-20">
+					<div className="flex flex-row items-center gap-4 pb-2">
+						<h1 className="text-left text-3xl font-bold text-zinc-600">
+							Título
+						</h1>
+						<i className="fa-solid fa-pen text-zinc-400" />
+					</div>
+					<div className="mb-8 border-b-4 border-zinc-300"></div>
+					<Table
+						participants={participants}
+						selectedDates={selectedDays}
+					/>
+				</div>
 			)}
 		</main>
 	)
