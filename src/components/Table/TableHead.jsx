@@ -21,6 +21,7 @@ export default function TableHead({ selectedDates }) {
 
 	const allMonths = Object.keys(sortedByMonth)
 	const allDates = Object.values(sortedByMonth).flat()
+	const allDatesInTime = selectedDates.map((dates) => dates.getTime())
 
 	return (
 		<thead>
@@ -30,7 +31,7 @@ export default function TableHead({ selectedDates }) {
 					const colSpan = tableCount[month]
 
 					return (
-						<th key={index} id={index} colSpan={colSpan}>
+						<th key={index} id={month} colSpan={colSpan}>
 							{month}
 						</th>
 					)
@@ -41,9 +42,10 @@ export default function TableHead({ selectedDates }) {
 				<th id="participants">Participantes</th>
 				{allDates.map((dates, index) => {
 					const { weekday, date } = dates
+					const id = allDatesInTime[index]
 
 					return (
-						<th key={index} id={index}>
+						<th key={index} id={id}>
 							{`${weekday} ${date}`}
 						</th>
 					)
