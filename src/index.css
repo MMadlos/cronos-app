@@ -33,7 +33,7 @@
 		& tr th:not(:last-of-type) {
 			@apply border-r-[1px] border-zinc-200;
 		}
-		& tr th {
+		& tr th:not(#empty-th) {
 			@apply border-b-[1px];
 		}
 	}
