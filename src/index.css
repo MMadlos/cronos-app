@@ -20,32 +20,25 @@
 		@apply min-h-[100dvh] max-w-[100dvw];
 	}
 
-	th,
-	td {
-		@apply p-2;
+	th {
+		@apply min-w-10 px-4 py-2 font-semibold text-zinc-600;
 	}
 
-	tbody th,
-	thead th:first-of-type {
-		@apply sticky left-0 whitespace-nowrap bg-zinc-100 pl-6 pr-8 text-left;
+	thead {
+		tr:first-of-type th,
+		#participants {
+			@apply text-left font-semibold text-zinc-300;
+		}
+
+		& tr th:not(:last-of-type) {
+			@apply border-r-[1px] border-zinc-200;
+		}
+		& tr th {
+			@apply border-b-[1px];
+		}
 	}
 
-	thead th:last-of-type,
-	tbody tr td:last-of-type {
-		@apply pr-12;
-	}
-
-	thead th:nth-of-type(2),
-	tbody tr td:first-of-type {
-		@apply pl-8;
-	}
-
-	thead tr th {
-		@apply pt-6;
-	}
-
-	tbody tr:last-of-type th,
-	tbody tr:last-of-type td {
-		@apply pb-6;
+	th:first-of-type {
+		@apply border-r-4 border-zinc-200 !important;
 	}
 }
