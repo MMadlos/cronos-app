@@ -189,12 +189,17 @@ function App() {
 			)}
 
 			{stage === stages[2] && (
-				<div className="container flex h-dvh max-w-[80dvw] flex-col  justify-center bg-slate-50 px-20">
-					<div className="flex flex-row items-center gap-4 pb-2">
-						<h1 className="text-left text-3xl font-bold text-zinc-600">
-							Título
-						</h1>
-						<i className="fa-solid fa-pen text-zinc-400" />
+				<div className="h-dvh max-w-[80dvw] bg-slate-50 px-20 pt-10">
+					<div className="flex flex-row items-center justify-between pb-2">
+						<div className="flex flex-row items-center gap-4 ">
+							<h1 className="text-left text-3xl font-bold text-zinc-600">
+								Título
+							</h1>
+							<i className="fa-solid fa-pen text-zinc-300 hover:cursor-pointer hover:text-zinc-400" />
+						</div>
+						<button className="rounded-md border border-zinc-300 bg-zinc-100 px-10 py-2 font-semibold text-zinc-500 hover:bg-zinc-200 hover:text-zinc-600">
+							Edit
+						</button>
 					</div>
 					<div className="mb-8 border-b-4 border-zinc-300"></div>
 					<Table
