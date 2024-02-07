@@ -21,9 +21,9 @@ export default function TableData({ thID }) {
 			<div className="flex h-[35px] w-full items-center justify-center">
 				<button onClick={handleState} data-status={state}>
 					{state === btnStates[0] ? (
-						<i className="fa-solid fa-circle text-3xl text-zinc-200 hover:text-zinc-300" />
+						<i className="fa-solid fa-circle text-2xl text-zinc-200 hover:text-zinc-300" />
 					) : (
-						<i className="fa-solid fa-circle-check text-3xl  text-green-500 hover:text-green-300" />
+						<i className="fa-solid fa-circle-check text-2xl  text-green-500 hover:text-green-300" />
 					)}
 				</button>
 			</div>
