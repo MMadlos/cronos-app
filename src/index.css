@@ -17,7 +17,7 @@
 	}
 
 	#root {
-		@apply min-h-[100dvh] max-w-[100dvw];
+		@apply min-h-[100dvh] max-w-[100dvw] bg-white;
 	}
 
 	th {
