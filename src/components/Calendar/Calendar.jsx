@@ -7,11 +7,13 @@ function Calendar({
 	onClickDate,
 	onClickWeekday,
 	onClickArrows,
+	onClickReset,
+	onClickDone,
 }) {
 	return (
 		<div
 			id="calendar"
-			className="flex w-fit flex-col gap-6 rounded-xl bg-zinc-50 p-8 shadow-md"
+			className="mx-auto flex w-fit flex-col gap-2 rounded-md border-2 border-zinc-50 bg-zinc-50 p-4 shadow-lg "
 		>
 			<CalendarHeader
 				calendarData={calendarData}
@@ -23,6 +25,20 @@ function Calendar({
 				onClickDate={onClickDate}
 				onClickWeekday={onClickWeekday}
 			/>
+			<div className="mt-4 flex flex-row items-center justify-between">
+				<button
+					className="font-medium text-red-600 underline underline-offset-4 hover:opacity-50"
+					onClick={onClickReset}
+				>
+					Reset dates
+				</button>
+				<button
+					className="rounded-lg bg-zinc-900 px-6 py-2 font-semibold text-zinc-50 hover:opacity-50"
+					onClick={onClickDone}
+				>
+					Done
+				</button>
+			</div>
 		</div>
 	)
 }

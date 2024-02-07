@@ -18,7 +18,6 @@ const initiCalendarData = {
 	monthIndex: currentMonthIndex,
 }
 
-const stages = ["instructions", "calendar", "list", "table"]
 const calendarProcess = {
 	init: "instructions",
 	pickDates: "calendar",
@@ -155,48 +154,41 @@ function App() {
 		<div className="container mx-auto min-h-dvh min-w-[300px] max-w-[800px] bg-zinc-50 px-8">
 			<Header />
 			<EventInfo />
-			<main className="mt-8">
+
+			<main className="my-8">
 				<h2 className="text-left text-lg font-semibold text-zinc-400">
 					Calendario
 				</h2>
-				<div className="mt-4 flex flex-col gap-8 rounded-xl bg-white p-6 shadow-sm">
+				<div
+					className="mt-4 flex flex-col gap-8 rounded-xl bg-zinc-50  
+				bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 p-6 shadow-sm"
+				>
 					{stage === calendarProcess.init && (
-						<Instructions
-							onClickAddCalendar={() =>
-								setStage(calendarProcess.pickDates)
-							}
-						/>
+						<div
+							className="mt-4 flex flex-col gap-8 rounded-md bg-white  
+									 p-6 shadow-sm"
+						>
+							<Instructions
+								onClickAddCalendar={() =>
+									setStage(calendarProcess.pickDates)
+								}
+							/>
+						</div>
 					)}
 
 					{stage === calendarProcess.pickDates && (
-						<div>
-							<Calendar
-								calendarData={calendarData}
-								selectedDays={selectedDays}
-								onClickArrows={handleMonthArrows}
-								onClickDate={handleSelectDays}
-								onClickWeekday={handleSelectWeek}
-							/>
-							<div className="mt-8 flex w-full flex-row justify-between">
-								<button
-									className="rounded-lg bg-zinc-50 px-6 py-2 font-semibold text-red-600 hover:opacity-50"
-									onClick={() => setSelectedDays([])}
-								>
-									{selectedDays.length === 0
-										? "Select days"
-										: "Reset"}
-								</button>
-								<button
-									className="rounded-lg bg-zinc-900 px-6 py-2 font-semibold text-zinc-50 hover:opacity-50"
-									onClick={() => {
-										if (selectedDays.length === 0) return
-										setStage(calendarProcess.peopleList)
-									}}
-								>
-									Done
-								</button>
-							</div>
-						</div>
+						<Calendar
+							calendarData={calendarData}
+							selectedDays={selectedDays}
+							onClickArrows={handleMonthArrows}
+							onClickDate={handleSelectDays}
+							onClickWeekday={handleSelectWeek}
+							onClickReset={() => setSelectedDays([])}
+							onClickDone={() => {
+								if (selectedDays.length === 0) return
+								setStage(calendarProcess.peopleList)
+							}}
+						/>
 					)}
 
 					{stage === calendarProcess.peopleList && (

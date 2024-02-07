@@ -1,6 +1,6 @@
 function CalendarCell({ date, onClickDate, dataType }) {
 	const classes = {
-		base: "flex justify-center rounded-md font-medium items-center size-12 border-2",
+		base: "flex justify-center rounded-md font-medium items-center size-10 border-2",
 		empty: "bg-zinc-100 border-zinc-100",
 		unavailable: "bg-zinc-100 border-zinc-100 text-zinc-300",
 		today: "bg-zinc-50 border-zinc-500 text-zinc-700 hover:bg-zinc-200",
