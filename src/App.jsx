@@ -6,6 +6,8 @@ import { mockSelectedDates, mockParticipants } from "./mockData"
 import Calendar from "./components/Calendar/Calendar"
 import Table from "./components/Table/Table"
 import UserList from "./components/UserList/UserList"
+import Header from "./components/Header/Header"
+import EventInfo from "./components/EventInfo/EventInfo"
 
 const currentDate = new Date()
 const currentMonthIndex = currentDate.getMonth()
@@ -25,7 +27,7 @@ function App() {
 	const [participants, setParticipants] = useState(mockParticipants)
 	const [inputValue, setInputValue] = useState("")
 
-	const [stage, setStage] = useState(stages[0])
+	const [stage, setStage] = useState(stages[2])
 
 	function handleMonthArrows(e) {
 		const newMonthIndexEl = e.target.closest("[data-index]").dataset.index
@@ -144,30 +146,8 @@ function App() {
 
 	return (
 		<div className="container mx-auto min-h-dvh min-w-[300px] max-w-[800px] bg-zinc-50 px-8">
-			<header className="py-8">
-				<img
-					src="src/images/birthday-md.jpg"
-					alt="an image with party elements"
-					className="h-[250px] w-full rounded-lg object-cover object-top"
-				/>
-			</header>
-			<section>
-				<div className="flex flex-row items-center gap-4">
-					<h1 className=" text-2xl font-semibold text-zinc-700">
-						Cumpleaños Mari Pili
-					</h1>
-					<i className="fa-solid fa-pen cursor-pointer rounded p-2 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-500" />
-				</div>
-				<div className="mt-4 rounded-lg bg-white p-4 shadow-sm">
-					<p className="leading-relaxed text-zinc-800">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Distinctio molestiae minus quaerat aliquam ex?
-						Exercitationem incidunt, ducimus molestias perspiciatis
-						perferendis nisi voluptatibus veniam dolorum sapiente,
-						quae voluptatem magni eius provident.
-					</p>
-				</div>
-			</section>
+			<Header />
+			<EventInfo />
 			<main className="flex  flex-col items-center justify-center bg-indigo-100">
 				{stage === stages[0] && (
 					<div>
