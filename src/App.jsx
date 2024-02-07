@@ -149,15 +149,43 @@ function App() {
 			<Header />
 			<EventInfo />
 			<main className="mt-8">
-				<div className="flex flex-row items-center justify-between ">
-					<h2 className="text-left text-lg font-semibold text-zinc-400">
-						Calendario
-					</h2>
-					<button className="rounded-md border border-zinc-300 bg-zinc-100 px-10 py-2 font-semibold text-zinc-500 hover:bg-zinc-200 hover:text-zinc-600">
-						Edit
+				<h2 className="text-left text-lg font-semibold text-zinc-400">
+					Calendario
+				</h2>
+				<div className="flex flex-col gap-8 rounded-xl bg-white p-6 shadow-sm">
+					<h3 className="font-medium underline underline-offset-4">
+						Añade los participantes y las fechas
+					</h3>
+					<section className="flex flex-col gap-4">
+						<div className="flex flex-row items-center gap-4">
+							<div className="flex size-8 items-center justify-center rounded-full bg-zinc-900">
+								<p className=" font-bold text-zinc-50">1</p>
+							</div>
+							<p>
+								Selecciona las posibles fechas para que los
+								participantes escojan su disponibilidad
+							</p>
+						</div>
+						<div className="flex flex-row items-center gap-4">
+							<div className="flex size-8 items-center justify-center rounded-full bg-zinc-900">
+								<p className=" font-bold text-zinc-50">2</p>
+							</div>
+							<p>Añade los participantes a la lista</p>
+						</div>
+						<div className="flex flex-row items-center gap-4">
+							<div className="flex size-8 items-center justify-center rounded-full bg-zinc-900">
+								<p className=" font-bold text-zinc-50">3</p>
+							</div>
+							<p>
+								Selecciona las fechas en la que tus
+								participantes tienen disponibilidad
+							</p>
+						</div>
+					</section>
+					<button className="rounded-md bg-zinc-900 px-8 py-2 font-semibold text-zinc-50 hover:opacity-50">
+						Añadir calendario
 					</button>
 				</div>
-				<div className="border-b border-zinc-300"></div>
 
 				{stage === stages[0] && (
 					<div>
@@ -204,7 +232,7 @@ function App() {
 				)}
 
 				{stage === stages[2] && (
-					<div className=" mt-2 rounded-xl bg-white p-2 shadow-sm">
+					<div className="mt-2 rounded-xl bg-white p-2 shadow-sm">
 						<Table
 							participants={participants}
 							selectedDates={selectedDays}
