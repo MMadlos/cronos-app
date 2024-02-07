@@ -148,7 +148,17 @@ function App() {
 		<div className="container mx-auto min-h-dvh min-w-[300px] max-w-[800px] bg-zinc-50 px-8">
 			<Header />
 			<EventInfo />
-			<main className="flex  flex-col items-center justify-center bg-indigo-100">
+			<main className="mt-8">
+				<div className="flex flex-row items-center justify-between ">
+					<h2 className="text-left text-lg font-semibold text-zinc-400">
+						Calendario
+					</h2>
+					<button className="rounded-md border border-zinc-300 bg-zinc-100 px-10 py-2 font-semibold text-zinc-500 hover:bg-zinc-200 hover:text-zinc-600">
+						Edit
+					</button>
+				</div>
+				<div className="border-b border-zinc-300"></div>
+
 				{stage === stages[0] && (
 					<div>
 						<Calendar
@@ -194,19 +204,7 @@ function App() {
 				)}
 
 				{stage === stages[2] && (
-					<div className="h-dvh max-w-[80dvw] bg-slate-50 px-20 pt-10">
-						<div className="flex flex-row items-center justify-between pb-2">
-							<div className="flex flex-row items-center gap-4 ">
-								<h1 className="text-left text-3xl font-bold text-zinc-600">
-									Título
-								</h1>
-								<i className="fa-solid fa-pen text-zinc-300 hover:cursor-pointer hover:text-zinc-400" />
-							</div>
-							<button className="rounded-md border border-zinc-300 bg-zinc-100 px-10 py-2 font-semibold text-zinc-500 hover:bg-zinc-200 hover:text-zinc-600">
-								Edit
-							</button>
-						</div>
-						<div className="mb-8 border-b-4 border-zinc-300"></div>
+					<div className=" mt-2 rounded-xl bg-white p-2 shadow-sm">
 						<Table
 							participants={participants}
 							selectedDates={selectedDays}

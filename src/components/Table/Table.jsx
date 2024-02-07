@@ -3,8 +3,8 @@ import TableBody from "./TableBody"
 
 export default function Table({ selectedDates, participants }) {
 	return (
-		<div className=": flex w-full items-center justify-items-center overflow-x-auto  bg-zinc-50 pb-8 md:max-w-[1100px]">
-			<table id="table" className="w-full border-collapse bg-zinc-50 ">
+		<div className=" flex w-full items-center justify-items-center overflow-x-auto  rounded-lg bg-white pb-2">
+			<table id="table" className="w-full border-collapse bg-white ">
 				<TableHead selectedDates={selectedDates} />
 				<TableBody
 					peopleList={participants}

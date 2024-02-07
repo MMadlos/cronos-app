@@ -21,30 +21,30 @@
 	}
 
 	th {
-		@apply bg-zinc-100 px-6 py-2 font-semibold text-zinc-600;
+		@apply bg-zinc-50 px-4 py-2 font-semibold text-zinc-600;
 	}
 
 	th:first-of-type {
-		@apply min-w-[200px] border-r-4 border-zinc-200 !important;
-	}
-
-	th:not(:empty) {
-		@apply min-w-[125px];
+		@apply border-r-4 border-zinc-100 !important;
 	}
 
 	th:empty {
-		@apply min-w-[50px];
+		@apply min-w-[25px];
 	}
 
 	tbody th,
 	thead th:first-of-type {
-		@apply sticky left-0 whitespace-nowrap bg-zinc-100 pl-6 pr-8 text-left;
+		@apply sticky left-0 whitespace-nowrap bg-white pl-3 pr-6 text-left;
 	}
 
 	thead {
 		tr:first-of-type th,
 		#participants {
 			@apply text-left font-semibold text-zinc-300;
+		}
+
+		th {
+			@apply text-nowrap;
 		}
 
 		& tr th:not(:last-of-type) {

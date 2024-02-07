@@ -3,6 +3,9 @@ const mockSelectedDates = [
 	new Date(2024, 1, 3),
 	new Date(2024, 1, 7),
 	new Date(2024, 1, 8),
+	new Date(2024, 2, 1),
+	new Date(2024, 2, 2),
+	new Date(2024, 2, 8),
 ]
 
 const mockParticipants = [
