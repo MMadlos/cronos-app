@@ -38,7 +38,7 @@
 
 	tbody th,
 	thead th:first-of-type {
-		@apply sticky left-0 whitespace-nowrap bg-zinc-50 pl-6 pr-8 text-left;
+		@apply sticky left-0 whitespace-nowrap bg-zinc-100 pl-6 pr-8 text-left;
 	}
 
 	thead {
@@ -75,5 +75,21 @@
 		td:not(:empty) {
 			@apply p-2 text-center;
 		}
+	}
+
+	::-webkit-scrollbar {
+		@apply h-2 w-2;
+	}
+
+	::-webkit-scrollbar-track {
+		@apply rounded-md  bg-zinc-100;
+	}
+
+	::-webkit-scrollbar-thumb {
+		@apply rounded-md bg-zinc-300;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		@apply bg-zinc-400;
 	}
 }
