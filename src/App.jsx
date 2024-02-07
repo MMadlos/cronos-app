@@ -8,6 +8,7 @@ import Table from "./components/Table/Table"
 import UserList from "./components/UserList/UserList"
 import Header from "./components/Header/Header"
 import EventInfo from "./components/EventInfo/EventInfo"
+import Instructions from "./components/CalendarProcess/Instructions"
 
 const currentDate = new Date()
 const currentMonthIndex = currentDate.getMonth()
@@ -17,7 +18,13 @@ const initiCalendarData = {
 	monthIndex: currentMonthIndex,
 }
 
-const stages = ["calendar", "list", "table"]
+const stages = ["instructions", "calendar", "list", "table"]
+const calendarProcess = {
+	init: "instructions",
+	pickDates: "calendar",
+	peopleList: "list",
+	table: "table",
+}
 // TODO - Add buttons behaviours in stage 0. When no dates are selected -> Reset not available and done not active.
 
 function App() {
@@ -27,7 +34,7 @@ function App() {
 	const [participants, setParticipants] = useState(mockParticipants)
 	const [inputValue, setInputValue] = useState("")
 
-	const [stage, setStage] = useState(stages[2])
+	const [stage, setStage] = useState(calendarProcess.init)
 
 	function handleMonthArrows(e) {
 		const newMonthIndexEl = e.target.closest("[data-index]").dataset.index
@@ -152,93 +159,67 @@ function App() {
 				<h2 className="text-left text-lg font-semibold text-zinc-400">
 					Calendario
 				</h2>
-				<div className="flex flex-col gap-8 rounded-xl bg-white p-6 shadow-sm">
-					<h3 className="font-medium underline underline-offset-4">
-						Añade los participantes y las fechas
-					</h3>
-					<section className="flex flex-col gap-4">
-						<div className="flex flex-row items-center gap-4">
-							<div className="flex size-8 items-center justify-center rounded-full bg-zinc-900">
-								<p className=" font-bold text-zinc-50">1</p>
-							</div>
-							<p>
-								Selecciona las posibles fechas para que los
-								participantes escojan su disponibilidad
-							</p>
-						</div>
-						<div className="flex flex-row items-center gap-4">
-							<div className="flex size-8 items-center justify-center rounded-full bg-zinc-900">
-								<p className=" font-bold text-zinc-50">2</p>
-							</div>
-							<p>Añade los participantes a la lista</p>
-						</div>
-						<div className="flex flex-row items-center gap-4">
-							<div className="flex size-8 items-center justify-center rounded-full bg-zinc-900">
-								<p className=" font-bold text-zinc-50">3</p>
-							</div>
-							<p>
-								Selecciona las fechas en la que tus
-								participantes tienen disponibilidad
-							</p>
-						</div>
-					</section>
-					<button className="rounded-md bg-zinc-900 px-8 py-2 font-semibold text-zinc-50 hover:opacity-50">
-						Añadir calendario
-					</button>
-				</div>
-
-				{stage === stages[0] && (
-					<div>
-						<Calendar
-							calendarData={calendarData}
-							selectedDays={selectedDays}
-							onClickArrows={handleMonthArrows}
-							onClickDate={handleSelectDays}
-							onClickWeekday={handleSelectWeek}
+				<div className="mt-4 flex flex-col gap-8 rounded-xl bg-white p-6 shadow-sm">
+					{stage === calendarProcess.init && (
+						<Instructions
+							onClickAddCalendar={() =>
+								setStage(calendarProcess.pickDates)
+							}
 						/>
-						<div className="mt-8 flex w-full flex-row justify-between">
-							<button
-								className="rounded-lg bg-zinc-50 px-6 py-2 font-semibold text-red-600 hover:opacity-50"
-								onClick={() => setSelectedDays([])}
-							>
-								{selectedDays.length === 0
-									? "Select days"
-									: "Reset"}
-							</button>
-							<button
-								className="rounded-lg bg-zinc-900 px-6 py-2 font-semibold text-zinc-50 hover:opacity-50"
-								onClick={() => {
-									if (selectedDays.length === 0) return
-									setStage(stages[1])
-								}}
-							>
-								Done
-							</button>
+					)}
+
+					{stage === calendarProcess.pickDates && (
+						<div>
+							<Calendar
+								calendarData={calendarData}
+								selectedDays={selectedDays}
+								onClickArrows={handleMonthArrows}
+								onClickDate={handleSelectDays}
+								onClickWeekday={handleSelectWeek}
+							/>
+							<div className="mt-8 flex w-full flex-row justify-between">
+								<button
+									className="rounded-lg bg-zinc-50 px-6 py-2 font-semibold text-red-600 hover:opacity-50"
+									onClick={() => setSelectedDays([])}
+								>
+									{selectedDays.length === 0
+										? "Select days"
+										: "Reset"}
+								</button>
+								<button
+									className="rounded-lg bg-zinc-900 px-6 py-2 font-semibold text-zinc-50 hover:opacity-50"
+									onClick={() => {
+										if (selectedDays.length === 0) return
+										setStage(calendarProcess.peopleList)
+									}}
+								>
+									Done
+								</button>
+							</div>
 						</div>
-					</div>
-				)}
+					)}
 
-				{stage === stages[1] && (
-					<UserList
-						participants={participants}
-						inputValue={inputValue}
-						onChangeInput={handleChangeInput}
-						onKeyDownEnter={handleAddParticipants}
-						onClickAdd={handleAddParticipants}
-						onClickRemove={handleClickRemove}
-						onClickNext={() => setStage(stages[2])}
-						onClickReturn={() => setStage(stages[0])}
-					/>
-				)}
-
-				{stage === stages[2] && (
-					<div className="mt-2 rounded-xl bg-white p-2 shadow-sm">
+					{stage === calendarProcess.peopleList && (
+						<UserList
+							participants={participants}
+							inputValue={inputValue}
+							onChangeInput={handleChangeInput}
+							onKeyDownEnter={handleAddParticipants}
+							onClickAdd={handleAddParticipants}
+							onClickRemove={handleClickRemove}
+							onClickNext={() => setStage(calendarProcess.table)}
+							onClickReturn={() =>
+								setStage(calendarProcess.pickDates)
+							}
+						/>
+					)}
+					{stage === calendarProcess.table && (
 						<Table
 							participants={participants}
 							selectedDates={selectedDays}
 						/>
-					</div>
-				)}
+					)}
+				</div>
 			</main>
 		</div>
 	)
