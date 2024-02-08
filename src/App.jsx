@@ -33,7 +33,7 @@ function App() {
 	const [participants, setParticipants] = useState(mockParticipants)
 	const [inputValue, setInputValue] = useState("")
 
-	const [stage, setStage] = useState(calendarProcess.init)
+	const [stage, setStage] = useState(calendarProcess.peopleList)
 
 	function handleMonthArrows(e) {
 		const newMonthIndexEl = e.target.closest("[data-index]").dataset.index
@@ -151,21 +151,21 @@ function App() {
 	}
 
 	return (
-		<div className="container mx-auto min-h-dvh min-w-[300px] max-w-[800px] bg-zinc-50 px-8">
+		<div className="container mx-auto flex h-screen max-h-screen min-w-[300px] max-w-[800px] flex-col gap-8 bg-zinc-50 px-8 py-2">
 			<Header />
 			<EventInfo />
 
-			<main className="my-8">
+			<main className="h-full">
 				<h2 className="text-left text-lg font-semibold text-zinc-400">
 					Calendario
 				</h2>
 				<div
-					className="mt-4 flex flex-col gap-8 rounded-xl bg-zinc-50  
-				bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 p-6 shadow-sm"
+					className="flex h-fit flex-col gap-8 rounded-xl  
+				bg-zinc-50 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 p-6 shadow-sm"
 				>
 					{stage === calendarProcess.init && (
 						<div
-							className="mt-4 flex flex-col gap-8 rounded-md bg-white  
+							className=" flex flex-col gap-8 rounded-md bg-white  
 									 p-6 shadow-sm"
 						>
 							<Instructions
