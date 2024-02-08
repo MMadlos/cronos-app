@@ -1,6 +1,6 @@
 export default function Instructions({ onClickAddCalendar }) {
 	return (
-		<>
+		<div className=" flex flex-col gap-8 rounded-md bg-white p-6 shadow-lg">
 			<h3 className="font-medium underline underline-offset-4">
 				Añade los participantes y las fechas
 			</h3>
@@ -36,6 +36,6 @@ export default function Instructions({ onClickAddCalendar }) {
 			>
 				Añadir calendario
 			</button>
-		</>
+		</div>
 	)
 }

@@ -33,7 +33,7 @@ function App() {
 	const [participants, setParticipants] = useState(mockParticipants)
 	const [inputValue, setInputValue] = useState("")
 
-	const [stage, setStage] = useState(calendarProcess.table)
+	const [stage, setStage] = useState(calendarProcess.init)
 
 	function handleMonthArrows(e) {
 		const newMonthIndexEl = e.target.closest("[data-index]").dataset.index
@@ -160,20 +160,15 @@ function App() {
 					Calendario
 				</h2>
 				<div
-					className="flex h-fit flex-col gap-8 rounded-xl  
-				bg-zinc-50 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 p-6 shadow-sm"
+					className="flex h-[50vh] items-center justify-center gap-8 rounded-xl  
+				bg-zinc-50 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 p-6"
 				>
 					{stage === calendarProcess.init && (
-						<div
-							className=" flex flex-col gap-8 rounded-md bg-white  
-									 p-6 shadow-sm"
-						>
-							<Instructions
-								onClickAddCalendar={() =>
-									setStage(calendarProcess.pickDates)
-								}
-							/>
-						</div>
+						<Instructions
+							onClickAddCalendar={() =>
+								setStage(calendarProcess.pickDates)
+							}
+						/>
 					)}
 
 					{stage === calendarProcess.pickDates && (
