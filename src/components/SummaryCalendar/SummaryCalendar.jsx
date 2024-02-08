@@ -27,28 +27,38 @@ export default function SummaryCalendar({ selectedDays }) {
 	// CALENDARIO
 	// Columnas: 7 / Rows: 6 / Celdas totales: 42
 	const weekDays = getWeekdays()
-	const monthGridContent = getMonthGridContent(2024, monthIndexes[0])
-	const calendarGrid = [...weekDays, ...monthGridContent]
 
 	return (
-		<div>
-			<p>3</p>
+		<div className="p-4">
 			<div
 				id="summary-calendar"
-				className="min-h-[200px] w-full rounded-md bg-white p-2"
+				className="flex min-h-[200px] w-full flex-col gap-4 rounded-md border-2 border-zinc-800 bg-white p-2"
 			>
-				<div className="border border-blue-500">
-					<h3 className="text-center">{`${monthNames[0]}`}</h3>
-					<div className="grid grid-cols-7">
-						{calendarGrid.map((day, index) => {
-							return (
-								<div key={index} className="border text-center">
-									<span className="">{day}</span>
-								</div>
-							)
-						})}
-					</div>
-				</div>
+				{monthNames.map((monthName, index) => {
+					const monthGridContent = getMonthGridContent(
+						2024,
+						monthIndexes[index]
+					)
+					const calendarGrid = [...weekDays, ...monthGridContent]
+
+					return (
+						<div key={monthName} className="border border-blue-500">
+							<h3 className="text-center">{monthName}</h3>
+							<div className="grid grid-cols-7">
+								{calendarGrid.map((day, index) => {
+									return (
+										<div
+											key={index}
+											className="border text-center"
+										>
+											<span className="">{day}</span>
+										</div>
+									)
+								})}
+							</div>
+						</div>
+					)
+				})}
 			</div>
 
 			<SelectedDaysObserver selectedDays={selectedDays} />
