@@ -1,5 +1,5 @@
 import "./App.css"
-import { useState } from "react"
+import { useState, createContext } from "react"
 import { getAllSelectedWeekdayDates } from "./utils"
 import { mockSelectedDates, mockParticipants } from "./mockData"
 
@@ -26,14 +26,18 @@ const calendarProcess = {
 }
 // TODO - Add buttons behaviours in stage 0. When no dates are selected -> Reset not available and done not active.
 
+export const ParticipantsContext = createContext({
+	participants: [],
+	setParticipants: () => {},
+})
+
 function App() {
 	const [calendarData, setCalendarData] = useState(initiCalendarData)
 	const [selectedDays, setSelectedDays] = useState(mockSelectedDates)
 
 	const [participants, setParticipants] = useState(mockParticipants)
-	const [inputValue, setInputValue] = useState("")
 
-	const [stage, setStage] = useState(calendarProcess.init)
+	const [stage, setStage] = useState(calendarProcess.peopleList)
 
 	function handleMonthArrows(e) {
 		const newMonthIndexEl = e.target.closest("[data-index]").dataset.index
@@ -129,27 +133,6 @@ function App() {
 		}
 	}
 
-	function handleChangeInput(e) {
-		setInputValue(e.target.value)
-	}
-
-	function handleAddParticipants(e) {
-		// TODO - Add message for empty input
-		if (inputValue === "") return
-
-		if (e.key === "Enter" || e.type === "click") {
-			const newPerson = { id: crypto.randomUUID(), name: inputValue }
-			setParticipants((prev) => [...prev, newPerson])
-			setInputValue("")
-		}
-	}
-
-	function handleClickRemove(e) {
-		const userIndex = e.target.closest("button").dataset.index
-		const list = participants.filter((person) => person.id !== userIndex)
-		setParticipants(list)
-	}
-
 	return (
 		<div className="container mx-auto flex h-screen max-h-screen min-w-[300px] max-w-[800px] flex-col gap-8 bg-zinc-50 px-8 py-2">
 			<Header />
@@ -187,18 +170,18 @@ function App() {
 					)}
 
 					{stage === calendarProcess.peopleList && (
-						<UserList
-							participants={participants}
-							inputValue={inputValue}
-							onChangeInput={handleChangeInput}
-							onKeyDownEnter={handleAddParticipants}
-							onClickAdd={handleAddParticipants}
-							onClickRemove={handleClickRemove}
-							onClickNext={() => setStage(calendarProcess.table)}
-							onClickReturn={() =>
-								setStage(calendarProcess.pickDates)
-							}
-						/>
+						<ParticipantsContext.Provider
+							value={{ participants, setParticipants }}
+						>
+							<UserList
+								onClickNext={() =>
+									setStage(calendarProcess.table)
+								}
+								onClickReturn={() =>
+									setStage(calendarProcess.pickDates)
+								}
+							/>
+						</ParticipantsContext.Provider>
 					)}
 					{stage === calendarProcess.table && (
 						<Table
