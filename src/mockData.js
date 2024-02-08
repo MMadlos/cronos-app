@@ -13,6 +13,14 @@ const mockParticipants = [
 	{ id: crypto.randomUUID(), name: "Shakira" },
 	{ id: crypto.randomUUID(), name: "Jose Fernando Gutiérrez" },
 	{ id: crypto.randomUUID(), name: "María" },
+	{ id: crypto.randomUUID(), name: "Test1" },
+	{ id: crypto.randomUUID(), name: "Test2" },
+	{ id: crypto.randomUUID(), name: "Alejandro Sanz" },
+	{ id: crypto.randomUUID(), name: "Shakira" },
+	{ id: crypto.randomUUID(), name: "Jose Fernando Gutiérrez" },
+	{ id: crypto.randomUUID(), name: "María" },
+	{ id: crypto.randomUUID(), name: "Test1" },
+	{ id: crypto.randomUUID(), name: "Test2" },
 ]
 
 export { mockSelectedDates, mockParticipants }
