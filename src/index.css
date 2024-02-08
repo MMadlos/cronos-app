@@ -32,9 +32,16 @@
 		@apply min-w-[25px];
 	}
 
-	tbody th,
-	thead th:first-of-type {
+	tbody th {
 		@apply sticky left-0 whitespace-nowrap bg-white pl-3 pr-6 text-left;
+	}
+
+	thead {
+		@apply sticky top-0 z-10 bg-zinc-100;
+	}
+
+	thead th:first-of-type {
+		@apply sticky left-0 top-0;
 	}
 
 	thead {
@@ -47,10 +54,10 @@
 			@apply text-nowrap;
 		}
 
-		& tr th:not(:last-of-type) {
+		tr th:not(:last-of-type) {
 			@apply border-r-[1px] border-zinc-200;
 		}
-		& tr th:not(#empty-th) {
+		th:not(#empty-th) {
 			@apply border-b-[1px] border-zinc-200;
 		}
 	}
@@ -78,7 +85,7 @@
 	}
 
 	::-webkit-scrollbar {
-		@apply h-3 w-2;
+		@apply h-2 w-2;
 	}
 
 	::-webkit-scrollbar-track {
@@ -86,10 +93,10 @@
 	}
 
 	::-webkit-scrollbar-thumb {
-		@apply rounded-md bg-zinc-200;
+		@apply rounded-md bg-zinc-400;
 	}
 
 	::-webkit-scrollbar-thumb:hover {
-		@apply bg-zinc-300;
+		@apply bg-zinc-400;
 	}
 }
