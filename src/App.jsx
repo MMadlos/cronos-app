@@ -10,6 +10,7 @@ import Header from "./components/Header/Header"
 import EventInfo from "./components/EventInfo/EventInfo"
 import Instructions from "./components/CalendarProcess/Instructions"
 import CalendarProcess from "./components/CalendarProcess/CalendarProcess"
+import SummaryCalendar from "./components/SummaryCalendar/SummaryCalendar"
 
 const calendarProcess = {
 	init: "instructions",
@@ -133,52 +134,59 @@ function App() {
 	}
 
 	return (
-		<div className="container mx-auto flex h-screen max-h-screen min-w-[300px] max-w-[800px] flex-col gap-8 bg-zinc-50 px-8 py-2">
-			<Header />
-			<EventInfo />
-			<CalendarProcess>
-				{stage === calendarProcess.init && (
-					<Instructions
-						onClickAddCalendar={() =>
-							setStage(calendarProcess.pickDates)
-						}
-					/>
-				)}
-
-				{stage === calendarProcess.pickDates && (
-					<Calendar
-						calendarData={calendarData}
-						selectedDays={selectedDays}
-						onClickArrows={handleMonthArrows}
-						onClickDate={handleSelectDays}
-						onClickWeekday={handleSelectWeek}
-						onClickReset={() => setSelectedDays([])}
-						onClickDone={() => {
-							if (selectedDays.length === 0) return
-							setStage(calendarProcess.peopleList)
-						}}
-					/>
-				)}
-
-				{stage === calendarProcess.peopleList && (
-					<ParticipantsContext.Provider
-						value={{ participants, setParticipants }}
-					>
-						<UserList
-							onClickNext={() => setStage(calendarProcess.table)}
-							onClickReturn={() =>
+		<div className="flex flex-row">
+			<div className="w-[25vw] border-r-2 border-zinc-300 bg-zinc-100 p-2">
+				<SummaryCalendar selectedDays={selectedDays} />
+			</div>
+			<div className="container mx-auto flex h-screen max-h-screen min-w-[300px] max-w-[800px] flex-col gap-8 bg-zinc-50 px-8 py-2">
+				<Header />
+				<EventInfo />
+				<CalendarProcess>
+					{stage === calendarProcess.init && (
+						<Instructions
+							onClickAddCalendar={() =>
 								setStage(calendarProcess.pickDates)
 							}
 						/>
-					</ParticipantsContext.Provider>
-				)}
-				{stage === calendarProcess.table && (
-					<Table
-						participants={participants}
-						selectedDates={selectedDays}
-					/>
-				)}
-			</CalendarProcess>
+					)}
+
+					{stage === calendarProcess.pickDates && (
+						<Calendar
+							calendarData={calendarData}
+							selectedDays={selectedDays}
+							onClickArrows={handleMonthArrows}
+							onClickDate={handleSelectDays}
+							onClickWeekday={handleSelectWeek}
+							onClickReset={() => setSelectedDays([])}
+							onClickDone={() => {
+								if (selectedDays.length === 0) return
+								setStage(calendarProcess.peopleList)
+							}}
+						/>
+					)}
+
+					{stage === calendarProcess.peopleList && (
+						<ParticipantsContext.Provider
+							value={{ participants, setParticipants }}
+						>
+							<UserList
+								onClickNext={() =>
+									setStage(calendarProcess.table)
+								}
+								onClickReturn={() =>
+									setStage(calendarProcess.pickDates)
+								}
+							/>
+						</ParticipantsContext.Provider>
+					)}
+					{stage === calendarProcess.table && (
+						<Table
+							participants={participants}
+							selectedDates={selectedDays}
+						/>
+					)}
+				</CalendarProcess>
+			</div>
 		</div>
 	)
 }
