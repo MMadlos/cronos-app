@@ -118,6 +118,19 @@ function getFormattedDates(dates) {
 	return formattedDates
 }
 
+const getInitCalendarData = () => {
+	const currentDate = new Date()
+	const currentMonthIndex = currentDate.getMonth()
+	const currentYear = currentDate.getFullYear()
+	const initCalendarData = {
+		year: currentYear,
+		monthIndex: currentMonthIndex,
+	}
+	return initCalendarData
+}
+
+const initCalendarData = getInitCalendarData()
+
 export {
 	getWeekdays,
 	getIntlMonthLong,
@@ -127,4 +140,5 @@ export {
 	getGridMonthType,
 	getAllSelectedWeekdayDates,
 	getFormattedDates,
+	initCalendarData,
 }

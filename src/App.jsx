@@ -1,6 +1,6 @@
 import "./App.css"
 import { useState, createContext } from "react"
-import { getAllSelectedWeekdayDates } from "./utils"
+import { getAllSelectedWeekdayDates, initCalendarData } from "./utils"
 import { mockSelectedDates, mockParticipants } from "./mockData"
 
 import Calendar from "./components/Calendar/Calendar"
@@ -10,14 +10,6 @@ import Header from "./components/Header/Header"
 import EventInfo from "./components/EventInfo/EventInfo"
 import Instructions from "./components/CalendarProcess/Instructions"
 import CalendarProcess from "./components/CalendarProcess/CalendarProcess"
-
-const currentDate = new Date()
-const currentMonthIndex = currentDate.getMonth()
-const currentYear = currentDate.getFullYear()
-const initiCalendarData = {
-	year: currentYear,
-	monthIndex: currentMonthIndex,
-}
 
 const calendarProcess = {
 	init: "instructions",
@@ -33,12 +25,13 @@ export const ParticipantsContext = createContext({
 	setParticipants: () => {},
 })
 
-export const CalendarDataContext = createContext({
-	calendarData: {},
+export const SelectedDatesContext = createContext({
+	selectedDates: [],
+	setSelectedDays: () => {},
 })
 
 function App() {
-	const [calendarData, setCalendarData] = useState(initiCalendarData)
+	const [calendarData, setCalendarData] = useState(initCalendarData)
 	const [selectedDays, setSelectedDays] = useState(mockSelectedDates)
 
 	const [participants, setParticipants] = useState(mockParticipants)
