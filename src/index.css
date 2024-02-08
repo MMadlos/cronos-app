@@ -21,7 +21,7 @@
 	}
 
 	th {
-		@apply bg-zinc-50 px-4 py-2 font-semibold text-zinc-600;
+		@apply bg-zinc-50 px-4 py-2 text-sm font-semibold text-zinc-600;
 	}
 
 	th:first-of-type {
@@ -78,7 +78,7 @@
 	}
 
 	::-webkit-scrollbar {
-		@apply h-2 w-2;
+		@apply h-3 w-2;
 	}
 
 	::-webkit-scrollbar-track {
@@ -86,10 +86,10 @@
 	}
 
 	::-webkit-scrollbar-thumb {
-		@apply rounded-md bg-zinc-300;
+		@apply rounded-md bg-zinc-200;
 	}
 
 	::-webkit-scrollbar-thumb:hover {
-		@apply bg-zinc-400;
+		@apply bg-zinc-300;
 	}
 }

@@ -1,7 +1,7 @@
 export default function Header() {
 	// TODO: edit image by selecting from unsplash or uploading file
 	return (
-		<header className="py-4">
+		<header>
 			<img
 				src="src/images/birthday-md.jpg"
 				alt="an image with party elements"
