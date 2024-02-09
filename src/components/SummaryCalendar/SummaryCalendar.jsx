@@ -7,16 +7,25 @@ import {
 
 export default function SummaryCalendar({ selectedDays }) {
 	// Recoger los meses que se han seleccionado
-	const monthIndexes = []
-	const monthNames = []
-	selectedDays.forEach((date) => {
-		const monthIndex = date.getMonth()
-		if (monthIndexes.includes(monthIndex)) return
-		monthIndexes.push(monthIndex)
+	const selectedDatesByMonth = {}
 
+	selectedDays.forEach((date) => {
 		const monthName = getIntlMonthLong(date)
-		monthNames.push(monthName)
+		const isIncluded = selectedDatesByMonth[monthName] !== undefined
+
+		if (!isIncluded) {
+			selectedDatesByMonth[monthName] = {
+				dates: [],
+				monthIndex: date.getMonth(),
+			}
+		}
+		selectedDatesByMonth[monthName].dates.push(date.getDate())
 	})
+
+	const monthNames = Object.keys(selectedDatesByMonth)
+
+	console.log(selectedDatesByMonth)
+	console.log(monthNames)
 
 	// Mostrar fechas a seleccionar
 	// Recoger fechas seleccionadas por los participantes
@@ -37,7 +46,7 @@ export default function SummaryCalendar({ selectedDays }) {
 				{monthNames.map((monthName, index) => {
 					const monthGridContent = getMonthGridContent(
 						2024,
-						monthIndexes[index]
+						selectedDatesByMonth[monthName].monthIndex
 					)
 					const calendarGrid = [...weekDays, ...monthGridContent]
 
@@ -46,12 +55,23 @@ export default function SummaryCalendar({ selectedDays }) {
 							<h3 className="text-center">{monthName}</h3>
 							<div className="grid grid-cols-7">
 								{calendarGrid.map((day, index) => {
+									const selectedDates =
+										selectedDatesByMonth[monthName].dates
+									const isSelected =
+										selectedDates.includes(day)
+
 									return (
 										<div
 											key={index}
 											className="border text-center"
 										>
-											<span className="">{day}</span>
+											{isSelected ? (
+												<span className="bg-green-300">
+													{day}
+												</span>
+											) : (
+												<span className="">{day}</span>
+											)}
 										</div>
 									)
 								})}
@@ -70,11 +90,11 @@ function SelectedDaysObserver({ selectedDays }) {
 	return (
 		<div className="mt-4">
 			<p>Console.log</p>
-			{selectedDays.map((dates) => {
+			{selectedDays.map((dates, index) => {
 				const month = getIntlMonthShort(dates)
 				const date = dates.getDate()
 
-				return <p>{`${month} - ${date}`}</p>
+				return <p key={index}>{`${month} - ${date}`}</p>
 			})}
 		</div>
 	)
