@@ -24,9 +24,6 @@ export default function SummaryCalendar({ selectedDays }) {
 
 	const monthNames = Object.keys(selectedDatesByMonth)
 
-	console.log(selectedDatesByMonth)
-	console.log(monthNames)
-
 	// Mostrar fechas a seleccionar
 	// Recoger fechas seleccionadas por los participantes
 	// Recoger número total de participantes
@@ -70,7 +67,9 @@ export default function SummaryCalendar({ selectedDays }) {
 													{day}
 												</span>
 											) : (
-												<span className="">{day}</span>
+												<span className="text-zinc-400">
+													{day}
+												</span>
 											)}
 										</div>
 									)

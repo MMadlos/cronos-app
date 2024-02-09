@@ -2,7 +2,7 @@ import { useState } from "react"
 
 const btnStates = ["Unknown", "Confirmed"]
 
-export default function TableData({ thID }) {
+export default function TableData({ thID, onClickCell }) {
 	const [state, setState] = useState(btnStates[0])
 
 	function handleState(e) {
@@ -14,12 +14,14 @@ export default function TableData({ thID }) {
 				? 0
 				: currentStateIndex + 1
 		setState(btnStates[newIndex])
+
+		onClickCell(thID, btnStates[newIndex])
 	}
 
 	return (
 		<td colSpan="1" rowSpan="1" headers={thID} className="text-center">
 			<div className="flex h-[35px] w-full items-center justify-center">
-				<button onClick={handleState} data-status={state}>
+				<button onClick={(e) => handleState(e)} data-status={state}>
 					{state === btnStates[0] ? (
 						<i className="fa-solid fa-circle text-2xl text-zinc-200 hover:text-zinc-300" />
 					) : (

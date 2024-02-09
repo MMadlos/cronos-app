@@ -1,7 +1,38 @@
+import { useState, useEffect } from "react"
 import TableHead from "./TableHead"
 import TableBody from "./TableBody"
 
 export default function Table({ selectedDates, participants }) {
+	const [confirmedDates, setConfirmedDates] = useState({})
+
+	useEffect(() => {
+		const newConfirmedDates = {}
+		selectedDates.forEach((dateObj) => {
+			const dateTime = dateObj.getTime()
+			newConfirmedDates[dateTime] = []
+		})
+
+		setConfirmedDates(newConfirmedDates)
+	}, [selectedDates])
+
+	function countConfirmedDates(headers, state) {
+		const headersData = headers.split(" ")
+		const [dateTime, id] = headersData
+
+		const newConfirmedDates = confirmedDates
+
+		if (state === "Confirmed") {
+			newConfirmedDates[dateTime].push(id)
+		} else {
+			const newDatesArray = newConfirmedDates[dateTime].filter(
+				(userID) => userID !== id
+			)
+			newConfirmedDates[dateTime] = newDatesArray
+		}
+
+		setConfirmedDates(newConfirmedDates)
+	}
+
 	return (
 		<div className=" max-h-[40vh] w-full  overflow-x-auto overflow-y-auto rounded-lg bg-white pb-4 pr-4">
 			<table id="table" className="w-full border-collapse bg-white ">
@@ -9,6 +40,7 @@ export default function Table({ selectedDates, participants }) {
 				<TableBody
 					peopleList={participants}
 					selectedDates={selectedDates}
+					onClickCell={countConfirmedDates}
 				/>
 			</table>
 		</div>
