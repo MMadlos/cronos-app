@@ -17,7 +17,8 @@ export default function TableBody({ peopleList, selectedDates }) {
 							return (
 								<TableData
 									key={dateTime}
-									thID={`${dateTime} ${id}`}
+									dateTime={dateTime}
+									participantID={id}
 								/>
 							)
 						})}
