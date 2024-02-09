@@ -37,7 +37,7 @@ function App() {
 
 	const [participants, setParticipants] = useState(mockParticipants)
 
-	const [stage, setStage] = useState(calendarProcess.peopleList)
+	const [stage, setStage] = useState(calendarProcess.table)
 
 	function handleMonthArrows(e) {
 		const newMonthIndexEl = e.target.closest("[data-index]").dataset.index
