@@ -8,13 +8,40 @@ import {
 import { useContext, useEffect } from "react"
 import { ConfirmedDatesContext } from "../../App"
 
-export default function SummaryCalendar({ selectedDays }) {
+/*
+const confirmedData = {
+	february: [
+		{
+		date: date,
+		numConfirmed: count people,
+		ratio: numConfirmed / total, 
+		}
+	]
+}
+*/
+
+export default function SummaryCalendar({ selectedDays, totalparticipants }) {
 	// Recoger los meses que se han seleccionado
 	const { confirmedDates } = useContext(ConfirmedDatesContext)
+
+	const confirmedData = {}
+	for (let dateTime of Object.keys(confirmedDates)) {
+		const dateObject = new Date()
+		dateObject.setTime(dateTime)
+
+		const monthName = getIntlMonthLong(dateObject)
+		if (confirmedData[monthName] === undefined)
+			confirmedData[monthName] = []
+
+		const date = dateObject.getDate()
+		const numConfirmed = confirmedDates[dateTime].length
+		const ratio = numConfirmed / totalparticipants
+		const data = { date, numConfirmed, ratio }
+
+		confirmedData[monthName].push(data)
+	}
+
 	const selectedDatesByMonth = {}
-
-	console.log(confirmedDates)
-
 	selectedDays.forEach((date) => {
 		const monthName = getIntlMonthLong(date)
 		const isIncluded = selectedDatesByMonth[monthName] !== undefined
@@ -30,11 +57,10 @@ export default function SummaryCalendar({ selectedDays }) {
 
 	const monthNames = Object.keys(selectedDatesByMonth)
 
-	// Mostrar fechas a seleccionar
-	// Recoger fechas seleccionadas por los participantes
-	// Recoger número total de participantes
-	// Recoger, para cada día, cuántos participantes las han seleccionado
-	// Mostrar en escala de semáforo las fechas seleccionadas
+	console.log(confirmedData)
+	console.log(selectedDatesByMonth)
+
+	// Encontrar qué fechas coinciden entre confirmedData y selectedDatesByMonth
 
 	// CALENDARIO
 	// Columnas: 7 / Rows: 6 / Celdas totales: 42

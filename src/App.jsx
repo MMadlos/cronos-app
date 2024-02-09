@@ -150,13 +150,18 @@ function App() {
 		}
 	}
 
+	const countParticipants = Object.values(participants).length
+
 	return (
 		<div className="flex flex-row">
 			<div className="w-[25vw] border-r-2 border-zinc-300 bg-zinc-100 p-2">
 				<ConfirmedDatesContext.Provider
 					value={{ confirmedDates, setConfirmedDates }}
 				>
-					<SummaryCalendar selectedDays={selectedDays} />
+					<SummaryCalendar
+						selectedDays={selectedDays}
+						totalparticipants={countParticipants}
+					/>
 				</ConfirmedDatesContext.Provider>
 			</div>
 			<div className="container mx-auto flex h-screen max-h-screen min-w-[300px] max-w-[800px] flex-col gap-8 bg-zinc-50 px-8 py-2">
