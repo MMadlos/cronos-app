@@ -1,6 +1,6 @@
 import TableData from "./TableData"
 
-export default function TableBody({ peopleList, selectedDates, onClickCell }) {
+export default function TableBody({ peopleList, selectedDates }) {
 	return (
 		<tbody>
 			{peopleList.map((peopleData) => {
@@ -18,7 +18,6 @@ export default function TableBody({ peopleList, selectedDates, onClickCell }) {
 								<TableData
 									key={dateTime}
 									thID={`${dateTime} ${id}`}
-									onClickCell={onClickCell}
 								/>
 							)
 						})}

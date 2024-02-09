@@ -1,27 +1,49 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { ConfirmedDatesContext } from "../../App"
 
 const btnStates = ["Unknown", "Confirmed"]
 
-export default function TableData({ thID, onClickCell }) {
+export default function TableData({ thID }) {
 	const [state, setState] = useState(btnStates[0])
+	const { confirmedDates, setConfirmedDates } = useContext(
+		ConfirmedDatesContext
+	)
 
-	function handleState(e) {
+	function handleOnClick(e) {
+		const newState = getNewState(e)
+		const newConfirmedDates = getNewConfirmedDates(newState)
+
+		setState(newState)
+		setConfirmedDates(newConfirmedDates)
+	}
+
+	function getNewState(e) {
 		const currentState = e.target.closest("button").dataset.status
-		const currentStateIndex = btnStates.indexOf(currentState)
+		const newState = currentState === "Confirmed" ? "Unknown" : "Confirmed"
+		return newState
+	}
 
-		const newIndex =
-			currentStateIndex >= btnStates.length - 1
-				? 0
-				: currentStateIndex + 1
-		setState(btnStates[newIndex])
+	function getNewConfirmedDates(state) {
+		const headersData = thID.split(" ")
+		const [dateTime, id] = headersData
 
-		onClickCell(thID, btnStates[newIndex])
+		const isConfirmed = state === "Confirmed"
+		const newConfirmedDates = confirmedDates
+		const newDatesArray = newConfirmedDates[dateTime].filter(
+			(userID) => userID !== id
+		)
+
+		isConfirmed
+			? newConfirmedDates[dateTime].push(id)
+			: (newConfirmedDates[dateTime] = newDatesArray)
+
+		return newConfirmedDates
 	}
 
 	return (
 		<td colSpan="1" rowSpan="1" headers={thID} className="text-center">
 			<div className="flex h-[35px] w-full items-center justify-center">
-				<button onClick={(e) => handleState(e)} data-status={state}>
+				<button onClick={handleOnClick} data-status={state}>
 					{state === btnStates[0] ? (
 						<i className="fa-solid fa-circle text-2xl text-zinc-200 hover:text-zinc-300" />
 					) : (

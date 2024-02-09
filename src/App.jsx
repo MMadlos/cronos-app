@@ -1,5 +1,5 @@
 import "./App.css"
-import { useState, createContext } from "react"
+import { useState, createContext, useEffect } from "react"
 import { getAllSelectedWeekdayDates, initCalendarData } from "./utils"
 import { mockSelectedDates, mockParticipants } from "./mockData"
 
@@ -31,6 +31,11 @@ export const SelectedDatesContext = createContext({
 	setSelectedDays: () => {},
 })
 
+export const ConfirmedDatesContext = createContext({
+	confirmedDates: {},
+	setConfirmedDates: () => {},
+})
+
 function App() {
 	const [calendarData, setCalendarData] = useState(initCalendarData)
 	const [selectedDays, setSelectedDays] = useState(mockSelectedDates)
@@ -38,6 +43,18 @@ function App() {
 	const [participants, setParticipants] = useState(mockParticipants)
 
 	const [stage, setStage] = useState(calendarProcess.table)
+
+	const [confirmedDates, setConfirmedDates] = useState({})
+
+	useEffect(() => {
+		const newConfirmedDates = {}
+		selectedDays.forEach((dateObj) => {
+			const dateTime = dateObj.getTime()
+			newConfirmedDates[dateTime] = []
+		})
+
+		setConfirmedDates(newConfirmedDates)
+	}, [selectedDays])
 
 	function handleMonthArrows(e) {
 		const newMonthIndexEl = e.target.closest("[data-index]").dataset.index
@@ -136,7 +153,11 @@ function App() {
 	return (
 		<div className="flex flex-row">
 			<div className="w-[25vw] border-r-2 border-zinc-300 bg-zinc-100 p-2">
-				<SummaryCalendar selectedDays={selectedDays} />
+				<ConfirmedDatesContext.Provider
+					value={{ confirmedDates, setConfirmedDates }}
+				>
+					<SummaryCalendar selectedDays={selectedDays} />
+				</ConfirmedDatesContext.Provider>
 			</div>
 			<div className="container mx-auto flex h-screen max-h-screen min-w-[300px] max-w-[800px] flex-col gap-8 bg-zinc-50 px-8 py-2">
 				<Header />
@@ -180,10 +201,14 @@ function App() {
 						</ParticipantsContext.Provider>
 					)}
 					{stage === calendarProcess.table && (
-						<Table
-							participants={participants}
-							selectedDates={selectedDays}
-						/>
+						<ConfirmedDatesContext.Provider
+							value={{ confirmedDates, setConfirmedDates }}
+						>
+							<Table
+								participants={participants}
+								selectedDates={selectedDays}
+							/>
+						</ConfirmedDatesContext.Provider>
 					)}
 				</CalendarProcess>
 			</div>
