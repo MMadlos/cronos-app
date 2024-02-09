@@ -9,7 +9,7 @@ export default function TableData({ thID }) {
 
 	function handleOnClick(e) {
 		const newState = getNewState(e)
-		const newConfirmedDates = getNewConfirmedDates(newState)
+		const newConfirmedDates = getConfirmedDates(newState)
 
 		setState(newState)
 		setConfirmedDates(newConfirmedDates)
@@ -21,19 +21,21 @@ export default function TableData({ thID }) {
 		return newState
 	}
 
-	function getNewConfirmedDates(state) {
+	function getConfirmedDates(state) {
 		const headersData = thID.split(" ")
 		const [dateTime, id] = headersData
 
-		const isConfirmed = state === "Confirmed"
-		const newConfirmedDates = confirmedDates
-		const newDatesArray = newConfirmedDates[dateTime].filter(
+		const newDatesArray = confirmedDates[dateTime].filter(
 			(userID) => userID !== id
 		)
 
-		isConfirmed
-			? newConfirmedDates[dateTime].push(id)
-			: (newConfirmedDates[dateTime] = newDatesArray)
+		const isConfirmed = state === "Confirmed"
+		if (isConfirmed) newDatesArray.push(id)
+
+		const newConfirmedDates = {
+			...confirmedDates,
+			[dateTime]: newDatesArray,
+		}
 
 		return newConfirmedDates
 	}

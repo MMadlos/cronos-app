@@ -5,13 +5,15 @@ import {
 	getIntlMonthLong,
 } from "../../utils"
 
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { ConfirmedDatesContext } from "../../App"
 
 export default function SummaryCalendar({ selectedDays }) {
 	// Recoger los meses que se han seleccionado
 	const { confirmedDates } = useContext(ConfirmedDatesContext)
 	const selectedDatesByMonth = {}
+
+	console.log(confirmedDates)
 
 	selectedDays.forEach((date) => {
 		const monthName = getIntlMonthLong(date)
@@ -37,9 +39,6 @@ export default function SummaryCalendar({ selectedDays }) {
 	// CALENDARIO
 	// Columnas: 7 / Rows: 6 / Celdas totales: 42
 	const weekDays = getWeekdays()
-
-	console.log(confirmedDates)
-	console.log(selectedDatesByMonth)
 
 	return (
 		<div className="p-4">
@@ -100,11 +99,7 @@ function SelectedDaysObserver({ selectedDays }) {
 				const month = getIntlMonthShort(dates)
 				const date = dates.getDate()
 
-				return (
-					<>
-						<p key={index}>{`${month} - ${date}`}</p>
-					</>
-				)
+				return <p key={index}>{`${month} - ${date}`}</p>
 			})}
 		</div>
 	)
