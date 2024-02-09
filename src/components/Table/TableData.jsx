@@ -1,10 +1,8 @@
 import { useState, useContext } from "react"
 import { ConfirmedDatesContext } from "../../App"
 
-const btnStates = ["Unknown", "Confirmed"]
-
 export default function TableData({ thID }) {
-	const [state, setState] = useState(btnStates[0])
+	const [state, setState] = useState("Unknown")
 	const { confirmedDates, setConfirmedDates } = useContext(
 		ConfirmedDatesContext
 	)
@@ -44,7 +42,7 @@ export default function TableData({ thID }) {
 		<td colSpan="1" rowSpan="1" headers={thID} className="text-center">
 			<div className="flex h-[35px] w-full items-center justify-center">
 				<button onClick={handleOnClick} data-status={state}>
-					{state === btnStates[0] ? (
+					{state === "Unknown" ? (
 						<i className="fa-solid fa-circle text-2xl text-zinc-200 hover:text-zinc-300" />
 					) : (
 						<i className="fa-solid fa-circle-check text-2xl  text-green-500 hover:text-green-300" />
