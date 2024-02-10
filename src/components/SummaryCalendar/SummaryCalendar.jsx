@@ -12,13 +12,23 @@ export default function SummaryCalendar({ summaryData, selectedDays }) {
 		.map((data) => data.selectedDates.map((datesData) => datesData.date))
 		.flat()
 
-	const dateRatio = summaryData
+	const dateRatios = summaryData
 		.filter((monthData) => monthData.monthIndex === 1)
 		.map((data) => data.selectedDates.map((datesData) => datesData.ratio))
 		.flat()
 
-	console.log(selectedDates)
-	console.log(dateRatio)
+	const specificDateRatio = summaryData
+		.filter((monthData) => monthData.monthIndex === 1)
+		.map((data) =>
+			data.selectedDates
+				.filter((datesData) => datesData.date === 7)
+				.map((datesData) => datesData.ratio)
+		)
+		.flat()
+
+	// console.log(selectedDates)
+	// console.log(dateRatios)
+	// console.log(specificDateRatio)
 
 	// <-- Test
 
@@ -51,24 +61,23 @@ export default function SummaryCalendar({ summaryData, selectedDays }) {
 									let isSelected =
 										allSelectedDates.includes(day)
 
-									let ratio = "none"
+									let ratio
 
 									if (typeof day === "number") {
-										const [dateObject] =
-											monthData.selectedDates.filter(
-												(dataObject) =>
-													dataObject.date === day
+										const [dateRatio] = selectedDates
+											.filter(
+												(datesData) =>
+													datesData.date === day
 											)
+											.map((datesData) => datesData.ratio)
+											.flat()
 
-										if (dateObject !== undefined) {
-											const _ratio = dateObject.ratio
-											ratio =
-												_ratio === 1
-													? "all"
-													: _ratio > 0
-														? "partial"
-														: "none"
-										}
+										ratio =
+											dateRatio === 1
+												? "all"
+												: dateRatio > 0
+													? "partial"
+													: "none"
 									}
 
 									const classes = {
