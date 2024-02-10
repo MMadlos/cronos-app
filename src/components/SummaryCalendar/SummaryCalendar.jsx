@@ -6,16 +6,21 @@ import {
 } from "../../utils"
 
 export default function SummaryCalendar({ summaryData, selectedDays }) {
-	const selectedDaysByMonth = {}
-	selectedDays.forEach((date) => {
-		const monthName = getIntlMonthLong(date)
-		const _date = date.getDate()
+	// Test -->
+	const selectedDates = summaryData
+		.filter((monthData) => monthData.monthIndex === 1)
+		.map((data) => data.selectedDates.map((datesData) => datesData.date))
+		.flat()
 
-		if (selectedDaysByMonth[monthName] === undefined)
-			selectedDaysByMonth[monthName] = []
+	const dateRatio = summaryData
+		.filter((monthData) => monthData.monthIndex === 1)
+		.map((data) => data.selectedDates.map((datesData) => datesData.ratio))
+		.flat()
 
-		selectedDaysByMonth[monthName].push(_date)
-	})
+	console.log(selectedDates)
+	console.log(dateRatio)
+
+	// <-- Test
 
 	const weekDays = getWeekdays()
 
@@ -26,7 +31,7 @@ export default function SummaryCalendar({ summaryData, selectedDays }) {
 				className="flex min-h-[200px] w-full flex-col gap-4 rounded-md border-2 border-zinc-800 bg-white p-2"
 			>
 				{summaryData.map((monthData) => {
-					const { monthName, monthIndex } = monthData
+					const { monthName, monthIndex, selectedDates } = monthData
 
 					const monthGridContent = getMonthGridContent(
 						2024,
@@ -34,20 +39,21 @@ export default function SummaryCalendar({ summaryData, selectedDays }) {
 					)
 					const calendarGrid = [...weekDays, ...monthGridContent]
 
+					const allSelectedDates = selectedDates.map(
+						(data) => data.date
+					)
+
 					return (
 						<div key={monthName} className="border border-blue-500">
 							<h3 className="text-center">{monthName}</h3>
 							<div className="grid grid-cols-7">
 								{calendarGrid.map((day, index) => {
-									let isSelected = false
+									let isSelected =
+										allSelectedDates.includes(day)
+
 									let ratio = "none"
 
 									if (typeof day === "number") {
-										isSelected =
-											selectedDaysByMonth[
-												monthName
-											].includes(day)
-
 										const [dateObject] =
 											monthData.selectedDates.filter(
 												(dataObject) =>
