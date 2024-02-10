@@ -13,4 +13,94 @@ const mockParticipants = [
 	{ id: crypto.randomUUID(), name: "María" },
 ]
 
-export { mockSelectedDates, mockParticipants }
+const mockConfirmedData = [
+	{
+		dateTime: 1707260400000,
+		participant: mockParticipants[0].id,
+	},
+	{
+		dateTime: 1707260400000,
+		participant: mockParticipants[1].id,
+	},
+	{
+		dateTime: 1707260400000,
+		participant: mockParticipants[2].id,
+	},
+	{
+		dateTime: 1707260400000,
+		participant: mockParticipants[3].id,
+	},
+]
+
+const mockSummaryData = {
+	febrero: {
+		monthIndex: 1,
+		selectedDates: [
+			{
+				date: 7,
+				confirmedList: [],
+				ratio: 0,
+			},
+			{
+				date: 8,
+				confirmedList: [],
+				ratio: 0,
+			},
+		],
+	},
+	marzo: {
+		monthIndex: 2,
+		selectedDates: [
+			{
+				date: 20,
+				confirmedList: [],
+				ratio: 0,
+			},
+			{
+				date: 21,
+				confirmedList: [],
+				ratio: 0,
+			},
+		],
+	},
+}
+
+/*
+const mockSummaryData = [
+	{
+		monthName: febrero,
+		monthIndex: 1,
+		selectedDates: [
+			{
+				date: 7,
+				confirmedList: [],
+				ratio: 0,
+			},
+			{
+				date: 8,
+				confirmedList: [],
+				ratio: 0,
+			},
+		]
+	},
+	{
+		monthName: marzo,
+		monthIndex: 2,
+		selectedDates: [
+			{
+				date: 20,
+				confirmedList: [],
+				ratio: 0,
+			},
+			{
+				date: 21,
+				confirmedList: [],
+				ratio: 0,
+			},
+		],
+	}
+]
+
+*/
+
+export { mockSelectedDates, mockParticipants, mockConfirmedData }

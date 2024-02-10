@@ -5,7 +5,11 @@ import {
 	initCalendarData,
 	getIntlMonthLong,
 } from "./utils"
-import { mockSelectedDates, mockParticipants } from "./mockData"
+import {
+	mockSelectedDates,
+	mockParticipants,
+	mockConfirmedData,
+} from "./mockData"
 
 import Calendar from "./components/Calendar/Calendar"
 import Table from "./components/Table/Table"
@@ -40,18 +44,24 @@ export const ConfirmedDatesContext = createContext({
 	setConfirmedDates: () => {},
 })
 
+export const ConfirmedDataContext = createContext({
+	confirmedData: {},
+	setConfirmedData: () => {},
+})
+
 function App() {
 	const [calendarData, setCalendarData] = useState(initCalendarData)
 	const [selectedDays, setSelectedDays] = useState(mockSelectedDates)
-
 	const [participants, setParticipants] = useState(mockParticipants)
+	const [confirmedData, setConfirmedData] = useState(mockConfirmedData)
 
 	const [stage, setStage] = useState(calendarProcess.table)
 
+	// ALL DATA NEEDED FOR SUMMARY TABLE
 	const [confirmedDates, setConfirmedDates] = useState({})
 
 	useEffect(() => {
-		const confirmedData = {}
+		const confirmedDatesData = {}
 
 		// Create data structure
 		selectedDays.forEach((dateObj) => {
@@ -59,7 +69,7 @@ function App() {
 			const monthIndex = dateObj.getMonth()
 			const selectedDates = []
 
-			confirmedData[monthName] = { monthIndex, selectedDates }
+			confirmedDatesData[monthName] = { monthIndex, selectedDates }
 		})
 
 		// Add dates
@@ -68,17 +78,15 @@ function App() {
 
 			const date = dateObj.getDate()
 			const confirmedList = []
-			const ratio = confirmedList.length / participants.length
+			const ratio = 0
 
 			const dateData = { date, confirmedList, ratio }
 
-			confirmedData[monthName].selectedDates.push(dateData)
+			confirmedDatesData[monthName].selectedDates.push(dateData)
 		})
 
-		setConfirmedDates(confirmedData)
-	}, [selectedDays, participants])
-
-	console.log(confirmedDates)
+		setConfirmedDates(confirmedDatesData)
+	}, [selectedDays, participants, confirmedData])
 
 	function handleMonthArrows(e) {
 		const newMonthIndexEl = e.target.closest("[data-index]").dataset.index
@@ -230,14 +238,17 @@ function App() {
 						</ParticipantsContext.Provider>
 					)}
 					{stage === calendarProcess.table && (
-						<ConfirmedDatesContext.Provider
-							value={{ confirmedDates, setConfirmedDates }}
+						<ConfirmedDataContext.Provider
+							value={{
+								confirmedData,
+								setConfirmedData,
+							}}
 						>
 							<Table
 								participants={participants}
 								selectedDates={selectedDays}
 							/>
-						</ConfirmedDatesContext.Provider>
+						</ConfirmedDataContext.Provider>
 					)}
 				</CalendarProcess>
 			</div>

@@ -1,45 +1,35 @@
-import { useState, useContext, useEffect } from "react"
-import { ConfirmedDatesContext } from "../../App"
-import { getIntlMonthLong } from "../../utils"
+import { useContext, useState, useEffect } from "react"
+import { ConfirmedDataContext } from "../../App"
 
 export default function TableData({ dateTime, participantID }) {
-	const { confirmedDates, setConfirmedDates } = useContext(
-		ConfirmedDatesContext
-	)
-
+	const { confirmedData, setConfirmedData } = useContext(ConfirmedDataContext)
 	const [isSelected, setIsSelected] = useState(false)
 
-	// TODO - isSelected se debe actualizar de confirmedDates,
 	useEffect(() => {
-		const dateObj = new Date(dateTime)
-		const monthName = getIntlMonthLong(dateObj)
-		if (confirmedDates[monthName] === undefined) return
+		const matchData = confirmedData
+			.filter((data) => data.dateTime === dateTime)
+			.filter((data) => data.participant === participantID)
 
-		const datesArray = confirmedDates[monthName].selectedDates
-		const [currentDate] = datesArray.filter(
-			(date) => date.date === dateObj.getDate()
-		)
+		if (matchData.length !== 0) setIsSelected(true)
+	}, [])
 
-		const confirmationList = currentDate.confirmedList
+	useEffect(() => {
+		const currentData = { dateTime, participant: participantID }
+		if (isSelected === false)
+			setConfirmedData((prev) => [...prev, currentData])
 
-		const isConfirmed = confirmationList.includes(participantID)
-		setIsSelected(isConfirmed)
-	}, [confirmedDates])
+		if (isSelected === true) {
+			const [matchData] = confirmedData
+				.filter((data) => data.dateTime === dateTime)
+				.filter((data) => data.participant === participantID)
 
-	function handleOnClick() {
-		const confirmedArray = confirmedDates[`${dateTime}`].filter(
-			(IDs) => IDs !== participantID
-		)
+			const newConfirmedData = confirmedData.filter(
+				(data) => data !== matchData
+			)
 
-		if (!isSelected) confirmedArray.push(participantID)
-
-		const newConfirmedDates = {
-			...confirmedDates,
-			[`${dateTime}`]: confirmedArray,
+			setConfirmedData(newConfirmedData)
 		}
-
-		setConfirmedDates(newConfirmedDates)
-	}
+	}, [isSelected])
 
 	return (
 		<td
@@ -50,7 +40,9 @@ export default function TableData({ dateTime, participantID }) {
 		>
 			<div className="flex h-[35px] w-full items-center justify-center">
 				<button
-					onClick={handleOnClick}
+					onClick={() => {
+						setIsSelected(!isSelected)
+					}}
 					data-status={isSelected ? "Confirmed" : "Unknown"}
 				>
 					{isSelected ? (
