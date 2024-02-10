@@ -40,11 +40,6 @@ export const SelectedDatesContext = createContext({
 	setSelectedDays: () => {},
 })
 
-export const SummaryDataContext = createContext({
-	summaryData: {},
-	setSummaryData: () => {},
-})
-
 export const ConfirmedDataContext = createContext({
 	confirmedData: {},
 	setConfirmedData: () => {},
@@ -183,19 +178,13 @@ function App() {
 		}
 	}
 
-	const countParticipants = Object.values(participants).length
-
 	return (
 		<div className="flex flex-row">
 			<div className="w-[25vw] border-r-2 border-zinc-300 bg-zinc-100 p-2">
-				<SummaryDataContext.Provider
-					value={{ summaryData, setSummaryData }}
-				>
-					<SummaryCalendar
-						selectedDays={selectedDays}
-						totalparticipants={countParticipants}
-					/>
-				</SummaryDataContext.Provider>
+				<SummaryCalendar
+					selectedDays={selectedDays}
+					summaryData={summaryData}
+				/>
 			</div>
 			<div className="container mx-auto flex h-screen max-h-screen min-w-[300px] max-w-[800px] flex-col gap-8 bg-zinc-50 px-8 py-2">
 				<Header />

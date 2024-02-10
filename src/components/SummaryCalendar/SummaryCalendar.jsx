@@ -5,12 +5,7 @@ import {
 	getIntlMonthLong,
 } from "../../utils"
 
-import { useContext, useEffect } from "react"
-import { SummaryDataContext } from "../../App"
-
-export default function SummaryCalendar({ selectedDays, totalparticipants }) {
-	const { summaryData, setSummaryData } = useContext(SummaryDataContext)
-
+export default function SummaryCalendar({ summaryData, selectedDays }) {
 	const selectedDaysByMonth = {}
 	selectedDays.forEach((date) => {
 		const monthName = getIntlMonthLong(date)
