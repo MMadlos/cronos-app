@@ -15,92 +15,73 @@ const mockParticipants = [
 
 const mockConfirmedData = [
 	{
-		dateTime: 1707260400000,
+		dateTime: mockSelectedDates[0].getTime(),
 		participant: mockParticipants[0].id,
 	},
 	{
-		dateTime: 1707260400000,
+		dateTime: mockSelectedDates[0].getTime(),
 		participant: mockParticipants[1].id,
 	},
 	{
-		dateTime: 1707260400000,
+		dateTime: mockSelectedDates[0].getTime(),
 		participant: mockParticipants[2].id,
 	},
 	{
-		dateTime: 1707260400000,
+		dateTime: mockSelectedDates[0].getTime(),
 		participant: mockParticipants[3].id,
 	},
 ]
 
-const mockSummaryData = {
-	febrero: {
-		monthIndex: 1,
-		selectedDates: [
-			{
-				date: 7,
-				confirmedList: [],
-				ratio: 0,
-			},
-			{
-				date: 8,
-				confirmedList: [],
-				ratio: 0,
-			},
-		],
-	},
-	marzo: {
-		monthIndex: 2,
-		selectedDates: [
-			{
-				date: 20,
-				confirmedList: [],
-				ratio: 0,
-			},
-			{
-				date: 21,
-				confirmedList: [],
-				ratio: 0,
-			},
-		],
-	},
-}
-
-/*
-const mockSummaryData = [
-	{
-		monthName: febrero,
-		monthIndex: 1,
-		selectedDates: [
-			{
-				date: 7,
-				confirmedList: [],
-				ratio: 0,
-			},
-			{
-				date: 8,
-				confirmedList: [],
-				ratio: 0,
-			},
-		]
-	},
-	{
-		monthName: marzo,
-		monthIndex: 2,
-		selectedDates: [
-			{
-				date: 20,
-				confirmedList: [],
-				ratio: 0,
-			},
-			{
-				date: 21,
-				confirmedList: [],
-				ratio: 0,
-			},
-		],
-	}
+const mockConfirmedList = [
+	mockParticipants[0].id,
+	mockParticipants[1].id,
+	mockParticipants[2].id,
+	mockParticipants[3].id,
 ]
 
-*/
+const mockSummaryData = [
+	{
+		monthName: "febrero",
+		monthIndex: 1,
+		selectedDates: [
+			{
+				date: 7,
+				confirmedList: mockConfirmedList,
+				ratio: mockConfirmedList.length / mockParticipants.length,
+			},
+			{
+				date: 8,
+				confirmedList: [],
+				ratio: 0,
+			},
+		],
+	},
+	{
+		monthName: "marzo",
+		monthIndex: 2,
+		selectedDates: [
+			{
+				date: 1,
+				confirmedList: [],
+				ratio: 0,
+			},
+			{
+				date: 9,
+				confirmedList: [],
+				ratio: 0,
+			},
+			{
+				date: 10,
+				confirmedList: [],
+				ratio: 0,
+			},
+		],
+	},
+]
 
-export { mockSelectedDates, mockParticipants, mockConfirmedData }
+export {
+	mockSelectedDates,
+	mockParticipants,
+	mockConfirmedData,
+	mockSummaryData,
+}

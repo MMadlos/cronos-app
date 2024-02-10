@@ -6,85 +6,22 @@ import {
 } from "../../utils"
 
 import { useContext, useEffect } from "react"
-import { ConfirmedDatesContext } from "../../App"
-
-/*
-const confirmedData = {
-	february: [
-		{
-		date: date,
-		numConfirmed: count people,
-		ratio: numConfirmed / total, 
-		}
-	]
-}
-
-TODO - Transformar el antiguo selectedDates a este ConfirmedDates
-const confirmedData = {
-	february: {
-		monthIndex: 1,
-		selectedDates: [
-			{date, ratio, confirmedList}
-			{date, ratio, confirmedList}
-		]
-	},
-	march: {
-		monthIndex: 2,
-		selectedDates: [
-			{date, ratio, confirmedList}
-			{date, ratio, confirmedList}
-		]
-	}
-}
-*/
+import { SummaryDataContext } from "../../App"
 
 export default function SummaryCalendar({ selectedDays, totalparticipants }) {
-	// Recoger los meses que se han seleccionado
-	const { confirmedDates } = useContext(ConfirmedDatesContext)
+	const { summaryData, setSummaryData } = useContext(SummaryDataContext)
 
-	const confirmedData = {}
-	for (let dateTime of Object.keys(confirmedDates)) {
-		const dateObject = new Date()
-		dateObject.setTime(dateTime)
-
-		const monthName = getIntlMonthLong(dateObject)
-		if (confirmedData[monthName] === undefined)
-			confirmedData[monthName] = []
-
-		const date = dateObject.getDate()
-		const numConfirmed = confirmedDates[dateTime].length
-		const ratio = numConfirmed / totalparticipants
-		const data = { date, numConfirmed, ratio }
-
-		confirmedData[monthName].push(data)
-	}
-
-	const selectedDatesByMonth = {}
+	const selectedDaysByMonth = {}
 	selectedDays.forEach((date) => {
 		const monthName = getIntlMonthLong(date)
-		const isIncluded = selectedDatesByMonth[monthName] !== undefined
+		const _date = date.getDate()
 
-		if (!isIncluded) {
-			selectedDatesByMonth[monthName] = {
-				dates: [],
-				monthIndex: date.getMonth(),
-			}
-		}
-		selectedDatesByMonth[monthName].dates.push(date.getDate())
+		if (selectedDaysByMonth[monthName] === undefined)
+			selectedDaysByMonth[monthName] = []
+
+		selectedDaysByMonth[monthName].push(_date)
 	})
 
-	const monthNames = Object.keys(selectedDatesByMonth)
-
-	// Encontrar qué fechas coinciden entre confirmedData y selectedDatesByMonth
-
-	// Objetivo:
-	// Si coinciden en mes y fecha, revisar el porcentaje (ratio).
-	// Si ratio = 0 -> Círculo gris
-	// Si ratio = 1 -> Círculo verde
-	// Si ratio entre 0 y 1 -> Círculo amarillo
-
-	// CALENDARIO
-	// Columnas: 7 / Rows: 6 / Celdas totales: 42
 	const weekDays = getWeekdays()
 
 	return (
@@ -93,10 +30,12 @@ export default function SummaryCalendar({ selectedDays, totalparticipants }) {
 				id="summary-calendar"
 				className="flex min-h-[200px] w-full flex-col gap-4 rounded-md border-2 border-zinc-800 bg-white p-2"
 			>
-				{monthNames.map((monthName, index) => {
+				{summaryData.map((monthData) => {
+					const { monthName, monthIndex } = monthData
+
 					const monthGridContent = getMonthGridContent(
 						2024,
-						selectedDatesByMonth[monthName].monthIndex
+						monthIndex
 					)
 					const calendarGrid = [...weekDays, ...monthGridContent]
 
@@ -105,10 +44,37 @@ export default function SummaryCalendar({ selectedDays, totalparticipants }) {
 							<h3 className="text-center">{monthName}</h3>
 							<div className="grid grid-cols-7">
 								{calendarGrid.map((day, index) => {
-									const selectedDates =
-										selectedDatesByMonth[monthName].dates
-									const isSelected =
-										selectedDates.includes(day)
+									let isSelected = false
+									let ratio = "none"
+
+									if (typeof day === "number") {
+										isSelected =
+											selectedDaysByMonth[
+												monthName
+											].includes(day)
+
+										const [dateObject] =
+											monthData.selectedDates.filter(
+												(dataObject) =>
+													dataObject.date === day
+											)
+
+										if (dateObject !== undefined) {
+											const _ratio = dateObject.ratio
+											ratio =
+												_ratio === 1
+													? "all"
+													: _ratio > 0
+														? "partial"
+														: "none"
+										}
+									}
+
+									const classes = {
+										all: "bg-green-300",
+										partial: "bg-yellow-500",
+										none: "bg-zinc-200",
+									}
 
 									return (
 										<div
@@ -116,7 +82,9 @@ export default function SummaryCalendar({ selectedDays, totalparticipants }) {
 											className="border text-center"
 										>
 											{isSelected ? (
-												<span className="bg-green-300">
+												<span
+													className={`font-bold text-zinc-800 ${classes[ratio]}`}
+												>
 													{day}
 												</span>
 											) : (

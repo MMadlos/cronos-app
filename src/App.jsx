@@ -9,6 +9,7 @@ import {
 	mockSelectedDates,
 	mockParticipants,
 	mockConfirmedData,
+	mockSummaryData,
 } from "./mockData"
 
 import Calendar from "./components/Calendar/Calendar"
@@ -39,9 +40,9 @@ export const SelectedDatesContext = createContext({
 	setSelectedDays: () => {},
 })
 
-export const ConfirmedDatesContext = createContext({
-	confirmedDates: {},
-	setConfirmedDates: () => {},
+export const SummaryDataContext = createContext({
+	summaryData: {},
+	setSummaryData: () => {},
 })
 
 export const ConfirmedDataContext = createContext({
@@ -58,35 +59,35 @@ function App() {
 	const [stage, setStage] = useState(calendarProcess.table)
 
 	// ALL DATA NEEDED FOR SUMMARY TABLE
-	const [confirmedDates, setConfirmedDates] = useState({})
+	const [summaryData, setSummaryData] = useState(mockSummaryData)
 
-	useEffect(() => {
-		const confirmedDatesData = {}
+	// useEffect(() => {
+	// 	const confirmedDatesData = {}
 
-		// Create data structure
-		selectedDays.forEach((dateObj) => {
-			const monthName = getIntlMonthLong(dateObj)
-			const monthIndex = dateObj.getMonth()
-			const selectedDates = []
+	// 	// Create data structure
+	// 	selectedDays.forEach((dateObj) => {
+	// 		const monthName = getIntlMonthLong(dateObj)
+	// 		const monthIndex = dateObj.getMonth()
+	// 		const selectedDates = []
 
-			confirmedDatesData[monthName] = { monthIndex, selectedDates }
-		})
+	// 		confirmedDatesData[monthName] = { monthIndex, selectedDates }
+	// 	})
 
-		// Add dates
-		selectedDays.forEach((dateObj) => {
-			const monthName = getIntlMonthLong(dateObj)
+	// 	// Add dates
+	// 	selectedDays.forEach((dateObj) => {
+	// 		const monthName = getIntlMonthLong(dateObj)
 
-			const date = dateObj.getDate()
-			const confirmedList = []
-			const ratio = 0
+	// 		const date = dateObj.getDate()
+	// 		const confirmedList = []
+	// 		const ratio = 0
 
-			const dateData = { date, confirmedList, ratio }
+	// 		const dateData = { date, confirmedList, ratio }
 
-			confirmedDatesData[monthName].selectedDates.push(dateData)
-		})
+	// 		confirmedDatesData[monthName].selectedDates.push(dateData)
+	// 	})
 
-		setConfirmedDates(confirmedDatesData)
-	}, [selectedDays, participants, confirmedData])
+	// 	setSummaryData(confirmedDatesData)
+	// }, [selectedDays, participants, confirmedData])
 
 	function handleMonthArrows(e) {
 		const newMonthIndexEl = e.target.closest("[data-index]").dataset.index
@@ -187,14 +188,14 @@ function App() {
 	return (
 		<div className="flex flex-row">
 			<div className="w-[25vw] border-r-2 border-zinc-300 bg-zinc-100 p-2">
-				{/* <ConfirmedDatesContext.Provider
-					value={{ confirmedDates, setConfirmedDates }}
+				<SummaryDataContext.Provider
+					value={{ summaryData, setSummaryData }}
 				>
 					<SummaryCalendar
 						selectedDays={selectedDays}
 						totalparticipants={countParticipants}
 					/>
-				</ConfirmedDatesContext.Provider> */}
+				</SummaryDataContext.Provider>
 			</div>
 			<div className="container mx-auto flex h-screen max-h-screen min-w-[300px] max-w-[800px] flex-col gap-8 bg-zinc-50 px-8 py-2">
 				<Header />

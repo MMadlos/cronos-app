@@ -3,6 +3,7 @@ import { ConfirmedDataContext } from "../../App"
 
 export default function TableData({ dateTime, participantID }) {
 	const { confirmedData, setConfirmedData } = useContext(ConfirmedDataContext)
+
 	const [isSelected, setIsSelected] = useState(false)
 
 	useEffect(() => {
