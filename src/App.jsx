@@ -1,6 +1,10 @@
 import "./App.css"
 import { useState, createContext, useEffect } from "react"
-import { getAllSelectedWeekdayDates, initCalendarData } from "./utils"
+import {
+	getAllSelectedWeekdayDates,
+	initCalendarData,
+	getIntlMonthLong,
+} from "./utils"
 import { mockSelectedDates, mockParticipants } from "./mockData"
 
 import Calendar from "./components/Calendar/Calendar"
@@ -47,14 +51,34 @@ function App() {
 	const [confirmedDates, setConfirmedDates] = useState({})
 
 	useEffect(() => {
-		const newConfirmedDates = {}
+		const confirmedData = {}
+
+		// Create data structure
 		selectedDays.forEach((dateObj) => {
-			const dateTime = dateObj.getTime()
-			newConfirmedDates[dateTime] = []
+			const monthName = getIntlMonthLong(dateObj)
+			const monthIndex = dateObj.getMonth()
+			const selectedDates = []
+
+			confirmedData[monthName] = { monthIndex, selectedDates }
 		})
 
-		setConfirmedDates(newConfirmedDates)
-	}, [selectedDays])
+		// Add dates
+		selectedDays.forEach((dateObj) => {
+			const monthName = getIntlMonthLong(dateObj)
+
+			const date = dateObj.getDate()
+			const confirmedList = []
+			const ratio = confirmedList.length / participants.length
+
+			const dateData = { date, confirmedList, ratio }
+
+			confirmedData[monthName].selectedDates.push(dateData)
+		})
+
+		setConfirmedDates(confirmedData)
+	}, [selectedDays, participants])
+
+	console.log(confirmedDates)
 
 	function handleMonthArrows(e) {
 		const newMonthIndexEl = e.target.closest("[data-index]").dataset.index
@@ -155,14 +179,14 @@ function App() {
 	return (
 		<div className="flex flex-row">
 			<div className="w-[25vw] border-r-2 border-zinc-300 bg-zinc-100 p-2">
-				<ConfirmedDatesContext.Provider
+				{/* <ConfirmedDatesContext.Provider
 					value={{ confirmedDates, setConfirmedDates }}
 				>
 					<SummaryCalendar
 						selectedDays={selectedDays}
 						totalparticipants={countParticipants}
 					/>
-				</ConfirmedDatesContext.Provider>
+				</ConfirmedDatesContext.Provider> */}
 			</div>
 			<div className="container mx-auto flex h-screen max-h-screen min-w-[300px] max-w-[800px] flex-col gap-8 bg-zinc-50 px-8 py-2">
 				<Header />
