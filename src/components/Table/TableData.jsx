@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from "react"
 import { ConfirmedDatesContext } from "../../App"
+import { getIntlMonthLong } from "../../utils"
 
 export default function TableData({ dateTime, participantID }) {
 	const { confirmedDates, setConfirmedDates } = useContext(
@@ -10,11 +11,19 @@ export default function TableData({ dateTime, participantID }) {
 
 	// TODO - isSelected se debe actualizar de confirmedDates,
 	useEffect(() => {
-		if (confirmedDates[`${dateTime}`] !== undefined) {
-			const isConfirmed = confirmedDates[dateTime].includes(participantID)
-			if (isConfirmed) setIsSelected(true)
-			if (!isConfirmed) setIsSelected(false)
-		}
+		const dateObj = new Date(dateTime)
+		const monthName = getIntlMonthLong(dateObj)
+		if (confirmedDates[monthName] === undefined) return
+
+		const datesArray = confirmedDates[monthName].selectedDates
+		const [currentDate] = datesArray.filter(
+			(date) => date.date === dateObj.getDate()
+		)
+
+		const confirmationList = currentDate.confirmedList
+
+		const isConfirmed = confirmationList.includes(participantID)
+		setIsSelected(isConfirmed)
 	}, [confirmedDates])
 
 	function handleOnClick() {

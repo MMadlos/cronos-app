@@ -18,6 +18,24 @@ const confirmedData = {
 		}
 	]
 }
+
+TODO - Transformar el antiguo selectedDates a este ConfirmedDates
+const confirmedData = {
+	february: {
+		monthIndex: 1,
+		selectedDates: [
+			{date, ratio, confirmedList}
+			{date, ratio, confirmedList}
+		]
+	},
+	march: {
+		monthIndex: 2,
+		selectedDates: [
+			{date, ratio, confirmedList}
+			{date, ratio, confirmedList}
+		]
+	}
+}
 */
 
 export default function SummaryCalendar({ selectedDays, totalparticipants }) {
@@ -57,10 +75,13 @@ export default function SummaryCalendar({ selectedDays, totalparticipants }) {
 
 	const monthNames = Object.keys(selectedDatesByMonth)
 
-	console.log(confirmedData)
-	console.log(selectedDatesByMonth)
-
 	// Encontrar qué fechas coinciden entre confirmedData y selectedDatesByMonth
+
+	// Objetivo:
+	// Si coinciden en mes y fecha, revisar el porcentaje (ratio).
+	// Si ratio = 0 -> Círculo gris
+	// Si ratio = 1 -> Círculo verde
+	// Si ratio entre 0 y 1 -> Círculo amarillo
 
 	// CALENDARIO
 	// Columnas: 7 / Rows: 6 / Celdas totales: 42
