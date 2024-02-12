@@ -14,7 +14,6 @@ export default function TableData({ dateTime, participantID }) {
 		if (matchData.length !== 0) setIsSelected(true)
 	}, [])
 
-	// TODO! Revisar funcionamiento. No está añadiendo ni quitando a confirmedData
 	function handleConfirmation(isSelected) {
 		const currentData = { dateTime, participant: participantID }
 
