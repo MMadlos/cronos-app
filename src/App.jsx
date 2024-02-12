@@ -54,35 +54,117 @@ function App() {
 	const [stage, setStage] = useState(calendarProcess.table)
 
 	// ALL DATA NEEDED FOR SUMMARY TABLE
-	const [summaryData, setSummaryData] = useState(mockSummaryData)
+	const [summaryData, setSummaryData] = useState([])
 
-	// useEffect(() => {
-	// 	const confirmedDatesData = {}
+	function mapSummaryData() {
+		// Refactor con Array.from(array, mapFn)
 
-	// 	// Create data structure
-	// 	selectedDays.forEach((dateObj) => {
-	// 		const monthName = getIntlMonthLong(dateObj)
-	// 		const monthIndex = dateObj.getMonth()
-	// 		const selectedDates = []
+		const newSummaryData = []
 
-	// 		confirmedDatesData[monthName] = { monthIndex, selectedDates }
-	// 	})
+		selectedDays.forEach((dateTime) => {
+			// Search if monthData is included
+			const monthName = getIntlMonthLong(dateTime)
+			const isMonthIncluded = newSummaryData.some(
+				(monthData) => monthData.monthName === monthName
+			)
 
-	// 	// Add dates
-	// 	selectedDays.forEach((dateObj) => {
-	// 		const monthName = getIntlMonthLong(dateObj)
+			// FALSE -> create monthData = {monthName, monthIndex, selectedDates: []}
+			if (!isMonthIncluded) {
+				const monthIndex = dateTime.getMonth()
+				const selectedDates = []
+				const monthData = { monthName, monthIndex, selectedDates }
 
-	// 		const date = dateObj.getDate()
-	// 		const confirmedList = []
-	// 		const ratio = 0
+				newSummaryData.push(monthData)
+			}
 
-	// 		const dateData = { date, confirmedList, ratio }
+			// Create dateData = {date, confirmedList, ratio}
+			const date = dateTime.getDate()
+			const confirmedList = []
+			const ratio = 0
+			const dateData = { date, confirmedList, ratio }
 
-	// 		confirmedDatesData[monthName].selectedDates.push(dateData)
-	// 	})
+			// Add dateData to selectedDates.
+			const [monthData] = newSummaryData.filter(
+				(month) => month.monthName === monthName
+			)
+			monthData.selectedDates.push(dateData)
+		})
+		return newSummaryData
+	}
+	const participantsCount = participants.length
 
-	// 	setSummaryData(confirmedDatesData)
-	// }, [selectedDays, participants, confirmedData])
+	useEffect(() => {
+		const newSummaryData = mapSummaryData()
+		confirmedData.forEach((data) => {
+			const { dateTime, participant } = data
+			const dateTimeObj = new Date(dateTime)
+			const monthName = getIntlMonthLong(dateTimeObj)
+
+			// Search monthData
+			const [monthData] = newSummaryData.filter(
+				(monthData) => monthData.monthName === monthName
+			)
+
+			// Search dateData
+			const currentDate = dateTimeObj.getDate()
+			const [dateData] = monthData.selectedDates.filter(
+				(dateData) => dateData.date === currentDate
+			)
+
+			dateData.confirmedList.push(participant)
+			dateData.ratio = dateData.confirmedList.length / participantsCount
+		})
+
+		setSummaryData(newSummaryData)
+	}, [confirmedData])
+
+	// CON OBJETO
+	const [testSummaryData, setTestSummaryData] = useState({})
+	function mapTestSummaryData() {
+		const newTestSummaryData = {}
+		selectedDays.forEach((dateData) => {
+			const monthName = getIntlMonthLong(dateData)
+			const monthIndex = dateData.getMonth()
+			const selectedDates = []
+
+			if (!newTestSummaryData[monthName])
+				newTestSummaryData[monthName] = { monthIndex, selectedDates }
+
+			const date = dateData.getDate()
+			const confirmedList = []
+			const ratio = 0
+
+			const currentDateData = { date, confirmedList, ratio }
+			newTestSummaryData[monthName].selectedDates.push(currentDateData)
+		})
+
+		return newTestSummaryData
+	}
+
+	useEffect(() => {
+		const newTestSummaryData = mapTestSummaryData()
+		confirmedData.forEach((data) => {
+			const { dateTime, participant } = data
+
+			const dateTimeObj = new Date(dateTime)
+			const currentDate = dateTimeObj.getDate()
+
+			const monthName = getIntlMonthLong(dateTimeObj)
+
+			const [currentDateData] = newTestSummaryData[
+				monthName
+			].selectedDates.filter((dateData) => dateData.date === currentDate)
+
+			currentDateData.confirmedList.push(participant)
+
+			const updatedRatio =
+				currentDateData.confirmedList.length / participantsCount
+
+			currentDateData.ratio = updatedRatio
+		})
+
+		setTestSummaryData(newTestSummaryData)
+	}, [confirmedData])
 
 	function handleMonthArrows(e) {
 		const newMonthIndexEl = e.target.closest("[data-index]").dataset.index

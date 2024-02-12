@@ -30,6 +30,10 @@ const mockConfirmedData = [
 		dateTime: mockSelectedDates[0].getTime(),
 		participant: mockParticipants[3].id,
 	},
+	{
+		dateTime: mockSelectedDates[1].getTime(),
+		participant: mockParticipants[3].id,
+	},
 ]
 
 const mockConfirmedList = [
@@ -39,6 +43,7 @@ const mockConfirmedList = [
 	mockParticipants[3].id,
 ]
 
+// * Unused
 const mockSummaryData = [
 	{
 		monthName: "febrero",
@@ -51,10 +56,8 @@ const mockSummaryData = [
 			},
 			{
 				date: 8,
-				confirmedList: mockConfirmedList.slice(0, -1),
-				ratio:
-					mockConfirmedList.slice(0, -1).length /
-					mockParticipants.length,
+				confirmedList: [],
+				ratio: 0,
 			},
 		],
 	},
