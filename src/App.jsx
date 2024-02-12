@@ -57,18 +57,14 @@ function App() {
 	const [summaryData, setSummaryData] = useState([])
 
 	function mapSummaryData() {
-		// Refactor con Array.from(array, mapFn)
-
 		const newSummaryData = []
 
 		selectedDays.forEach((dateTime) => {
-			// Search if monthData is included
 			const monthName = getIntlMonthLong(dateTime)
 			const isMonthIncluded = newSummaryData.some(
 				(monthData) => monthData.monthName === monthName
 			)
 
-			// FALSE -> create monthData = {monthName, monthIndex, selectedDates: []}
 			if (!isMonthIncluded) {
 				const monthIndex = dateTime.getMonth()
 				const selectedDates = []
@@ -77,23 +73,22 @@ function App() {
 				newSummaryData.push(monthData)
 			}
 
-			// Create dateData = {date, confirmedList, ratio}
 			const date = dateTime.getDate()
 			const confirmedList = []
 			const ratio = 0
 			const dateData = { date, confirmedList, ratio }
 
-			// Add dateData to selectedDates.
 			const [monthData] = newSummaryData.filter(
 				(month) => month.monthName === monthName
 			)
 			monthData.selectedDates.push(dateData)
 		})
+
 		return newSummaryData
 	}
-	const participantsCount = participants.length
 
 	useEffect(() => {
+		const participantsCount = participants.length
 		const newSummaryData = mapSummaryData()
 		confirmedData.forEach((data) => {
 			const { dateTime, participant } = data
@@ -116,54 +111,6 @@ function App() {
 		})
 
 		setSummaryData(newSummaryData)
-	}, [confirmedData])
-
-	// CON OBJETO
-	const [testSummaryData, setTestSummaryData] = useState({})
-	function mapTestSummaryData() {
-		const newTestSummaryData = {}
-		selectedDays.forEach((dateData) => {
-			const monthName = getIntlMonthLong(dateData)
-			const monthIndex = dateData.getMonth()
-			const selectedDates = []
-
-			if (!newTestSummaryData[monthName])
-				newTestSummaryData[monthName] = { monthIndex, selectedDates }
-
-			const date = dateData.getDate()
-			const confirmedList = []
-			const ratio = 0
-
-			const currentDateData = { date, confirmedList, ratio }
-			newTestSummaryData[monthName].selectedDates.push(currentDateData)
-		})
-
-		return newTestSummaryData
-	}
-
-	useEffect(() => {
-		const newTestSummaryData = mapTestSummaryData()
-		confirmedData.forEach((data) => {
-			const { dateTime, participant } = data
-
-			const dateTimeObj = new Date(dateTime)
-			const currentDate = dateTimeObj.getDate()
-
-			const monthName = getIntlMonthLong(dateTimeObj)
-
-			const [currentDateData] = newTestSummaryData[
-				monthName
-			].selectedDates.filter((dateData) => dateData.date === currentDate)
-
-			currentDateData.confirmedList.push(participant)
-
-			const updatedRatio =
-				currentDateData.confirmedList.length / participantsCount
-
-			currentDateData.ratio = updatedRatio
-		})
-
-		setTestSummaryData(newTestSummaryData)
 	}, [confirmedData])
 
 	function handleMonthArrows(e) {
