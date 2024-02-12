@@ -14,12 +14,12 @@ export default function TableData({ dateTime, participantID }) {
 		if (matchData.length !== 0) setIsSelected(true)
 	}, [])
 
-	useEffect(() => {
+	// TODO! Revisar funcionamiento. No está añadiendo ni quitando a confirmedData
+	function handleConfirmation(isSelected) {
 		const currentData = { dateTime, participant: participantID }
-		if (isSelected === false)
-			setConfirmedData((prev) => [...prev, currentData])
 
-		if (isSelected === true) {
+		if (isSelected) setConfirmedData((prev) => [...prev, currentData])
+		if (!isSelected) {
 			const [matchData] = confirmedData
 				.filter((data) => data.dateTime === dateTime)
 				.filter((data) => data.participant === participantID)
@@ -30,7 +30,12 @@ export default function TableData({ dateTime, participantID }) {
 
 			setConfirmedData(newConfirmedData)
 		}
-	}, [isSelected])
+	}
+
+	function handleOnClick() {
+		setIsSelected(!isSelected)
+		handleConfirmation(!isSelected)
+	}
 
 	return (
 		<td
@@ -41,9 +46,7 @@ export default function TableData({ dateTime, participantID }) {
 		>
 			<div className="flex h-[35px] w-full items-center justify-center">
 				<button
-					onClick={() => {
-						setIsSelected(!isSelected)
-					}}
+					onClick={handleOnClick}
 					data-status={isSelected ? "Confirmed" : "Unknown"}
 				>
 					{isSelected ? (
