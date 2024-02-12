@@ -51,9 +51,10 @@ const mockSummaryData = [
 			},
 			{
 				date: 8,
-				confirmedList: mockConfirmedList.shift(),
+				confirmedList: mockConfirmedList.slice(0, -1),
 				ratio:
-					mockConfirmedList.shift().length / mockParticipants.length,
+					mockConfirmedList.slice(0, -1).length /
+					mockParticipants.length,
 			},
 		],
 	},
