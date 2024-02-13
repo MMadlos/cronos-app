@@ -1,13 +1,11 @@
-import { getMonthGridContent, getWeekdays } from "../../utils"
+import { getMonthGridContent } from "../../utils"
 import SummaryCalendarCell from "./SummaryCalendarCell"
+import SummaryCalendarWeekdays from "./SummaryCalendarWeekdays"
 
 export default function SummaryCalendarGrid({ monthData }) {
 	const { monthIndex, selectedDates } = monthData
 
 	const monthGridContent = getMonthGridContent(2024, monthIndex)
-	const weekDays = getWeekdays()
-
-	const calendarGrid = [...weekDays, ...monthGridContent]
 
 	const allSelectedDates = selectedDates.map((data) => data.date)
 
@@ -24,20 +22,23 @@ export default function SummaryCalendarGrid({ monthData }) {
 	}
 
 	return (
-		<div className="grid grid-cols-7">
-			{calendarGrid.map((day, index) => {
-				const isSelected = allSelectedDates.includes(day)
-				const ratioType = isSelected ? getRatioType(day) : null
+		<div className="flex flex-col gap-2">
+			<SummaryCalendarWeekdays />
+			<div className="grid grid-cols-7 gap-2 p-1">
+				{monthGridContent.map((day, index) => {
+					const isSelected = allSelectedDates.includes(day)
+					const ratioType = isSelected ? getRatioType(day) : null
 
-				return (
-					<SummaryCalendarCell
-						key={index}
-						day={day}
-						isSelected={isSelected}
-						ratioType={ratioType}
-					/>
-				)
-			})}
+					return (
+						<SummaryCalendarCell
+							key={index}
+							day={day}
+							isSelected={isSelected}
+							ratioType={ratioType}
+						/>
+					)
+				})}
+			</div>
 		</div>
 	)
 }
