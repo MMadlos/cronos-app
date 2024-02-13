@@ -209,7 +209,10 @@ function App() {
 
 	return (
 		<div className="flex flex-row">
-			<div className=" border-r-2 border-zinc-200 bg-zinc-50 p-2">
+			<div
+				className=" border-r-2 border-zinc-200 bg-zinc-50 p-2"
+				id="aside-nav"
+			>
 				<SummaryCalendar
 					selectedDays={selectedDays}
 					summaryData={summaryData}

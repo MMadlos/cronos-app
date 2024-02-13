@@ -1,17 +1,18 @@
 import { getWeekdays } from "../../utils"
+import SumCalCell from "./SumCalCell"
 
 export default function SummaryCalendarWeekdays() {
 	const weekDays = getWeekdays()
 
 	return (
 		<div className="grid grid-cols-7 gap-2 rounded-md  bg-zinc-50 p-1">
-			{weekDays.map((weekday) => {
+			{weekDays.map((weekday, index) => {
 				return (
-					<div className="flex size-10 items-center justify-center">
-						<div className="flex size-8 items-center justify-center rounded-full ">
-							<span className="text-zinc-500">{weekday}</span>
-						</div>
-					</div>
+					<SumCalCell
+						content={weekday}
+						key={index}
+						dataType="weekday"
+					/>
 				)
 			})}
 		</div>
