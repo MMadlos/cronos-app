@@ -32,10 +32,119 @@
 	}
 
 	#root {
-		@apply min-h-[100dvh] max-w-[100dvw] bg-white;
+		@apply max-h-[100dvh] max-w-[100dvw] bg-white;
 	}
 
-	th {
+	::-webkit-scrollbar {
+		@apply h-2 w-2;
+	}
+
+	::-webkit-scrollbar-track {
+		@apply rounded-md  bg-zinc-100;
+	}
+
+	::-webkit-scrollbar-thumb {
+		@apply rounded-md bg-zinc-400;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		@apply bg-zinc-400;
+	}
+
+	/* TABLE BORDERS*/
+	thead {
+		tr:nth-of-type(1) {
+			@apply border-b border-zinc-200;
+
+			th:nth-of-type(1) {
+				@apply border-r-2 border-zinc-200;
+			}
+
+			th:nth-of-type(2) {
+				@apply border-r border-zinc-200;
+			}
+		}
+
+		tr:nth-of-type(2) {
+			th:first-of-type {
+				@apply border-r-2 border-zinc-200;
+			}
+			/* Contains info */
+			th:not(:first-of-type):not(:last-of-type) {
+				@apply border border-zinc-200;
+			}
+
+			th:last-of-type {
+				@apply border-b border-zinc-200;
+			}
+		}
+
+		tr:nth-of-type(3) {
+			th:first-of-type {
+				@apply border-r-2 border-zinc-200;
+			}
+
+			th {
+				@apply border-b-2 border-zinc-200;
+			}
+
+			th:not(:first-of-type):not(:last-of-type) {
+				@apply border border-b-2 border-zinc-200;
+			}
+		}
+	}
+
+	tbody {
+		th,
+		td {
+			@apply border-b border-zinc-200;
+		}
+
+		td:not(:last-of-type) {
+			@apply border border-zinc-200;
+		}
+
+		th {
+			@apply border-r-2 border-zinc-200;
+		}
+	}
+
+	/* TABLE CONTENT */
+
+	thead {
+		tr:nth-of-type(1) th {
+			@apply text-left text-sm font-normal text-zinc-400;
+		}
+
+		tr:nth-of-type(2) th {
+			@apply pl-2 text-left;
+		}
+
+		tr:nth-of-type(3) th {
+			@apply w-[75px];
+		}
+
+		tr:not(:nth-of-type(1)) {
+			th {
+				@apply bg-zinc-50 py-2 pl-2 text-sm font-normal;
+			}
+		}
+	}
+
+	tbody {
+		th {
+			@apply min-w-[250px] max-w-[300px] bg-zinc-50 py-2 pl-6 text-left text-sm font-normal;
+		}
+
+		td {
+			@apply py-1;
+		}
+	}
+}
+
+/* BACKUP */
+
+/* th {
 		@apply bg-zinc-50 px-4 py-2 text-sm font-semibold text-zinc-600;
 	}
 
@@ -97,21 +206,4 @@
 		td:not(:empty) {
 			@apply p-2 text-center;
 		}
-	}
-
-	::-webkit-scrollbar {
-		@apply h-2 w-2;
-	}
-
-	::-webkit-scrollbar-track {
-		@apply rounded-md  bg-zinc-100;
-	}
-
-	::-webkit-scrollbar-thumb {
-		@apply rounded-md bg-zinc-400;
-	}
-
-	::-webkit-scrollbar-thumb:hover {
-		@apply bg-zinc-400;
-	}
-}
+	} */

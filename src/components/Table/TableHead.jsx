@@ -23,14 +23,24 @@ export default function TableHead({ selectedDates }) {
 	})
 
 	return (
-		<thead>
-			<tr>
-				<th>Participants</th>
-				<th colSpan={datesCountByMonth.total}>Dates</th>
+		<thead className="">
+			<tr className="">
+				<th>
+					<button className="h-full w-full rounded px-2 py-1 text-left hover:bg-zinc-100 hover:text-zinc-600">
+						<i className="fa-solid fa-pen mr-2" />
+						Participants
+					</button>
+				</th>
+				<th colSpan={datesCountByMonth.total}>
+					<button className="h-full w-full rounded  px-2 py-1 text-left hover:bg-zinc-100 hover:text-zinc-600">
+						<i className="fa-solid fa-pen mr-2" />
+						Dates
+					</button>
+				</th>
 				<th></th>
 			</tr>
 			<tr>
-				<th id="empty-th"></th>
+				<th></th>
 				{allMonths.map((month, index) => {
 					const colSpan = datesCountByMonth[month]
 
@@ -43,7 +53,7 @@ export default function TableHead({ selectedDates }) {
 				<th></th>
 			</tr>
 			<tr>
-				<th id="participants"></th>
+				<th></th>
 				{allDatesData.map(({ weekday, date, time }) => {
 					return (
 						<th key={time} id={time}>

@@ -223,7 +223,7 @@ function App() {
 			<div className="w-full">
 				<Header />
 				{/* <EventInfo /> */}
-				<div className="container mx-auto mt-10 flex max-h-full max-w-[90%] flex-col gap-2 ">
+				<div className="container mx-auto mt-10 flex max-h-full w-fit max-w-[90%] flex-col gap-2">
 					{/* <CalendarProcess>
 						{stage === calendarProcess.init && (
 							<Instructions
