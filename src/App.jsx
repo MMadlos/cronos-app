@@ -213,10 +213,7 @@ function App() {
 				className=" border-r-2 border-zinc-200 bg-zinc-50 p-2"
 				id="aside-nav"
 			>
-				<SummaryCalendar
-					selectedDays={selectedDays}
-					summaryData={summaryData}
-				/>
+				<SummaryCalendar summaryData={summaryData} />
 			</div>
 
 			<div className="container mx-auto flex h-screen max-h-screen min-w-[300px] max-w-[800px] flex-col gap-8 bg-zinc-50 px-8 py-2">

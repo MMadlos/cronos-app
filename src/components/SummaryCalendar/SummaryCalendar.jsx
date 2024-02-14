@@ -1,6 +1,5 @@
-import SummaryCalendarWeekdays from "./SummaryCalendarWeekdays"
 import MonthContainer from "./MonthContainer"
-import GridContainer from "./GridContainer"
+import SumCalWeekdays from "./SumCalWeekdays"
 import SumCalDates from "./SumCalDates"
 
 export default function SummaryCalendar({ summaryData }) {
@@ -14,10 +13,10 @@ export default function SummaryCalendar({ summaryData }) {
 
 				return (
 					<MonthContainer key={monthName} monthName={monthName}>
-						<GridContainer>
-							<SummaryCalendarWeekdays />
+						<div className="flex flex-col gap-2 ">
+							<SumCalWeekdays />
 							<SumCalDates monthData={monthData} />
-						</GridContainer>
+						</div>
 					</MonthContainer>
 				)
 			})}
