@@ -110,7 +110,7 @@
 	}
 
 	/* TABLE CONTENT */
-
+	/* TODO - Add sticky to first column and dates row when expanded */
 	thead {
 		tr:nth-of-type(1) th {
 			@apply text-left text-sm font-normal text-zinc-400;
