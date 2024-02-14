@@ -58,3 +58,19 @@ export default function TableData({ dateTime, participantID }) {
 		</td>
 	)
 }
+
+// function TableButton({isSelected, onClick, className}) {
+// 	return (
+// 		<button
+// 					onClick={onClick}
+// 					data-status={isSelected ? "Confirmed" : "Unknown"}
+// 					className={className}
+// 				>
+// 					{isSelected ? (
+// 						<i className="fa-solid fa-circle-check text-2xl  text-green-500 hover:text-green-300" />
+// 					) : (
+// 						<i className="fa-solid fa-circle text-2xl text-zinc-200 hover:text-zinc-300" />
+// 					)}
+// 				</button>
+// 	)
+// }

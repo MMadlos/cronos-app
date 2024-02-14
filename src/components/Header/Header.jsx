@@ -5,7 +5,7 @@ export default function Header() {
 			<img
 				src="src/images/birthday-md.jpg"
 				alt="an image with party elements"
-				className="h-[200px] w-full rounded-lg object-cover object-top"
+				className="h-[200px] w-full object-cover object-top"
 			/>
 		</header>
 	)
