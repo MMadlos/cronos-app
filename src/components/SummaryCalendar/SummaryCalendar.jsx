@@ -7,7 +7,7 @@ export default function SummaryCalendar({ summaryData }) {
 	return (
 		<div
 			id="summary-calendar"
-			className="flex flex-col gap-4 divide-y-2 divide-zinc-200 rounded-md border-2 border-zinc-300 bg-white p-2"
+			className="flex max-h-[750px] min-w-[350px] flex-col  gap-4 overflow-y-auto rounded-md border-2 border-zinc-300 bg-white px-4 py-4"
 		>
 			{summaryData.map((monthData) => {
 				const { monthName } = monthData
