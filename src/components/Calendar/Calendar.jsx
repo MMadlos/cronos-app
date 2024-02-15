@@ -1,6 +1,24 @@
 import CalendarHeader from "./CalendarHeader"
 import CalendarBody from "./CalendarBody"
 
+// Qué necesito del calendario:
+/*
+	- dateNow = new Date()
+	- date.getMonth()
+	- date.getDate()
+	- date.getDay()
+
+	- getIntlMonthLong
+	- getIntlWeekdayShort
+	- Gestión flechas
+	- Primer día del mes
+	- Num total de día del mes
+
+
+	- Fechas pasadas a hoy
+	- Fechas seleccionadas
+*/
+
 function Calendar({
 	calendarData,
 	selectedDays,
@@ -15,10 +33,7 @@ function Calendar({
 			id="calendar"
 			className="mx-auto flex w-fit flex-col gap-2 rounded-md border-2 border-zinc-100 bg-zinc-50 p-4 shadow-lg "
 		>
-			<CalendarHeader
-				calendarData={calendarData}
-				onClick={onClickArrows}
-			/>
+			<CalendarHeader onClick={onClickArrows} />
 			<CalendarBody
 				calendarData={calendarData}
 				selectedDates={selectedDays}

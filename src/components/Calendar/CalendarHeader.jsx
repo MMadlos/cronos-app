@@ -1,10 +1,11 @@
 import { getIntlMonthLong } from "../../utils"
 
-function CalendarHeader({ calendarData, onClick }) {
-	const { year, monthIndex } = calendarData
+function CalendarHeader({ onClick }) {
+	const dateToday = new Date()
 
-	const date = new Date(year, monthIndex, 1)
-	const month = getIntlMonthLong(date)
+	const year = dateToday.getFullYear()
+	const monthIndex = dateToday.getMonth()
+	const monthName = getIntlMonthLong(dateToday)
 
 	return (
 		<div id="calendar-header" className="flex flex-col items-center gap-2">
@@ -17,7 +18,7 @@ function CalendarHeader({ calendarData, onClick }) {
 				/>
 				<button className="rounded bg-zinc-100 px-6 py-2 hover:bg-zinc-200">
 					<p className="text-2xl font-semibold text-zinc-600">
-						{month}
+						{monthName}
 					</p>
 				</button>
 

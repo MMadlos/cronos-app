@@ -35,8 +35,8 @@ export const ParticipantsContext = createContext({
 	setParticipants: () => {},
 })
 
-export const SelectedDatesContext = createContext({
-	selectedDates: [],
+export const SelectedDaysContext = createContext({
+	selectedDays: [],
 	setSelectedDays: () => {},
 })
 
@@ -45,13 +45,18 @@ export const ConfirmedDataContext = createContext({
 	setConfirmedData: () => {},
 })
 
+export const CalendarDataContext = createContext({
+	calendarData: {},
+	setCalendarData: () => {},
+})
+
 function App() {
 	const [calendarData, setCalendarData] = useState(initCalendarData)
 	const [selectedDays, setSelectedDays] = useState(mockSelectedDates)
 	const [participants, setParticipants] = useState(mockParticipants)
 	const [confirmedData, setConfirmedData] = useState(mockConfirmedData)
 
-	const [stage, setStage] = useState(calendarProcess.table)
+	const [stage, setStage] = useState(calendarProcess.pickDates)
 
 	// ALL DATA NEEDED FOR SUMMARY TABLE
 	const [summaryData, setSummaryData] = useState([])
@@ -233,18 +238,22 @@ function App() {
 
 				{stage === calendarProcess.pickDates && (
 					<CalendarProcess>
-						<Calendar
-							calendarData={calendarData}
-							selectedDays={selectedDays}
-							onClickArrows={handleMonthArrows}
-							onClickDate={handleSelectDays}
-							onClickWeekday={handleSelectWeek}
-							onClickReset={() => setSelectedDays([])}
-							onClickDone={() => {
-								if (selectedDays.length === 0) return
-								setStage(calendarProcess.peopleList)
-							}}
-						/>
+						<SelectedDaysContext.Provider
+							value={(selectedDays, setSelectedDays)}
+						>
+							<Calendar
+								calendarData={calendarData}
+								selectedDays={selectedDays}
+								onClickArrows={handleMonthArrows}
+								onClickDate={handleSelectDays}
+								onClickWeekday={handleSelectWeek}
+								onClickReset={() => setSelectedDays([])}
+								onClickDone={() => {
+									if (selectedDays.length === 0) return
+									setStage(calendarProcess.peopleList)
+								}}
+							/>
+						</SelectedDaysContext.Provider>
 					</CalendarProcess>
 				)}
 
