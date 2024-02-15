@@ -1,4 +1,6 @@
 import { getIntlMonthLong, getIntlWeekdayShort } from "../../utils"
+import Modal from "../Modals/Modal"
+import UserList from "../UserList/UserList"
 
 export default function TableHead({ selectedDates }) {
 	const allMonths = []
@@ -26,16 +28,12 @@ export default function TableHead({ selectedDates }) {
 		<thead className="">
 			<tr className="">
 				<th>
-					<button className="h-full w-full rounded px-2 py-1 text-left hover:bg-zinc-100 hover:text-zinc-600">
-						<i className="fa-solid fa-pen mr-2" />
-						Participants
-					</button>
+					<Modal buttonName="Participants">
+						<UserList />
+					</Modal>
 				</th>
 				<th colSpan={datesCountByMonth.total}>
-					<button className="h-full w-full rounded  px-2 py-1 text-left hover:bg-zinc-100 hover:text-zinc-600">
-						<i className="fa-solid fa-pen mr-2" />
-						Dates
-					</button>
+					<Modal buttonName="Dates"></Modal>
 				</th>
 				<th></th>
 			</tr>
