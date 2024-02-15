@@ -1,18 +1,15 @@
 export default function Instructions({ onClickAddCalendar }) {
 	return (
-		<div className=" flex flex-col gap-8 rounded-md bg-white p-6 shadow-lg">
+		<div className="flex w-[90%] flex-col gap-8 rounded-md bg-white p-6 shadow-lg">
 			<h3 className="font-medium underline underline-offset-4">
-				Añade los participantes y las fechas
+				Instrucciones
 			</h3>
 			<section className="flex flex-col gap-4">
 				<div className="flex flex-row items-center gap-4">
 					<div className="flex size-8 items-center justify-center rounded-full bg-zinc-900">
 						<p className=" font-bold text-zinc-50">1</p>
 					</div>
-					<p>
-						Selecciona las posibles fechas para que los
-						participantes escojan su disponibilidad
-					</p>
+					<p>Selecciona las posibles fechas</p>
 				</div>
 				<div className="flex flex-row items-center gap-4">
 					<div className="flex size-8 items-center justify-center rounded-full bg-zinc-900">
@@ -24,17 +21,14 @@ export default function Instructions({ onClickAddCalendar }) {
 					<div className="flex size-8 items-center justify-center rounded-full bg-zinc-900">
 						<p className=" font-bold text-zinc-50">3</p>
 					</div>
-					<p>
-						Selecciona las fechas en la que tus participantes tienen
-						disponibilidad
-					</p>
+					<p>Confirma la disponibilidad de los participantes</p>
 				</div>
 			</section>
 			<button
-				className="rounded-md bg-zinc-900 px-8 py-2 font-semibold text-zinc-50 hover:opacity-50"
+				className="w-fit rounded-md bg-gradient-to-br from-blue-700 via-purple-700 to-pink-400 px-8 py-2 font-semibold text-zinc-50 hover:opacity-50"
 				onClick={onClickAddCalendar}
 			>
-				Añadir calendario
+				Empezar
 			</button>
 		</div>
 	)
