@@ -51,6 +51,10 @@
 		@apply bg-zinc-400;
 	}
 
+	::backdrop {
+		@apply bg-zinc-900 opacity-90;
+	}
+
 	/* TABLE BORDERS*/
 	thead {
 		tr:nth-of-type(1) {
