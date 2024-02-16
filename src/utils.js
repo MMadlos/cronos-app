@@ -32,51 +32,71 @@ function getIntlWeekdayShort(date, locale = "es") {
 	return weekday
 }
 
+// function getMonthGridContent(year, monthIndex) {
+// 	const date = new Date(year, monthIndex, 1)
+// 	const firstWeekDayIndex = date.getDay()
+
+// 	date.setMonth(monthIndex + 1)
+// 	date.setDate(0)
+
+// 	const maxDays = date.getDate()
+
+// 	const calendarArray = Array(35).fill()
+
+// 	let count = 1
+// 	calendarArray.forEach((_, index) => {
+// 		if (index < firstWeekDayIndex - 1) return
+// 		if (index - firstWeekDayIndex + 1 > maxDays - 1) return
+
+// 		calendarArray[index] = count
+// 		count++
+// 	})
+
+// 	return calendarArray
+// }
+
 function getMonthGridContent(year, monthIndex) {
 	const date = new Date(year, monthIndex, 1)
-	const firstWeekDayIndex = date.getDay()
+	const startWeekdayIndex = date.getDay()
 
 	date.setMonth(monthIndex + 1)
 	date.setDate(0)
 
-	const maxDays = date.getDate()
+	const lastDate = date.getDate()
+	const lastWeekdayIndex = date.getDay()
 
-	const calendarArray = Array(35).fill()
+	const firstPartArray = Array(startWeekdayIndex - 1).fill("")
+	const lastPartArray = Array(7 - lastWeekdayIndex).fill("")
 
-	let count = 1
-	calendarArray.forEach((_, index) => {
-		if (index < firstWeekDayIndex - 1) return
-		if (index - firstWeekDayIndex + 1 > maxDays - 1) return
+	const calendarArray = Array(lastDate)
+		.fill()
+		.map((_, index) => new Date(year, monthIndex, index + 1))
+		.map((date) => date.getDate())
 
-		calendarArray[index] = count
-		count++
-	})
-
-	return calendarArray
+	return [...firstPartArray, ...calendarArray, ...lastPartArray]
 }
 
-function getGridMonthType(gridMonthContent, monthIndex, filteredSelectedDates) {
+function getGridMonthType(gridMonthContent, monthIndex, selectedDates) {
+	const TYPES = {
+		empty: "empty",
+		unavailable: "unavailable",
+		selected: "selected",
+		today: "today",
+		default: "default",
+	}
+
 	const dateToday = new Date()
+	const currentDate = dateToday.getDate()
+	const currentMonth = dateToday.getMonth()
 
-	const gridMonthDataType = []
-	gridMonthContent.forEach((contentCell) => {
-		if (contentCell === undefined) return gridMonthDataType.push("empty")
-
-		const isPastDate =
-			contentCell < dateToday.getDate() &&
-			monthIndex === dateToday.getMonth()
-
-		if (isPastDate) return gridMonthDataType.push("unavailable")
-
-		const isSelected = filteredSelectedDates.includes(contentCell)
-		if (isSelected) return gridMonthDataType.push("selected")
-
-		const isToday =
-			contentCell === dateToday.getDate() &&
-			monthIndex === dateToday.getMonth()
-		if (isToday) return gridMonthDataType.push("today")
-
-		return gridMonthDataType.push("default")
+	const gridMonthDataType = gridMonthContent.map((content) => {
+		if (content === undefined) return TYPES.empty
+		if (content < currentDate && monthIndex < currentMonth)
+			return TYPES.unavailable
+		if (selectedDates.includes(content)) return TYPES.selected
+		if (content === currentDate && monthIndex === currentMonth)
+			return TYPES.today
+		return TYPES.default
 	})
 
 	return gridMonthDataType
