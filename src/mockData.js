@@ -1,40 +1,57 @@
-const mockSelectedDates = [
-	new Date(2024, 1, 7),
-	new Date(2024, 1, 8),
-	new Date(2024, 2, 1),
-	new Date(2024, 2, 9),
-	new Date(2024, 2, 10),
+const dateToday = new Date()
+const date = dateToday.getDate()
+const monthIndex = dateToday.getMonth()
+const year = dateToday.getFullYear()
+
+function getMockSelectedDates(length) {
+	const mockSelectedDates = []
+
+	let currentDate = date
+	let currentMonthIndex = monthIndex
+	let currentYear = year
+	for (let i = 0; i < length; i++) {
+		const newDate = new Date(currentYear, currentMonthIndex, currentDate)
+		mockSelectedDates.push(newDate)
+
+		if (i % 2 === 0) currentDate++
+		if (i % 2 !== 0) currentDate += 6
+	}
+
+	return mockSelectedDates
+}
+
+const mockSelectedDates = getMockSelectedDates(6)
+
+console.log(mockSelectedDates)
+// const mockSelectedDates = [
+// 	new Date(2024, 1, 7),
+// 	new Date(2024, 1, 8),
+// 	new Date(2024, 2, 1),
+// 	new Date(2024, 2, 9),
+// 	new Date(2024, 2, 10),
+// ]
+
+const NAMES = [
+	"Alejandro Sanz",
+	"Shakira",
+	"José Fernando Gutiérrez",
+	"María",
+	"Almudena",
+	"Rocío",
 ]
 
-const mockParticipants = [
-	{ id: crypto.randomUUID(), name: "Alejandro Sanz" },
-	{ id: crypto.randomUUID(), name: "Shakira" },
-	{ id: crypto.randomUUID(), name: "Jose Fernando Gutiérrez" },
-	{ id: crypto.randomUUID(), name: "María" },
-]
+const mockParticipants = NAMES.map((name) => {
+	return { id: crypto.randomUUID(), name }
+})
 
-const mockConfirmedData = [
-	{
-		dateTime: mockSelectedDates[0].getTime(),
-		participant: mockParticipants[0].id,
-	},
-	{
-		dateTime: mockSelectedDates[0].getTime(),
-		participant: mockParticipants[1].id,
-	},
-	{
-		dateTime: mockSelectedDates[0].getTime(),
-		participant: mockParticipants[2].id,
-	},
-	{
-		dateTime: mockSelectedDates[0].getTime(),
-		participant: mockParticipants[3].id,
-	},
-	{
-		dateTime: mockSelectedDates[1].getTime(),
-		participant: mockParticipants[3].id,
-	},
-]
+const mockConfirmedData = mockParticipants.map((personData) => {
+	return { dateTime: mockSelectedDates[0], participant: personData.id }
+})
+
+mockConfirmedData.push({
+	dateTime: mockSelectedDates[1],
+	participant: mockParticipants[0].id,
+})
 
 const mockConfirmedList = [
 	mockParticipants[0].id,
