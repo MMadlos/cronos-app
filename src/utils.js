@@ -65,15 +65,19 @@ function getMonthGridContent(year, monthIndex) {
 	const lastDate = date.getDate()
 	const lastWeekdayIndex = date.getDay()
 
-	const firstPartArray = Array(startWeekdayIndex - 1).fill("")
-	const lastPartArray = Array(7 - lastWeekdayIndex).fill("")
+	const calendarArray = Array(35)
+		.fill("")
+		.map((_, index) => {
+			if (index < startWeekdayIndex - 1) return ""
 
-	const calendarArray = Array(lastDate)
-		.fill()
-		.map((_, index) => new Date(year, monthIndex, index + 1))
-		.map((date) => date.getDate())
+			const date = index + 2 - startWeekdayIndex
+			if (lastDate < date) return ""
 
-	return [...firstPartArray, ...calendarArray, ...lastPartArray]
+			return new Date(year, monthIndex, date)
+		})
+		.map((dateData) => (dateData === "" ? "" : dateData.getDate()))
+
+	return calendarArray
 }
 
 function getGridMonthType(gridMonthContent, monthIndex, selectedDates) {
