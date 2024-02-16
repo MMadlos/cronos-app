@@ -6,7 +6,7 @@ const year = dateToday.getFullYear()
 function getMockSelectedDates(length) {
 	const mockSelectedDates = []
 
-	let currentDate = date
+	let currentDate = date + 1
 	let currentMonthIndex = monthIndex
 	let currentYear = year
 	for (let i = 0; i < length; i++) {
