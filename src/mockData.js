@@ -22,15 +22,6 @@ function getMockSelectedDates(length) {
 
 const mockSelectedDates = getMockSelectedDates(6)
 
-console.log(mockSelectedDates)
-// const mockSelectedDates = [
-// 	new Date(2024, 1, 7),
-// 	new Date(2024, 1, 8),
-// 	new Date(2024, 2, 1),
-// 	new Date(2024, 2, 9),
-// 	new Date(2024, 2, 10),
-// ]
-
 const NAMES = [
 	"Alejandro Sanz",
 	"Shakira",
