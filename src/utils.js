@@ -1,14 +1,10 @@
-const locale = "es"
-
 function getWeekdays(locale = "es", format = "short") {
-	const weekdays = [...Array(7).keys()]
-	const intlWeekday = new Intl.DateTimeFormat(locale, { weekday: format })
-	const weekdaysName = weekdays.map((weekDayIndex) => {
-		const date = new Date(2024, 0, weekDayIndex + 1)
-		const weekdayName = intlWeekday.format(date)
-
-		return weekdayName
-	})
+	const weekdaysName = Array(7)
+		.fill("")
+		.map((_, index) => {
+			const date = new Date(2024, 0, index + 1)
+			return getIntlWeekdayShort(date)
+		})
 
 	return weekdaysName
 }
@@ -63,7 +59,6 @@ function getMonthGridContent(year, monthIndex) {
 	date.setDate(0)
 
 	const lastDate = date.getDate()
-	const lastWeekdayIndex = date.getDay()
 
 	const calendarArray = Array(35)
 		.fill("")
@@ -80,27 +75,28 @@ function getMonthGridContent(year, monthIndex) {
 	return calendarArray
 }
 
+const DATE_TYPES = {
+	empty: "empty",
+	unavailable: "unavailable",
+	selected: "selected",
+	today: "today",
+	default: "default",
+}
+
+const dateToday = new Date()
+const currentDate = dateToday.getDate()
+const currentMonth = dateToday.getMonth()
+
 function getGridMonthType(gridMonthContent, monthIndex, selectedDates) {
-	const TYPES = {
-		empty: "empty",
-		unavailable: "unavailable",
-		selected: "selected",
-		today: "today",
-		default: "default",
-	}
-
-	const dateToday = new Date()
-	const currentDate = dateToday.getDate()
-	const currentMonth = dateToday.getMonth()
-
 	const gridMonthDataType = gridMonthContent.map((content) => {
-		if (content === undefined) return TYPES.empty
-		if (content < currentDate && monthIndex < currentMonth)
-			return TYPES.unavailable
-		if (selectedDates.includes(content)) return TYPES.selected
-		if (content === currentDate && monthIndex === currentMonth)
-			return TYPES.today
-		return TYPES.default
+		if (content === "") return DATE_TYPES.empty
+
+		if (selectedDates.includes(content)) return DATE_TYPES.selected
+
+		const isSameMonth = monthIndex === currentMonth
+		if (content < currentDate && isSameMonth) return DATE_TYPES.unavailable
+		if (content === currentDate && isSameMonth) return DATE_TYPES.today
+		return DATE_TYPES.default
 	})
 
 	return gridMonthDataType
