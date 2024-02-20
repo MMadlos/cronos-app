@@ -1,4 +1,4 @@
-import { getWeekdays, getMonthGridContent, getGridMonthType } from "../../utils"
+import { getWeekdays, getCalendarContent } from "../../utils"
 import CalendarCell from "./CalendarCell"
 
 export default function CalendarBody({
@@ -23,17 +23,13 @@ export default function CalendarBody({
 }
 
 function DateGrid({ calendarData, selectedDates, onClickDate }) {
-	const { year, monthIndex } = calendarData
-
-	const filteredSelectedDates = selectedDates
-		.filter((dates) => dates.getMonth() === monthIndex)
+	const currentSelectedDates = selectedDates
+		.filter((dates) => dates.getMonth() === calendarData.monthIndex)
 		.map((dates) => dates.getDate())
 
-	const gridMonthContent = getMonthGridContent(year, monthIndex)
-	const gridMonthDataType = getGridMonthType(
-		gridMonthContent,
-		monthIndex,
-		filteredSelectedDates
+	const gridMonthContent = getCalendarContent(
+		calendarData,
+		currentSelectedDates
 	)
 
 	return (
@@ -41,14 +37,14 @@ function DateGrid({ calendarData, selectedDates, onClickDate }) {
 			id="dates"
 			className="grid w-full grid-cols-7 items-center justify-items-center gap-1 "
 		>
-			{gridMonthContent.map((date, index) => {
-				// dataType = "empty" | "unavailable" | "today" | "selected" | "default"
+			{gridMonthContent.map((data, index) => {
+				const { content, type } = data
 
 				return (
 					<CalendarCell
 						key={index}
-						date={date}
-						dataType={gridMonthDataType[index]}
+						date={content}
+						dataType={type}
 						onClickDate={onClickDate}
 					/>
 				)
@@ -58,9 +54,7 @@ function DateGrid({ calendarData, selectedDates, onClickDate }) {
 }
 
 function DaysGrid({ onClickWeekday }) {
-	const locale = "es"
-	const format = "short"
-	const allWeekDays = getWeekdays(locale, format)
+	const allWeekDays = getWeekdays()
 
 	return (
 		<div
@@ -70,7 +64,7 @@ function DaysGrid({ onClickWeekday }) {
 			{allWeekDays.map((day, index) => {
 				return (
 					<button
-						key={index}
+						key={day}
 						data-week-index={index + 1}
 						onClick={onClickWeekday}
 						className="flex size-10 items-center justify-center rounded-md border-2 border-transparent bg-zinc-100 font-medium text-zinc-600 hover:cursor-pointer hover:bg-zinc-200"

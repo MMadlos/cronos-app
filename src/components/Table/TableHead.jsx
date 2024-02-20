@@ -1,6 +1,7 @@
 import { getIntlMonthLong, getIntlWeekdayShort } from "../../utils"
 import Modal from "../Modals/Modal"
 import UserList from "../UserList/UserList"
+import DatePicker from "../Calendar/DatePicker"
 
 export default function TableHead({ selectedDates }) {
 	const allMonths = []
@@ -33,7 +34,9 @@ export default function TableHead({ selectedDates }) {
 					</Modal>
 				</th>
 				<th colSpan={datesCountByMonth.total}>
-					<Modal buttonName="Dates"></Modal>
+					<Modal buttonName="Dates">
+						<DatePicker />
+					</Modal>
 				</th>
 				<th></th>
 			</tr>

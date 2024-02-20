@@ -1,4 +1,4 @@
-import { getMonthGridContent } from "../../utils"
+import { getMonthGridContent, getCalendarContent } from "../../utils"
 import SumCalCell from "./SumCalCell"
 
 export default function SumCalDates({ monthData }) {

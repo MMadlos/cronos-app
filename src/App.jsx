@@ -1,18 +1,12 @@
 import "./App.css"
 import { useState, createContext, useEffect } from "react"
-import {
-	getAllSelectedWeekdayDates,
-	initCalendarData,
-	getIntlMonthLong,
-} from "./utils"
+import { getIntlMonthLong } from "./utils"
 import {
 	mockSelectedDates,
 	mockParticipants,
 	mockConfirmedData,
-	mockSummaryData,
 } from "./mockData"
 
-import Calendar from "./components/Calendar/Calendar"
 import Table from "./components/Table/Table"
 import UserList from "./components/UserList/UserList"
 import Header from "./components/Header/Header"
@@ -20,6 +14,7 @@ import EventInfo from "./components/EventInfo/EventInfo"
 import Instructions from "./components/CalendarProcess/Instructions"
 import CalendarProcess from "./components/CalendarProcess/CalendarProcess"
 import SummaryCalendar from "./components/SummaryCalendar/SummaryCalendar"
+import DatePicker from "./components/Calendar/DatePicker"
 
 const calendarProcess = {
 	init: "instructions",
@@ -51,15 +46,14 @@ export const CalendarDataContext = createContext({
 })
 
 function App() {
-	const [calendarData, setCalendarData] = useState(initCalendarData)
+	const [stage, setStage] = useState(calendarProcess.table)
+
 	const [selectedDays, setSelectedDays] = useState(mockSelectedDates)
 	const [participants, setParticipants] = useState(mockParticipants)
 	const [confirmedData, setConfirmedData] = useState(mockConfirmedData)
 
-	const [stage, setStage] = useState(calendarProcess.pickDates)
-
-	// ALL DATA NEEDED FOR SUMMARY TABLE
 	const [summaryData, setSummaryData] = useState([])
+	console.log(summaryData)
 
 	function mapSummaryData() {
 		const newSummaryData = []
@@ -88,7 +82,6 @@ function App() {
 			)
 			monthData.selectedDates.push(dateData)
 		})
-
 		return newSummaryData
 	}
 
@@ -118,98 +111,8 @@ function App() {
 		setSummaryData(newSummaryData)
 	}, [confirmedData])
 
-	function handleMonthArrows(e) {
-		const newMonthIndexEl = e.target.closest("[data-index]").dataset.index
-		const newMonthIndex = Number(newMonthIndexEl)
-
-		const newCalendarData = {
-			year: calendarData.year,
-			monthIndex: newMonthIndex,
-		}
-
-		setCalendarData(newCalendarData)
-	}
-
-	function handleSelectDays(e) {
-		const dataDate = e.target.closest("[data-date]").dataset.date
-
-		const { year, monthIndex } = calendarData
-
-		const selectedDate = new Date(year, monthIndex, dataDate)
-		const selectedDateTime = selectedDate.getTime()
-
-		const selectedDaysTime = selectedDays.map((dates) => dates.getTime())
-		const isIncluded = selectedDaysTime.includes(selectedDateTime)
-
-		if (isIncluded) {
-			const newSelectedDays = selectedDaysTime
-				.filter((selected) => selected !== selectedDateTime)
-				.sort()
-				.map((datesTime) => new Date(datesTime))
-
-			setSelectedDays(newSelectedDays)
-		}
-
-		if (!isIncluded) {
-			const newSelectedDays = [...selectedDays, selectedDate]
-				.map((dates) => dates.getTime())
-				.sort()
-				.map((datesMS) => new Date(datesMS))
-
-			setSelectedDays(newSelectedDays)
-		}
-	}
-
-	function handleSelectWeek(e) {
-		const weekdayIndex = e.target.closest("button").dataset.weekIndex
-
-		const { year, monthIndex } = calendarData
-
-		const selectedDatesArray = getAllSelectedWeekdayDates(
-			year,
-			monthIndex,
-			weekdayIndex
-		)
-
-		const selectedDatesTime = selectedDatesArray.map((date) => {
-			const newDate = new Date(year, monthIndex, date)
-			return newDate.getTime()
-		})
-
-		const currentSelectedDaysTime = selectedDays.map((dates) => {
-			return dates.getTime()
-		})
-
-		const areAllAlreadySelected = selectedDatesTime.every((dates) =>
-			currentSelectedDaysTime.includes(dates)
-		)
-
-		if (!areAllAlreadySelected) {
-			selectedDatesTime.forEach((dateTime) => {
-				const isIncluded = currentSelectedDaysTime.includes(dateTime)
-				if (isIncluded) return
-
-				currentSelectedDaysTime.push(dateTime)
-			})
-
-			const newSelectedDays = currentSelectedDaysTime
-				.sort()
-				.map((datesTime) => new Date(datesTime))
-
-			setSelectedDays(newSelectedDays)
-		}
-
-		if (areAllAlreadySelected) {
-			const newSelectedDays = currentSelectedDaysTime
-				.filter((datesTime) => {
-					const isIncluded = selectedDatesTime.includes(datesTime)
-					if (!isIncluded) return datesTime
-				})
-				.sort()
-				.map((dates) => new Date(dates))
-
-			setSelectedDays(newSelectedDays)
-		}
+	function handleSaveDatePicker(selectedDates) {
+		console.log(selectedDates)
 	}
 
 	return (
@@ -226,6 +129,8 @@ function App() {
 			</div>
 			<main className="w-full">
 				<Header />
+				<DatePicker onClickSave={handleSaveDatePicker} />
+
 				{stage === calendarProcess.init && (
 					<CalendarProcess>
 						<Instructions
@@ -238,22 +143,7 @@ function App() {
 
 				{stage === calendarProcess.pickDates && (
 					<CalendarProcess>
-						<SelectedDaysContext.Provider
-							value={(selectedDays, setSelectedDays)}
-						>
-							<Calendar
-								calendarData={calendarData}
-								selectedDays={selectedDays}
-								onClickArrows={handleMonthArrows}
-								onClickDate={handleSelectDays}
-								onClickWeekday={handleSelectWeek}
-								onClickReset={() => setSelectedDays([])}
-								onClickDone={() => {
-									if (selectedDays.length === 0) return
-									setStage(calendarProcess.peopleList)
-								}}
-							/>
-						</SelectedDaysContext.Provider>
+						<DatePicker onClickSave={handleSaveDatePicker} />
 					</CalendarProcess>
 				)}
 

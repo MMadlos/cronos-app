@@ -51,6 +51,68 @@ function getIntlWeekdayShort(date, locale = "es") {
 // 	return calendarArray
 // }
 
+const DATE_TYPES = {
+	empty: "empty",
+	unavailable: "unavailable",
+	selected: "selected",
+	today: "today",
+	default: "default",
+}
+
+const dateToday = new Date()
+const currentDate = dateToday.getDate()
+const currentMonth = dateToday.getMonth()
+
+function getCalendarContent(calendarData, selectedDates) {
+	const { year, monthIndex } = calendarData
+
+	const date = new Date(year, monthIndex, 1)
+	const startWeekdayIndex = date.getDay()
+
+	date.setMonth(monthIndex + 1)
+	date.setDate(0)
+
+	const lastDate = date.getDate()
+
+	const calendarArray = Array(35)
+		.fill("")
+		.map((_, index) => {
+			const data = {}
+
+			// CONTENT
+			if (index < startWeekdayIndex - 1) {
+				data.content = ""
+			} else if (index + 2 - startWeekdayIndex > lastDate) {
+				data.content = ""
+			} else {
+				data.content = index + 2 - startWeekdayIndex
+			}
+
+			// TYPES
+			if (data.content === "") {
+				data.type = DATE_TYPES.empty
+			} else if (selectedDates.includes(data.content)) {
+				data.type = DATE_TYPES.selected
+			} else if (
+				data.content < currentDate &&
+				monthIndex === currentMonth
+			) {
+				data.type = DATE_TYPES.unavailable
+			} else if (
+				data.content === currentDate &&
+				monthIndex === currentMonth
+			) {
+				data.type = DATE_TYPES.today
+			} else {
+				data.type = DATE_TYPES.default
+			}
+
+			return data
+		})
+
+	return calendarArray
+}
+
 function getMonthGridContent(year, monthIndex) {
 	const date = new Date(year, monthIndex, 1)
 	const startWeekdayIndex = date.getDay()
@@ -74,18 +136,6 @@ function getMonthGridContent(year, monthIndex) {
 
 	return calendarArray
 }
-
-const DATE_TYPES = {
-	empty: "empty",
-	unavailable: "unavailable",
-	selected: "selected",
-	today: "today",
-	default: "default",
-}
-
-const dateToday = new Date()
-const currentDate = dateToday.getDate()
-const currentMonth = dateToday.getMonth()
 
 function getGridMonthType(gridMonthContent, monthIndex, selectedDates) {
 	const gridMonthDataType = gridMonthContent.map((content) => {
@@ -139,14 +189,14 @@ function getFormattedDates(dates) {
 }
 
 const getInitCalendarData = () => {
-	const currentDate = new Date()
-	const currentMonthIndex = currentDate.getMonth()
-	const currentYear = currentDate.getFullYear()
-	const initCalendarData = {
-		year: currentYear,
-		monthIndex: currentMonthIndex,
+	const dateToday = new Date()
+	const monthIndex = dateToday.getMonth()
+	const year = dateToday.getFullYear()
+
+	return {
+		year,
+		monthIndex,
 	}
-	return initCalendarData
 }
 
 const initCalendarData = getInitCalendarData()
@@ -161,4 +211,5 @@ export {
 	getAllSelectedWeekdayDates,
 	getFormattedDates,
 	initCalendarData,
+	getCalendarContent,
 }
