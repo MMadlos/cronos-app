@@ -7,6 +7,7 @@ import {
 	mockConfirmedData,
 } from "./mockData"
 
+import Nav from "./components/Nav/Nav"
 import Table from "./components/Table/Table"
 import UserList from "./components/UserList/UserList"
 import Header from "./components/Header/Header"
@@ -48,10 +49,9 @@ export const SelectedDatesContext = createContext({
 function App() {
 	const [stage, setStage] = useState(calendarProcess.table)
 
+	const [selectedDates, setSelectedDates] = useState(mockSelectedDates) //Formato time()
 	const [participants, setParticipants] = useState(mockParticipants)
 	const [confirmedData, setConfirmedData] = useState(mockConfirmedData)
-
-	const [selectedDates, setSelectedDates] = useState(mockSelectedDates) //Formato time()
 
 	const [summaryData, setSummaryData] = useState([])
 
@@ -111,19 +111,10 @@ function App() {
 
 	return (
 		<div className="flex h-screen w-screen flex-row">
-			<div
-				className=" border-r-2 border-zinc-200 bg-zinc-50 p-2"
-				id="aside-nav"
-			>
-				<div className="flex flex-row items-center justify-between">
-					<h2 className="my-2 text-zinc-400">Summary</h2>
-					<i className="fa-solid fa-circle-chevron-left text-xl text-zinc-500 hover:text-zinc-600" />
-				</div>
-				<SummaryCalendar summaryData={summaryData} />
-			</div>
+			<Nav summaryData={summaryData} />
 			<main className="w-full">
 				<Header />
-				<CalendarProcess>
+				{/* <CalendarProcess>
 					<Instructions
 						onClickAddCalendar={() =>
 							setStage(calendarProcess.pickDates)
@@ -145,9 +136,9 @@ function App() {
 					<CalendarProcess>
 						<UserList />
 					</CalendarProcess>
-				</ParticipantsContext.Provider>
+				</ParticipantsContext.Provider> */}
 
-				<div className="container mx-auto mt-10 flex max-h-full w-fit max-w-[90%] flex-col gap-2">
+				<section className="container mx-auto mt-10 flex max-h-full w-fit max-w-[90%] flex-col gap-2">
 					<h2 className="text-lg font-semibold text-zinc-600">
 						Fechas propuestas
 					</h2>
@@ -168,7 +159,7 @@ function App() {
 							/>
 						</ConfirmedDataContext.Provider>
 					</ParticipantsContext.Provider>
-				</div>
+				</section>
 			</main>
 		</div>
 	)
