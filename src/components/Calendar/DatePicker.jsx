@@ -1,4 +1,6 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { SelectedDatesContext } from "../../App"
+
 import {
 	getAllSelectedWeekdayDates,
 	getCalendarContent,
@@ -14,11 +16,9 @@ const initCalendar = {
 	monthIndex: currentMonthIndex,
 }
 
-// TODO -> Pendiente de handleClickDone
-
-export default function DatePicker({ onClickSave }) {
+export default function DatePicker({ onClick }) {
 	const [calendar, setCalendar] = useState(initCalendar)
-	const [selectedDates, setSelectedDates] = useState([])
+	const { selectedDates, setSelectedDates } = useContext(SelectedDatesContext)
 
 	const { year, monthIndex } = calendar
 	const monthName = getIntlMonthLong(new Date(year, monthIndex))
@@ -84,8 +84,6 @@ export default function DatePicker({ onClickSave }) {
 	function handleClickReset() {
 		setSelectedDates([])
 	}
-
-	function handleClickDone() {}
 
 	const currentSelectedDates = selectedDates
 		.map((dateTime) => new Date(dateTime))
@@ -186,7 +184,7 @@ export default function DatePicker({ onClickSave }) {
 				</button>
 				<button
 					className="rounded-lg bg-zinc-900 px-6 py-2 font-semibold text-zinc-50 hover:opacity-50"
-					onClick={() => onClickSave(selectedDates)}
+					onClick={onClick}
 				>
 					Done
 				</button>
