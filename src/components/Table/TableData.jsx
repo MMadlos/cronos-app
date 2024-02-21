@@ -46,13 +46,10 @@ export default function TableData({ dateTime, participantID }) {
 			<div className="flex h-[35px] w-full items-center justify-center">
 				<button
 					onClick={handleOnClick}
-					data-status={isSelected ? "Confirmed" : "Unknown"}
+					data-selected={isSelected}
+					className="w-full text-2xl text-zinc-200 hover:text-zinc-300 data-[selected=true]:text-green-500 data-[selected=true]:hover:text-green-300"
 				>
-					{isSelected ? (
-						<i className="fa-solid fa-circle-check text-2xl  text-green-500 hover:text-green-300" />
-					) : (
-						<i className="fa-solid fa-circle text-2xl text-zinc-200 hover:text-zinc-300" />
-					)}
+					<i className="fa-solid fa-circle-check " />
 				</button>
 			</div>
 		</td>
