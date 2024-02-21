@@ -30,11 +30,6 @@ export const ParticipantsContext = createContext({
 	setParticipants: () => {},
 })
 
-export const SelectedDaysContext = createContext({
-	selectedDays: [],
-	setSelectedDays: () => {},
-})
-
 export const ConfirmedDataContext = createContext({
 	confirmedData: {},
 	setConfirmedData: () => {},
@@ -45,20 +40,25 @@ export const CalendarDataContext = createContext({
 	setCalendarData: () => {},
 })
 
+export const SelectedDatesContext = createContext({
+	selectedDates: [],
+	setSelectedDates: () => {},
+})
+
 function App() {
 	const [stage, setStage] = useState(calendarProcess.table)
 
-	const [selectedDays, setSelectedDays] = useState(mockSelectedDates)
 	const [participants, setParticipants] = useState(mockParticipants)
 	const [confirmedData, setConfirmedData] = useState(mockConfirmedData)
 
+	const [selectedDates, setSelectedDates] = useState(mockSelectedDates) //Formato time()
+
 	const [summaryData, setSummaryData] = useState([])
-	console.log(summaryData)
 
 	function mapSummaryData() {
 		const newSummaryData = []
 
-		selectedDays.forEach((dateTime) => {
+		selectedDates.forEach((dateTime) => {
 			const monthName = getIntlMonthLong(dateTime)
 			const isMonthIncluded = newSummaryData.some(
 				(monthData) => monthData.monthName === monthName
@@ -93,12 +93,10 @@ function App() {
 			const dateTimeObj = new Date(dateTime)
 			const monthName = getIntlMonthLong(dateTimeObj)
 
-			// Search monthData
 			const [monthData] = newSummaryData.filter(
 				(monthData) => monthData.monthName === monthName
 			)
 
-			// Search dateData
 			const currentDate = dateTimeObj.getDate()
 			const [dateData] = monthData.selectedDates.filter(
 				(dateData) => dateData.date === currentDate
@@ -110,10 +108,6 @@ function App() {
 
 		setSummaryData(newSummaryData)
 	}, [confirmedData])
-
-	function handleSaveDatePicker(selectedDates) {
-		console.log(selectedDates)
-	}
 
 	return (
 		<div className="flex h-screen w-screen flex-row">
@@ -129,65 +123,52 @@ function App() {
 			</div>
 			<main className="w-full">
 				<Header />
-				<DatePicker onClickSave={handleSaveDatePicker} />
+				<CalendarProcess>
+					<Instructions
+						onClickAddCalendar={() =>
+							setStage(calendarProcess.pickDates)
+						}
+					/>
+				</CalendarProcess>
 
-				{stage === calendarProcess.init && (
+				<SelectedDatesContext.Provider
+					value={{ selectedDates, setSelectedDates }}
+				>
 					<CalendarProcess>
-						<Instructions
-							onClickAddCalendar={() =>
-								setStage(calendarProcess.pickDates)
-							}
-						/>
+						<DatePicker />
 					</CalendarProcess>
-				)}
+				</SelectedDatesContext.Provider>
 
-				{stage === calendarProcess.pickDates && (
+				<ParticipantsContext.Provider
+					value={{ participants, setParticipants }}
+				>
 					<CalendarProcess>
-						<DatePicker onClickSave={handleSaveDatePicker} />
+						<UserList />
 					</CalendarProcess>
-				)}
+				</ParticipantsContext.Provider>
 
-				{stage === calendarProcess.peopleList && (
+				<div className="container mx-auto mt-10 flex max-h-full w-fit max-w-[90%] flex-col gap-2">
+					<h2 className="text-lg font-semibold text-zinc-600">
+						Fechas propuestas
+					</h2>
+					<div className="h-[1px] w-full bg-zinc-200"></div>
+
 					<ParticipantsContext.Provider
 						value={{ participants, setParticipants }}
 					>
-						<CalendarProcess>
-							<UserList
-								onClickNext={() =>
-									setStage(calendarProcess.table)
-								}
-								onClickReturn={() =>
-									setStage(calendarProcess.pickDates)
-								}
-							/>
-						</CalendarProcess>
-					</ParticipantsContext.Provider>
-				)}
-
-				{stage === calendarProcess.table && (
-					<div className="container mx-auto mt-10 flex max-h-full w-fit max-w-[90%] flex-col gap-2">
-						<h2 className="text-lg font-semibold text-zinc-600">
-							Fechas propuestas
-						</h2>
-						<div className="h-[1px] w-full bg-zinc-200"></div>
-
-						<ParticipantsContext.Provider
-							value={{ participants, setParticipants }}
+						<ConfirmedDataContext.Provider
+							value={{
+								confirmedData,
+								setConfirmedData,
+							}}
 						>
-							<ConfirmedDataContext.Provider
-								value={{
-									confirmedData,
-									setConfirmedData,
-								}}
-							>
-								<Table
-									participants={participants}
-									selectedDates={selectedDays}
-								/>
-							</ConfirmedDataContext.Provider>
-						</ParticipantsContext.Provider>
-					</div>
-				)}
+							<Table
+								participants={participants}
+								selectedDates={selectedDates}
+							/>
+						</ConfirmedDataContext.Provider>
+					</ParticipantsContext.Provider>
+				</div>
 			</main>
 		</div>
 	)
