@@ -1,6 +1,6 @@
 export default function Instructions({ onClickAddCalendar }) {
 	return (
-		<div className="flex w-[90%] flex-col gap-8 rounded-md bg-white p-6 shadow-lg">
+		<div className="flex max-w-[600px] grow flex-col gap-8 rounded-md bg-white p-6 shadow-lg">
 			<h3 className="font-medium underline underline-offset-4">
 				Instrucciones
 			</h3>
