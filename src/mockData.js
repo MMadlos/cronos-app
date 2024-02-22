@@ -11,7 +11,7 @@ function getMockSelectedDates(length) {
 	let currentYear = year
 	for (let i = 0; i < length; i++) {
 		const newDate = new Date(currentYear, currentMonthIndex, currentDate)
-		mockSelectedDates.push(newDate)
+		mockSelectedDates.push(newDate.getTime())
 
 		if (i % 2 === 0) currentDate++
 		if (i % 2 !== 0) currentDate += 6
