@@ -38,31 +38,38 @@ export default function Modal({ buttonName, children }) {
 
 	const handleEsc = (e) => e.key === "Escape" && handleClose()
 
+	const iconName = {
+		Participants: "fa-user",
+		Dates: "fa-calendar-check",
+	}
+
 	return (
-		<div>
+		<>
 			<button
-				className="h-full w-full rounded px-2 py-1 text-left hover:bg-zinc-100 hover:text-zinc-600"
+				className="h-full w-full rounded px-2 py-2 text-left font-medium hover:bg-zinc-100 hover:font-semibold hover:text-zinc-600"
 				onClick={handleOpen}
 			>
-				<i className="fa-solid fa-pen mr-2" />
+				<i className={`fa-solid ${iconName[buttonName]} mr-3`} />
 				{buttonName}
 			</button>
 
-			<dialog
-				ref={dialogRef}
-				className="size-1/2 rounded-lg bg-gradient-to-br from-blue-500 via-purple-500 to-pink-400"
-				onClick={handleBackdrop}
-			>
-				<button
-					ref={closeDialogRef}
-					onClick={handleClose}
-					className="absolute right-0 p-4 hover:opacity-50"
-					onKeyDown={handleEsc}
+			{isOpened && (
+				<dialog
+					ref={dialogRef}
+					className="size-1/2 rounded-lg bg-gradient-to-br from-blue-500 via-purple-500 to-pink-400 data-[state=false]:hidden"
+					onClick={handleBackdrop}
 				>
-					<i className="fa-solid fa-xmark text-lg text-zinc-900" />
-				</button>
-				<div className="flex h-full items-center">{children}</div>
-			</dialog>
-		</div>
+					<button
+						ref={closeDialogRef}
+						onClick={handleClose}
+						className="absolute right-0 p-4 hover:opacity-50"
+						onKeyDown={handleEsc}
+					>
+						<i className="fa-solid fa-xmark text-lg text-zinc-900" />
+					</button>
+					<div className="flex h-full items-center">{children}</div>
+				</dialog>
+			)}
+		</>
 	)
 }
