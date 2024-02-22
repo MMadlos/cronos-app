@@ -6,10 +6,9 @@ import Nav from "./components/Nav/Nav"
 import Table from "./components/Table/Table"
 import UserList from "./components/UserList/UserList"
 import Header from "./components/Header/Header"
-import EventInfo from "./components/EventInfo/EventInfo"
-import Instructions from "./components/CalendarProcess/Instructions"
-import CalendarProcess from "./components/CalendarProcess/CalendarProcess"
+import Instructions from "./components/InitialSetup/Instructions"
 import DatePicker from "./components/Calendar/DatePicker"
+import Progress from "./components/InitialSetup/Progress"
 
 const calendarProcess = {
 	init: "instructions",
@@ -100,19 +99,9 @@ function App() {
 				{stage !== calendarProcess.table && (
 					<section className="flex h-full w-full items-center justify-center">
 						<div className="flex h-[90%] w-[70%]  flex-col items-center  rounded-lg bg-zinc-100 p-6">
-							<div className="flex flex-row items-center justify-center gap-4 py-2">
-								<span className="flex size-10 items-center justify-center rounded-full bg-zinc-800 p-4 font-semibold text-zinc-50">
-									1
-								</span>
-								<p className="font-semibold">Select dates</p>
-								<div className="h-[2px] w-12 bg-zinc-300"></div>
-								<span className="flex size-10 items-center justify-center rounded-full bg-zinc-200 p-4 font-semibold text-zinc-400">
-									2
-								</span>
-								<p className="font-medium text-zinc-400">
-									Add participants
-								</p>
-							</div>
+							{stage !== calendarProcess.init && (
+								<Progress stage={stage} />
+							)}
 							<div className="flex h-full w-full items-center justify-center">
 								{stage === calendarProcess.init && (
 									<Instructions
@@ -144,20 +133,16 @@ function App() {
 											setParticipants,
 										}}
 									>
-										<CalendarProcess>
-											<UserList
-												onClickReturn={() =>
-													setStage(
-														calendarProcess.pickDates
-													)
-												}
-												onClickNext={() =>
-													setStage(
-														calendarProcess.table
-													)
-												}
-											/>
-										</CalendarProcess>
+										<UserList
+											onClickReturn={() =>
+												setStage(
+													calendarProcess.pickDates
+												)
+											}
+											onClickNext={() =>
+												setStage(calendarProcess.table)
+											}
+										/>
 									</ParticipantsContext.Provider>
 								)}
 							</div>
