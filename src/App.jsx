@@ -98,45 +98,70 @@ function App() {
 			<main className="flex h-full w-full flex-col items-center">
 				<Header />
 				{stage !== calendarProcess.table && (
-					<section className="h-full w-full">
-						<CalendarProcess>
-							{stage === calendarProcess.init && (
-								<Instructions
-									onClickAddCalendar={() =>
-										setStage(calendarProcess.pickDates)
-									}
-								/>
-							)}
-							{stage === calendarProcess.pickDates && (
-								<SelectedDatesContext.Provider
-									value={{ selectedDates, setSelectedDates }}
-								>
-									<DatePicker
-										onClick={() =>
-											setStage(calendarProcess.peopleList)
+					<section className="flex h-full w-full items-center justify-center">
+						<div className="flex h-[90%] w-[70%]  flex-col items-center  rounded-lg bg-zinc-100 p-6">
+							<div className="flex flex-row items-center justify-center gap-4 py-2">
+								<span className="flex size-10 items-center justify-center rounded-full bg-zinc-800 p-4 font-semibold text-zinc-50">
+									1
+								</span>
+								<p className="font-semibold">Select dates</p>
+								<div className="h-[2px] w-12 bg-zinc-300"></div>
+								<span className="flex size-10 items-center justify-center rounded-full bg-zinc-200 p-4 font-semibold text-zinc-400">
+									2
+								</span>
+								<p className="font-medium text-zinc-400">
+									Add participants
+								</p>
+							</div>
+							<div className="flex h-full w-full items-center justify-center">
+								{stage === calendarProcess.init && (
+									<Instructions
+										onClickAddCalendar={() =>
+											setStage(calendarProcess.pickDates)
 										}
 									/>
-								</SelectedDatesContext.Provider>
-							)}
-							{stage === calendarProcess.peopleList && (
-								<ParticipantsContext.Provider
-									value={{ participants, setParticipants }}
-								>
-									<CalendarProcess>
-										<UserList
-											onClickReturn={() =>
+								)}
+								{stage === calendarProcess.pickDates && (
+									<SelectedDatesContext.Provider
+										value={{
+											selectedDates,
+											setSelectedDates,
+										}}
+									>
+										<DatePicker
+											onClick={() =>
 												setStage(
-													calendarProcess.pickDates
+													calendarProcess.peopleList
 												)
 											}
-											onClickNext={() =>
-												setStage(calendarProcess.table)
-											}
 										/>
-									</CalendarProcess>
-								</ParticipantsContext.Provider>
-							)}
-						</CalendarProcess>
+									</SelectedDatesContext.Provider>
+								)}
+								{stage === calendarProcess.peopleList && (
+									<ParticipantsContext.Provider
+										value={{
+											participants,
+											setParticipants,
+										}}
+									>
+										<CalendarProcess>
+											<UserList
+												onClickReturn={() =>
+													setStage(
+														calendarProcess.pickDates
+													)
+												}
+												onClickNext={() =>
+													setStage(
+														calendarProcess.table
+													)
+												}
+											/>
+										</CalendarProcess>
+									</ParticipantsContext.Provider>
+								)}
+							</div>
+						</div>
 					</section>
 				)}
 
