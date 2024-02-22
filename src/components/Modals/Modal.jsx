@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from "react"
+import DatePicker from "../Calendar/DatePicker"
+import UserList from "../UserList/UserList"
 
 const isClickInsideDialog = (e, element) => {
 	const r = element.getBoundingClientRect()
@@ -11,7 +13,7 @@ const isClickInsideDialog = (e, element) => {
 	)
 }
 
-export default function Modal({ buttonName, children }) {
+export default function Modal({ buttonName, useCase, children }) {
 	const dialogRef = useRef(null)
 	const closeDialogRef = useRef(null)
 
@@ -67,7 +69,18 @@ export default function Modal({ buttonName, children }) {
 					>
 						<i className="fa-solid fa-xmark text-lg text-zinc-900" />
 					</button>
-					<div className="flex h-full items-center">{children}</div>
+					<div className="flex h-full items-center">
+						{useCase === "DatePicker" && (
+							<DatePicker onClick={handleClose} />
+						)}
+						{useCase === "UserList" && (
+							<UserList
+								onClickReturn={handleClose}
+								onClickNext={handleClose}
+							/>
+						)}
+						{children}
+					</div>
 				</dialog>
 			)}
 		</>
