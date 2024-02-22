@@ -178,13 +178,15 @@ export default function DatePicker({ onClick }) {
 			<div className="mt-4 flex flex-row items-center justify-between">
 				<button
 					onClick={handleClickReset}
-					className="font-medium text-red-600 underline underline-offset-4 hover:opacity-50"
+					className="font-medium text-red-600 hover:underline-offset-4 hover:opacity-50 enabled:hover:underline disabled:opacity-30"
+					disabled={selectedDates.length === 0}
 				>
 					Reset dates
 				</button>
 				<button
-					className="rounded-lg bg-zinc-900 px-6 py-2 font-semibold text-zinc-50 hover:opacity-50"
+					className="rounded-lg bg-zinc-900 px-6 py-2 font-semibold text-zinc-50 hover:opacity-50 disabled:opacity-30"
 					onClick={onClick}
+					disabled={selectedDates.length === 0}
 				>
 					Done
 				</button>

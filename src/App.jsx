@@ -31,9 +31,9 @@ export const SelectedDatesContext = createContext({
 })
 
 function App() {
-	const [stage, setStage] = useState(calendarProcess.table)
+	const [stage, setStage] = useState(calendarProcess.pickDates)
 
-	const [selectedDates, setSelectedDates] = useState(mockSelectedDates)
+	const [selectedDates, setSelectedDates] = useState([])
 	const [participants, setParticipants] = useState(mockParticipants)
 
 	// const [summaryData, setSummaryData] = useState([])
