@@ -14,7 +14,6 @@ import Header from "./components/Header/Header"
 import EventInfo from "./components/EventInfo/EventInfo"
 import Instructions from "./components/CalendarProcess/Instructions"
 import CalendarProcess from "./components/CalendarProcess/CalendarProcess"
-import SummaryCalendar from "./components/SummaryCalendar/SummaryCalendar"
 import DatePicker from "./components/Calendar/DatePicker"
 
 const calendarProcess = {
@@ -47,119 +46,158 @@ export const SelectedDatesContext = createContext({
 })
 
 function App() {
-	const [stage, setStage] = useState(calendarProcess.table)
+	const [stage, setStage] = useState(calendarProcess.init)
 
 	const [selectedDates, setSelectedDates] = useState(mockSelectedDates) //Formato time()
 	const [participants, setParticipants] = useState(mockParticipants)
 	const [confirmedData, setConfirmedData] = useState(mockConfirmedData)
 
-	const [summaryData, setSummaryData] = useState([])
+	// const [summaryData, setSummaryData] = useState([])
 
-	function mapSummaryData() {
-		const newSummaryData = []
+	// function mapSummaryData() {
+	// 	const newSummaryData = []
 
-		selectedDates.forEach((dateTime) => {
-			const monthName = getIntlMonthLong(dateTime)
-			const isMonthIncluded = newSummaryData.some(
-				(monthData) => monthData.monthName === monthName
-			)
+	// 	selectedDates.forEach((dateTime) => {
+	// 		const monthName = getIntlMonthLong(dateTime)
+	// 		const isMonthIncluded = newSummaryData.some(
+	// 			(monthData) => monthData.monthName === monthName
+	// 		)
 
-			if (!isMonthIncluded) {
-				const monthIndex = dateTime.getMonth()
-				const selectedDates = []
-				const monthData = { monthName, monthIndex, selectedDates }
+	// 		if (!isMonthIncluded) {
+	// 			const monthIndex = dateTime.getMonth()
+	// 			const selectedDates = []
+	// 			const monthData = { monthName, monthIndex, selectedDates }
 
-				newSummaryData.push(monthData)
-			}
+	// 			newSummaryData.push(monthData)
+	// 		}
 
-			const date = dateTime.getDate()
-			const confirmedList = []
-			const ratio = 0
-			const dateData = { date, confirmedList, ratio }
+	// 		const date = dateTime.getDate()
+	// 		const confirmedList = []
+	// 		const ratio = 0
+	// 		const dateData = { date, confirmedList, ratio }
 
-			const [monthData] = newSummaryData.filter(
-				(month) => month.monthName === monthName
-			)
-			monthData.selectedDates.push(dateData)
-		})
-		return newSummaryData
-	}
+	// 		const [monthData] = newSummaryData.filter(
+	// 			(month) => month.monthName === monthName
+	// 		)
+	// 		monthData.selectedDates.push(dateData)
+	// 	})
+	// 	return newSummaryData
+	// }
 
-	useEffect(() => {
-		const participantsCount = participants.length
-		const newSummaryData = mapSummaryData()
-		confirmedData.forEach((data) => {
-			const { dateTime, participant } = data
-			const dateTimeObj = new Date(dateTime)
-			const monthName = getIntlMonthLong(dateTimeObj)
+	// useEffect(() => {
+	// 	const participantsCount = participants.length
+	// 	const newSummaryData = mapSummaryData()
+	// 	confirmedData.forEach((data) => {
+	// 		const { dateTime, participant } = data
+	// 		const dateTimeObj = new Date(dateTime)
+	// 		const monthName = getIntlMonthLong(dateTimeObj)
 
-			const [monthData] = newSummaryData.filter(
-				(monthData) => monthData.monthName === monthName
-			)
+	// 		const [monthData] = newSummaryData.filter(
+	// 			(monthData) => monthData.monthName === monthName
+	// 		)
 
-			const currentDate = dateTimeObj.getDate()
-			const [dateData] = monthData.selectedDates.filter(
-				(dateData) => dateData.date === currentDate
-			)
+	// 		const currentDate = dateTimeObj.getDate()
+	// 		const [dateData] = monthData.selectedDates.filter(
+	// 			(dateData) => dateData.date === currentDate
+	// 		)
 
-			dateData.confirmedList.push(participant)
-			dateData.ratio = dateData.confirmedList.length / participantsCount
-		})
+	// 		dateData.confirmedList.push(participant)
+	// 		dateData.ratio = dateData.confirmedList.length / participantsCount
+	// 	})
 
-		setSummaryData(newSummaryData)
-	}, [confirmedData])
+	// 	setSummaryData(newSummaryData)
+	// }, [confirmedData])
 
 	return (
 		<div className="flex h-screen w-screen flex-row">
-			<Nav summaryData={summaryData} />
-			<main className="w-full">
+			{/* <Nav summaryData={summaryData} /> */}
+			<main className="flex h-full w-full flex-col items-center">
 				<Header />
-				{/* <CalendarProcess>
-					<Instructions
-						onClickAddCalendar={() =>
-							setStage(calendarProcess.pickDates)
-						}
-					/>
-				</CalendarProcess>
+				{stage !== calendarProcess.table && (
+					<section className="h-full w-full">
+						<CalendarProcess>
+							{stage === calendarProcess.init && (
+								<Instructions
+									onClickAddCalendar={() =>
+										setStage(calendarProcess.pickDates)
+									}
+								/>
+							)}
+							{stage === calendarProcess.pickDates && (
+								<SelectedDatesContext.Provider
+									value={{ selectedDates, setSelectedDates }}
+								>
+									<DatePicker
+										onClick={() =>
+											setStage(calendarProcess.peopleList)
+										}
+									/>
+								</SelectedDatesContext.Provider>
+							)}
+							{stage === calendarProcess.peopleList && (
+								<ParticipantsContext.Provider
+									value={{ participants, setParticipants }}
+								>
+									<CalendarProcess>
+										<UserList
+											onClickReturn={() =>
+												setStage(
+													calendarProcess.pickDates
+												)
+											}
+											onClickNext={() =>
+												setStage(calendarProcess.table)
+											}
+										/>
+									</CalendarProcess>
+								</ParticipantsContext.Provider>
+							)}
+						</CalendarProcess>
+					</section>
+				)}
 
-				<SelectedDatesContext.Provider
-					value={{ selectedDates, setSelectedDates }}
-				>
-					<CalendarProcess>
-						<DatePicker />
-					</CalendarProcess>
-				</SelectedDatesContext.Provider>
-
-				<ParticipantsContext.Provider
-					value={{ participants, setParticipants }}
-				>
-					<CalendarProcess>
-						<UserList />
-					</CalendarProcess>
-				</ParticipantsContext.Provider> */}
-
-				<section className="container mx-auto mt-10 flex max-h-full w-fit max-w-[90%] flex-col gap-2">
-					<h2 className="text-lg font-semibold text-zinc-600">
-						Fechas propuestas
-					</h2>
-					<div className="h-[1px] w-full bg-zinc-200"></div>
+				{/* <div className="flex flex-row gap-4">
+					<SelectedDatesContext.Provider
+						value={{ selectedDates, setSelectedDates }}
+					>
+						<CalendarProcess>
+							<DatePicker />
+						</CalendarProcess>
+					</SelectedDatesContext.Provider>
 
 					<ParticipantsContext.Provider
 						value={{ participants, setParticipants }}
 					>
-						<ConfirmedDataContext.Provider
-							value={{
-								confirmedData,
-								setConfirmedData,
-							}}
-						>
-							<Table
-								participants={participants}
-								selectedDates={selectedDates}
-							/>
-						</ConfirmedDataContext.Provider>
+						<CalendarProcess>
+							<UserList />
+						</CalendarProcess>
 					</ParticipantsContext.Provider>
-				</section>
+				</div> */}
+
+				{stage === calendarProcess.table && (
+					<section className="container mx-auto mt-10 flex max-h-full w-fit max-w-[90%] flex-col gap-2">
+						<h2 className="text-lg font-semibold text-zinc-600">
+							Fechas propuestas
+						</h2>
+						<div className="h-[1px] w-full bg-zinc-200"></div>
+
+						<ParticipantsContext.Provider
+							value={{ participants, setParticipants }}
+						>
+							<ConfirmedDataContext.Provider
+								value={{
+									confirmedData,
+									setConfirmedData,
+								}}
+							>
+								<Table
+									participants={participants}
+									selectedDates={selectedDates}
+								/>
+							</ConfirmedDataContext.Provider>
+						</ParticipantsContext.Provider>
+					</section>
+				)}
 			</main>
 		</div>
 	)
