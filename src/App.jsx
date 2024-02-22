@@ -46,7 +46,7 @@ export const SelectedDatesContext = createContext({
 })
 
 function App() {
-	const [stage, setStage] = useState(calendarProcess.init)
+	const [stage, setStage] = useState(calendarProcess.table)
 
 	const [selectedDates, setSelectedDates] = useState(mockSelectedDates) //Formato time()
 	const [participants, setParticipants] = useState(mockParticipants)
@@ -156,24 +156,6 @@ function App() {
 					</section>
 				)}
 
-				{/* <div className="flex flex-row gap-4">
-					<SelectedDatesContext.Provider
-						value={{ selectedDates, setSelectedDates }}
-					>
-						<CalendarProcess>
-							<DatePicker />
-						</CalendarProcess>
-					</SelectedDatesContext.Provider>
-
-					<ParticipantsContext.Provider
-						value={{ participants, setParticipants }}
-					>
-						<CalendarProcess>
-							<UserList />
-						</CalendarProcess>
-					</ParticipantsContext.Provider>
-				</div> */}
-
 				{stage === calendarProcess.table && (
 					<section className="container mx-auto mt-10 flex max-h-full w-fit max-w-[90%] flex-col gap-2">
 						<h2 className="text-lg font-semibold text-zinc-600">
@@ -190,10 +172,14 @@ function App() {
 									setConfirmedData,
 								}}
 							>
-								<Table
-									participants={participants}
-									selectedDates={selectedDates}
-								/>
+								<SelectedDatesContext.Provider
+									value={{ selectedDates, setSelectedDates }}
+								>
+									<Table
+										participants={participants}
+										selectedDates={selectedDates}
+									/>
+								</SelectedDatesContext.Provider>
 							</ConfirmedDataContext.Provider>
 						</ParticipantsContext.Provider>
 					</section>
