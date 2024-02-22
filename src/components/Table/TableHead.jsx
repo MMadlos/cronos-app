@@ -1,9 +1,12 @@
+import { useContext } from "react"
+import { SelectedDatesContext } from "../../App"
+
 import { getIntlMonthLong, getIntlWeekdayShort } from "../../utils"
 import Modal from "../Modals/Modal"
-import UserList from "../UserList/UserList"
-import DatePicker from "../Calendar/DatePicker"
 
-export default function TableHead({ selectedDates }) {
+export default function TableHead() {
+	const { selectedDates } = useContext(SelectedDatesContext)
+
 	const allMonths = []
 	const allDatesData = []
 	const datesCountByMonth = { total: 0 }
