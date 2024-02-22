@@ -1,10 +1,6 @@
 import "./App.css"
 import { useState, createContext, useEffect } from "react"
-import {
-	mockSelectedDates,
-	mockParticipants,
-	mockConfirmedData,
-} from "./mockData"
+import { mockSelectedDates, mockParticipants } from "./mockData"
 
 import Nav from "./components/Nav/Nav"
 import Table from "./components/Table/Table"
@@ -29,11 +25,6 @@ export const ParticipantsContext = createContext({
 	setParticipants: () => {},
 })
 
-export const ConfirmedDataContext = createContext({
-	confirmedData: {},
-	setConfirmedData: () => {},
-})
-
 export const SelectedDatesContext = createContext({
 	selectedDates: [],
 	setSelectedDates: () => {},
@@ -44,7 +35,6 @@ function App() {
 
 	const [selectedDates, setSelectedDates] = useState(mockSelectedDates)
 	const [participants, setParticipants] = useState(mockParticipants)
-	const [confirmedData, setConfirmedData] = useState(mockConfirmedData)
 
 	// const [summaryData, setSummaryData] = useState([])
 
@@ -160,18 +150,11 @@ function App() {
 						<ParticipantsContext.Provider
 							value={{ participants, setParticipants }}
 						>
-							<ConfirmedDataContext.Provider
-								value={{
-									confirmedData,
-									setConfirmedData,
-								}}
+							<SelectedDatesContext.Provider
+								value={{ selectedDates, setSelectedDates }}
 							>
-								<SelectedDatesContext.Provider
-									value={{ selectedDates, setSelectedDates }}
-								>
-									<Table />
-								</SelectedDatesContext.Provider>
-							</ConfirmedDataContext.Provider>
+								<Table />
+							</SelectedDatesContext.Provider>
 						</ParticipantsContext.Provider>
 					</section>
 				)}
