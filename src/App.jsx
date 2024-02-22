@@ -1,6 +1,5 @@
 import "./App.css"
 import { useState, createContext, useEffect } from "react"
-import { getIntlMonthLong } from "./utils"
 import {
 	mockSelectedDates,
 	mockParticipants,
@@ -35,11 +34,6 @@ export const ConfirmedDataContext = createContext({
 	setConfirmedData: () => {},
 })
 
-export const CalendarDataContext = createContext({
-	calendarData: {},
-	setCalendarData: () => {},
-})
-
 export const SelectedDatesContext = createContext({
 	selectedDates: [],
 	setSelectedDates: () => {},
@@ -48,7 +42,7 @@ export const SelectedDatesContext = createContext({
 function App() {
 	const [stage, setStage] = useState(calendarProcess.table)
 
-	const [selectedDates, setSelectedDates] = useState(mockSelectedDates) //Formato time()
+	const [selectedDates, setSelectedDates] = useState(mockSelectedDates)
 	const [participants, setParticipants] = useState(mockParticipants)
 	const [confirmedData, setConfirmedData] = useState(mockConfirmedData)
 
