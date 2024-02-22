@@ -8,7 +8,8 @@ export default function TableHead({ selectedDates }) {
 	const allDatesData = []
 	const datesCountByMonth = { total: 0 }
 
-	selectedDates.forEach((dateData) => {
+	selectedDates.forEach((dateTime) => {
+		const dateData = new Date(dateTime)
 		const monthName = getIntlMonthLong(dateData)
 		const weekday = getIntlWeekdayShort(dateData)
 		const date = dateData.getDate()
@@ -28,12 +29,12 @@ export default function TableHead({ selectedDates }) {
 	return (
 		<thead className="">
 			<tr className="">
-				<th>
+				<th className="p-1">
 					<Modal buttonName="Participants">
 						<UserList />
 					</Modal>
 				</th>
-				<th colSpan={datesCountByMonth.total}>
+				<th colSpan={datesCountByMonth.total} className="p-1">
 					<Modal buttonName="Dates">
 						<DatePicker />
 					</Modal>
