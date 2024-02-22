@@ -1,10 +1,11 @@
-import { useContext, useState, useEffect } from "react"
-import { ConfirmedDataContext } from "../../App"
+import { useContext, useState } from "react"
+import { ParticipantsContext, SelectedDatesContext } from "../../App"
 import TableData from "./TableData"
 
-export default function TableBody({ peopleList, selectedDates }) {
-	// const { confirmedData, setConfirmedData } = useContext(ConfirmedDataContext)
+export default function TableBody() {
 	const [confirmed, setConfirmed] = useState([])
+	const { participants } = useContext(ParticipantsContext)
+	const { selectedDates } = useContext(SelectedDatesContext)
 
 	function handleConfirmArray(id, dateTime) {
 		const isIncluded =
@@ -26,7 +27,7 @@ export default function TableBody({ peopleList, selectedDates }) {
 
 	return (
 		<tbody>
-			{peopleList.map(({ id, name }) => {
+			{participants.map(({ id, name }) => {
 				return (
 					<tr key={id}>
 						<th id={id} headers="participants">

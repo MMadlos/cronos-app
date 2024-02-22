@@ -169,10 +169,7 @@ function App() {
 								<SelectedDatesContext.Provider
 									value={{ selectedDates, setSelectedDates }}
 								>
-									<Table
-										participants={participants}
-										selectedDates={selectedDates}
-									/>
+									<Table />
 								</SelectedDatesContext.Provider>
 							</ConfirmedDataContext.Provider>
 						</ParticipantsContext.Provider>
