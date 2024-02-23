@@ -75,14 +75,15 @@ export default function UserList({ onClickNext, onClickReturn }) {
 			</div>
 			<div className="flex flex-row items-center justify-between">
 				<button
-					className="font-medium text-red-500 underline underline-offset-8 hover:opacity-50"
+					className="font-medium text-red-600 hover:underline-offset-4 hover:opacity-50 "
 					onClick={onClickReturn}
 				>
 					Return
 				</button>
 				<button
-					className="rounded bg-zinc-900 px-10 py-2 font-semibold text-zinc-50 hover:opacity-80"
+					className="min-w-[150px] rounded bg-zinc-900 px-10 py-2 font-semibold text-zinc-50 hover:opacity-50 disabled:opacity-30"
 					onClick={onClickNext}
+					disabled={participants.length === 0}
 				>
 					Done
 				</button>

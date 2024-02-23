@@ -184,7 +184,7 @@ export default function DatePicker({ onClick }) {
 					Reset dates
 				</button>
 				<button
-					className="rounded-lg bg-zinc-900 px-6 py-2 font-semibold text-zinc-50 hover:opacity-50 disabled:opacity-30"
+					className="min-w-[150px] rounded bg-zinc-900 px-6 py-2 font-semibold text-zinc-50 hover:opacity-50 disabled:opacity-30"
 					onClick={onClick}
 					disabled={selectedDates.length === 0}
 				>
