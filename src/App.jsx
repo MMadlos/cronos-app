@@ -30,10 +30,10 @@ export const SelectedDatesContext = createContext({
 })
 
 function App() {
-	const [stage, setStage] = useState(calendarProcess.pickDates)
+	const [stage, setStage] = useState(calendarProcess.peopleList)
 
-	const [selectedDates, setSelectedDates] = useState([])
-	const [participants, setParticipants] = useState(mockParticipants)
+	const [selectedDates, setSelectedDates] = useState(mockSelectedDates)
+	const [participants, setParticipants] = useState([])
 
 	// const [summaryData, setSummaryData] = useState([])
 
@@ -102,7 +102,7 @@ function App() {
 							{stage !== calendarProcess.init && (
 								<Progress stage={stage} />
 							)}
-							<div className="mt-10">
+							<div className="mt-10 h-full w-full">
 								{stage === calendarProcess.init && (
 									<Instructions
 										onClickAddCalendar={() =>

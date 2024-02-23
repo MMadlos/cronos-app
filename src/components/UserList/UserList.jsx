@@ -33,8 +33,8 @@ export default function UserList({ onClickNext, onClickReturn }) {
 	}
 
 	return (
-		<div className="mx-auto flex w-fit flex-col gap-6 rounded-xl bg-zinc-50 p-6 shadow-lg">
-			<h2 className=" font-semibold text-zinc-600">Participantes</h2>
+		<div className="mx-auto flex h-[90%] w-[70%] flex-col gap-6 rounded-lg bg-white p-6 shadow-md shadow-zinc-200">
+			{/* <h2 className=" font-semibold text-zinc-600">Participantes</h2> */}
 			<div className="flex w-full flex-row gap-4">
 				<input
 					id="add-participant"
@@ -42,25 +42,24 @@ export default function UserList({ onClickNext, onClickReturn }) {
 					placeholder="Alejandro Sanz"
 					onChange={handleOnChange}
 					value={inputValue}
-					className="w-full rounded border-2 border-zinc-300 px-4 py-2"
+					className="w-full rounded border border-zinc-300 px-4 py-2"
 					onKeyDown={handleKeyDownEnter}
 				/>
 				<button
-					className="flex flex-row items-center gap-2 rounded bg-violet-600 px-4 py-2 font-semibold text-zinc-50 hover:opacity-50"
+					className=" rounded-full bg-zinc-900 px-4 py-2 font-semibold text-zinc-50 hover:opacity-50"
 					onClick={handleClickAdd}
 				>
-					<i className="fa-solid fa-plus text-sm" />
-					Add
+					<i className="fa-solid fa-plus text-lg" />
 				</button>
 			</div>
 
-			<div className="flex max-h-[200px] grow flex-col items-start gap-1 overflow-y-scroll bg-white pl-4">
+			<div className="flex h-[70%] grow flex-col items-start gap-1 overflow-y-auto bg-white pl-4">
 				{participants.map((person) => {
 					const { id, name } = person
 					return (
 						<div
 							key={id}
-							className="flex w-full flex-row items-center justify-between"
+							className="flex w-full flex-row items-center justify-between bg-zinc-50"
 						>
 							<p className="text-zinc-800">{name}</p>
 							<button
@@ -82,7 +81,7 @@ export default function UserList({ onClickNext, onClickReturn }) {
 					Return
 				</button>
 				<button
-					className="rounded-lg bg-zinc-900 px-10 py-2 font-semibold text-zinc-50 hover:opacity-80"
+					className="rounded bg-zinc-900 px-10 py-2 font-semibold text-zinc-50 hover:opacity-80"
 					onClick={onClickNext}
 				>
 					Done
