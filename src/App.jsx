@@ -30,10 +30,10 @@ export const SelectedDatesContext = createContext({
 })
 
 function App() {
-	const [stage, setStage] = useState(calendarProcess.peopleList)
+	const [stage, setStage] = useState(calendarProcess.table)
 
 	const [selectedDates, setSelectedDates] = useState(mockSelectedDates)
-	const [participants, setParticipants] = useState([...mockParticipants])
+	const [participants, setParticipants] = useState(mockParticipants)
 
 	// const [summaryData, setSummaryData] = useState([])
 
@@ -151,7 +151,7 @@ function App() {
 				)}
 
 				{stage === calendarProcess.table && (
-					<section className="container mx-auto mt-10 flex max-h-full w-fit max-w-[90%] flex-col gap-2">
+					<section className="container mx-auto mt-10 flex max-h-full w-[80vw] flex-col gap-2">
 						<h2 className="text-lg font-semibold text-zinc-600">
 							Fechas propuestas
 						</h2>

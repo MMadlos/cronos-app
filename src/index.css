@@ -58,15 +58,7 @@
 	/* TABLE BORDERS*/
 	thead {
 		tr:nth-of-type(1) {
-			@apply border-b border-zinc-200;
-
-			th:nth-of-type(1) {
-				@apply border-r-2 border-zinc-200;
-			}
-
-			th:nth-of-type(2) {
-				@apply border-r border-zinc-200;
-			}
+			@apply border-b border-zinc-100;
 		}
 
 		tr:nth-of-type(2) {
@@ -75,11 +67,11 @@
 			}
 			/* Contains info */
 			th:not(:first-of-type):not(:last-of-type) {
-				@apply border border-zinc-200;
+				@apply border border-zinc-100;
 			}
 
 			th:last-of-type {
-				@apply border-b border-zinc-200;
+				@apply border-b border-zinc-100;
 			}
 		}
 
@@ -101,11 +93,11 @@
 	tbody {
 		th,
 		td {
-			@apply border-b border-zinc-200;
+			@apply border-b border-zinc-100;
 		}
 
 		td:not(:last-of-type) {
-			@apply border border-zinc-200;
+			@apply border border-zinc-100;
 		}
 
 		th {
@@ -124,10 +116,6 @@
 			@apply pl-2 text-left;
 		}
 
-		tr:nth-of-type(3) th {
-			@apply w-[75px];
-		}
-
 		tr:not(:nth-of-type(1)) {
 			th {
 				@apply bg-zinc-50 py-2 pl-2 text-sm font-normal;
@@ -137,12 +125,24 @@
 
 	tbody {
 		th {
-			@apply min-w-[250px] max-w-[300px] bg-zinc-50 py-2 pl-6 text-left text-sm font-normal;
+			@apply bg-zinc-50 py-2 pl-6 text-left text-sm font-normal;
 		}
 
 		td {
 			@apply py-1;
 		}
+	}
+
+	/* TABLE SIZES */
+	/* First column */
+	tr > th:first-child {
+		@apply w-[250px];
+	}
+
+	/* Last row of thead except last th and all td except last of each row */
+	thead tr:nth-child(3) th:not(:first-child):not(:last-child),
+	tbody tr td:not(:last-child) {
+		@apply w-[80px];
 	}
 }
 

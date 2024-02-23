@@ -35,10 +35,9 @@ export default function TableHead() {
 				<th className="p-1">
 					<Modal buttonName="Participants" useCase="UserList" />
 				</th>
-				<th colSpan={datesCountByMonth.total} className="p-1">
+				<th colSpan={datesCountByMonth.total + 1} className="p-1">
 					<Modal buttonName="Dates" useCase="DatePicker" />
 				</th>
-				<th></th>
 			</tr>
 			<tr>
 				<th></th>
