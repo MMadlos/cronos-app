@@ -33,7 +33,7 @@ function App() {
 	const [stage, setStage] = useState(calendarProcess.peopleList)
 
 	const [selectedDates, setSelectedDates] = useState(mockSelectedDates)
-	const [participants, setParticipants] = useState([])
+	const [participants, setParticipants] = useState([...mockParticipants])
 
 	// const [summaryData, setSummaryData] = useState([])
 

@@ -33,7 +33,7 @@ export default function UserList({ onClickNext, onClickReturn }) {
 	}
 
 	return (
-		<div className="mx-auto flex h-[90%] w-[70%] flex-col gap-6 rounded-lg bg-white p-6 shadow-md shadow-zinc-200">
+		<div className="mx-auto flex h-[55vh] max-h-[55vh] w-[70%] flex-col gap-6 rounded-lg bg-white p-6 shadow-md shadow-zinc-200">
 			{/* <h2 className=" font-semibold text-zinc-600">Participantes</h2> */}
 			<div className="flex w-full flex-row gap-4">
 				<input
@@ -53,21 +53,21 @@ export default function UserList({ onClickNext, onClickReturn }) {
 				</button>
 			</div>
 
-			<div className="flex h-[70%] grow flex-col items-start gap-1 overflow-y-auto bg-white pl-4">
+			<div className="flex h-[70%] grow flex-col items-start gap-2 overflow-y-auto bg-white ">
 				{participants.map((person) => {
 					const { id, name } = person
 					return (
 						<div
 							key={id}
-							className="flex w-full flex-row items-center justify-between bg-zinc-50"
+							className="flex w-full flex-row items-center justify-between rounded bg-zinc-50 pl-4"
 						>
 							<p className="text-zinc-800">{name}</p>
 							<button
 								data-index={id}
 								onClick={handleClickRemove}
-								className="mr-2 p-2"
+								className="group mr-2 size-fit p-2 "
 							>
-								<i className="fa-solid fa-xmark text-zinc-400" />
+								<i className="fa-solid fa-xmark text-zinc-400 group-hover:text-red-500" />
 							</button>
 						</div>
 					)
