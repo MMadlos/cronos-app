@@ -33,7 +33,6 @@ function App() {
 
 	return (
 		<div className="flex h-screen w-screen flex-row">
-			{/* <Nav summaryData={summaryData} /> */}
 			<main className="flex h-full w-full flex-col items-center">
 				<Header />
 				{stage !== calendarProcess.table && (
