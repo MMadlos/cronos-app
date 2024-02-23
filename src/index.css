@@ -162,7 +162,7 @@
 
 	tbody {
 		th {
-			@apply bg-zinc-50 py-2 pl-6 text-left text-sm font-normal;
+			@apply overflow-hidden text-ellipsis whitespace-nowrap bg-zinc-50 py-2 pl-6 text-left text-sm font-normal;
 		}
 
 		td {
