@@ -37,11 +37,11 @@ function App() {
 				<Header />
 				{stage !== calendarProcess.table && (
 					<section className="flex h-full w-full items-center justify-center">
-						<div className="flex h-[90%] w-[70%]  flex-col items-center  rounded-lg bg-zinc-100 p-6">
+						<div className="flex h-full w-full flex-col bg-zinc-100  p-4 sm:h-[90%] sm:w-[70%] sm:items-center sm:rounded-lg sm:p-6">
 							{stage !== calendarProcess.init && (
 								<Progress stage={stage} />
 							)}
-							<div className=" flex h-full w-full items-center justify-center">
+							<div className=" mt-4 flex h-fit w-full justify-center sm:mt-0 sm:h-full sm:items-center">
 								{stage === calendarProcess.init && (
 									<Instructions
 										onClickAddCalendar={() =>
