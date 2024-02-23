@@ -100,7 +100,7 @@ export default function DatePicker({ onClick }) {
 		>
 			<div
 				id="calendar-header"
-				className="flex flex-col items-center gap-2"
+				className="flex flex-col items-center sm:gap-2"
 			>
 				<h4 className="text-sm font-medium text-zinc-400">{year}</h4>
 				<div className="flex w-full flex-row items-center justify-between">
@@ -114,11 +114,11 @@ export default function DatePicker({ onClick }) {
 						onClick={handleClickArrow}
 					>
 						<i
-							className={`fa-solid fa-arrow-left p-2 text-2xl text-zinc-700 group-enabled:hover:opacity-50 group-disabled:text-zinc-200`}
+							className={`fa-solid fa-arrow-left text-2xl text-zinc-700 group-enabled:hover:opacity-50 group-disabled:text-zinc-200 sm:p-2`}
 						/>
 					</button>
 					<div className="rounded  px-6 py-2 ">
-						<h3 className="text-2xl font-semibold text-zinc-600">
+						<h3 className="text-xl font-semibold text-zinc-600 sm:text-2xl">
 							{monthName}
 						</h3>
 					</div>
@@ -129,7 +129,7 @@ export default function DatePicker({ onClick }) {
 						onClick={handleClickArrow}
 					>
 						<i
-							className={`fa-solid fa-arrow-right p-2 text-2xl text-zinc-700 hover:opacity-50 group-disabled:text-zinc-200`}
+							className={`fa-solid fa-arrow-right text-2xl text-zinc-700 hover:opacity-50 group-disabled:text-zinc-200 sm:p-2`}
 						/>
 					</button>
 				</div>
@@ -143,7 +143,7 @@ export default function DatePicker({ onClick }) {
 								onClick={handleClickWeekday}
 								key={weekday}
 								data-index={index + 1}
-								className="flex size-10 items-center justify-center rounded-md border-2 border-transparent bg-zinc-100 font-medium text-zinc-600 hover:cursor-pointer hover:bg-zinc-200"
+								className="flex size-10 items-center justify-center rounded-md border-2 border-transparent bg-zinc-50 font-medium text-zinc-600 hover:cursor-pointer hover:bg-zinc-200 sm:bg-zinc-100"
 							>
 								{weekday}
 							</button>
@@ -164,7 +164,7 @@ export default function DatePicker({ onClick }) {
 								onClick={() => handleClickDate(content)}
 								key={index}
 								data-type={type}
-								className="flex size-10 items-center justify-center rounded-md bg-zinc-100 font-medium enabled:hover:bg-zinc-200 disabled:text-zinc-300 data-[type=selected]:border-zinc-200 data-[type=selected]:bg-zinc-900 data-[type=selected]:font-medium data-[type=selected]:text-zinc-50 data-[type=selected]:hover:bg-zinc-500"
+								className="flex size-10 items-center justify-center rounded-md bg-zinc-50 font-medium enabled:hover:bg-zinc-200 disabled:text-zinc-300 data-[type=selected]:border-zinc-200 data-[type=selected]:bg-zinc-900 data-[type=selected]:font-medium data-[type=selected]:text-zinc-50 data-[type=selected]:hover:bg-zinc-500 md:bg-zinc-100"
 								disabled={isDisabled}
 								data-date={isDisabled ? null : content}
 							>
