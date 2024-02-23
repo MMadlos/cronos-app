@@ -109,17 +109,16 @@
 
 	/* First column */
 	tr > th:first-child {
-		@apply min-w-[30ch];
+		@apply w-[30ch] min-w-[30ch] max-w-[30ch];
 	}
 
 	/* Last row of thead except last th and all td except last of each row */
 	thead tr:nth-child(3) th:not(:first-child):not(:last-child),
 	tbody tr td:not(:last-child) {
-		@apply min-w-[80px];
+		@apply w-[80px] min-w-[80px] max-w-[80px];
 	}
 
 	/* TABLE CONTENT */
-	/* TODO - Add sticky to first column and dates row when expanded */
 
 	tbody th {
 		@apply sticky left-0;
