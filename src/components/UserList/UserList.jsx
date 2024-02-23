@@ -42,11 +42,11 @@ export default function UserList({ onClickNext, onClickReturn }) {
 					placeholder="Alejandro Sanz"
 					onChange={handleOnChange}
 					value={inputValue}
-					className="w-full rounded border border-zinc-300 px-4 py-2"
+					className="w-full rounded border border-zinc-300 px-4 py-2 focus:outline-violet-500"
 					onKeyDown={handleKeyDownEnter}
 				/>
 				<button
-					className=" rounded-full bg-zinc-900 px-4 py-2 font-semibold text-zinc-50 hover:opacity-50"
+					className=" rounded-full bg-violet-700 px-4 py-2 font-semibold text-zinc-50 hover:opacity-50 "
 					onClick={handleClickAdd}
 				>
 					<i className="fa-solid fa-plus text-lg" />
