@@ -1,8 +1,7 @@
 import "./App.css"
-import { useState, createContext, useEffect } from "react"
+import { useState, createContext } from "react"
 import { mockSelectedDates, mockParticipants } from "./mockData"
 
-import Nav from "./components/Nav/Nav"
 import Table from "./components/Table/Table"
 import UserList from "./components/UserList/UserList"
 import Header from "./components/Header/Header"
@@ -17,8 +16,6 @@ const calendarProcess = {
 	table: "table",
 }
 
-// TODO - Add buttons behaviours in stage 0. When no dates are selected -> Reset not available and done not active.
-
 export const ParticipantsContext = createContext({
 	participants: [],
 	setParticipants: () => {},
@@ -30,66 +27,9 @@ export const SelectedDatesContext = createContext({
 })
 
 function App() {
-	const [stage, setStage] = useState(calendarProcess.table)
-
-	const [selectedDates, setSelectedDates] = useState(mockSelectedDates)
-	const [participants, setParticipants] = useState(mockParticipants)
-
-	// const [summaryData, setSummaryData] = useState([])
-
-	// function mapSummaryData() {
-	// 	const newSummaryData = []
-
-	// 	selectedDates.forEach((dateTime) => {
-	// 		const monthName = getIntlMonthLong(dateTime)
-	// 		const isMonthIncluded = newSummaryData.some(
-	// 			(monthData) => monthData.monthName === monthName
-	// 		)
-
-	// 		if (!isMonthIncluded) {
-	// 			const monthIndex = dateTime.getMonth()
-	// 			const selectedDates = []
-	// 			const monthData = { monthName, monthIndex, selectedDates }
-
-	// 			newSummaryData.push(monthData)
-	// 		}
-
-	// 		const date = dateTime.getDate()
-	// 		const confirmedList = []
-	// 		const ratio = 0
-	// 		const dateData = { date, confirmedList, ratio }
-
-	// 		const [monthData] = newSummaryData.filter(
-	// 			(month) => month.monthName === monthName
-	// 		)
-	// 		monthData.selectedDates.push(dateData)
-	// 	})
-	// 	return newSummaryData
-	// }
-
-	// useEffect(() => {
-	// 	const participantsCount = participants.length
-	// 	const newSummaryData = mapSummaryData()
-	// 	confirmedData.forEach((data) => {
-	// 		const { dateTime, participant } = data
-	// 		const dateTimeObj = new Date(dateTime)
-	// 		const monthName = getIntlMonthLong(dateTimeObj)
-
-	// 		const [monthData] = newSummaryData.filter(
-	// 			(monthData) => monthData.monthName === monthName
-	// 		)
-
-	// 		const currentDate = dateTimeObj.getDate()
-	// 		const [dateData] = monthData.selectedDates.filter(
-	// 			(dateData) => dateData.date === currentDate
-	// 		)
-
-	// 		dateData.confirmedList.push(participant)
-	// 		dateData.ratio = dateData.confirmedList.length / participantsCount
-	// 	})
-
-	// 	setSummaryData(newSummaryData)
-	// }, [confirmedData])
+	const [stage, setStage] = useState(calendarProcess.init)
+	const [selectedDates, setSelectedDates] = useState([])
+	const [participants, setParticipants] = useState([])
 
 	return (
 		<div className="flex h-screen w-screen flex-row">
@@ -102,7 +42,7 @@ function App() {
 							{stage !== calendarProcess.init && (
 								<Progress stage={stage} />
 							)}
-							<div className="mt-10 h-full w-full">
+							<div className=" flex h-full w-full items-center justify-center">
 								{stage === calendarProcess.init && (
 									<Instructions
 										onClickAddCalendar={() =>

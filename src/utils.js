@@ -28,29 +28,6 @@ function getIntlWeekdayShort(date, locale = "es") {
 	return weekday
 }
 
-// function getMonthGridContent(year, monthIndex) {
-// 	const date = new Date(year, monthIndex, 1)
-// 	const firstWeekDayIndex = date.getDay()
-
-// 	date.setMonth(monthIndex + 1)
-// 	date.setDate(0)
-
-// 	const maxDays = date.getDate()
-
-// 	const calendarArray = Array(35).fill()
-
-// 	let count = 1
-// 	calendarArray.forEach((_, index) => {
-// 		if (index < firstWeekDayIndex - 1) return
-// 		if (index - firstWeekDayIndex + 1 > maxDays - 1) return
-
-// 		calendarArray[index] = count
-// 		count++
-// 	})
-
-// 	return calendarArray
-// }
-
 const DATE_TYPES = {
 	empty: "empty",
 	unavailable: "unavailable",
