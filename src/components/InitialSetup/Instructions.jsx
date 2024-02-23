@@ -1,10 +1,10 @@
 export default function Instructions({ onClickAddCalendar }) {
 	return (
-		<div className="flex max-w-[600px] grow flex-col gap-8 rounded-md bg-white p-6 shadow">
+		<div className="flex max-w-[600px]  flex-col gap-8 rounded-md bg-white p-6 shadow">
 			<h3 className="text-xl font-medium">
 				Escoge la fecha perfecta para el evento en sólo 3 pasos
 			</h3>
-			<section className="flex flex-col gap-4">
+			<section className="flex h-full flex-col gap-4">
 				<div className="flex flex-row items-center gap-4">
 					<div className="flex size-9 items-center justify-center rounded-full border-2 border-zinc-900 ">
 						<p className=" font-bold text-zinc-900">1</p>

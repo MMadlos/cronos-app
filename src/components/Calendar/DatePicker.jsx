@@ -96,7 +96,7 @@ export default function DatePicker({ onClick }) {
 	return (
 		<div
 			id="calendar"
-			className="mx-auto flex w-fit flex-col gap-2 rounded-md border-2 border-zinc-100 bg-white p-4 shadow "
+			className="mx-auto flex w-fit flex-col gap-2 rounded-md  bg-white p-4 shadow-md "
 		>
 			<div
 				id="calendar-header"

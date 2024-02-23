@@ -33,8 +33,7 @@ export default function UserList({ onClickNext, onClickReturn }) {
 	}
 
 	return (
-		<div className="mx-auto flex h-[55vh] max-h-[55vh] w-[70%] flex-col gap-6 rounded-lg bg-white p-6 shadow-md ">
-			{/* <h2 className=" font-semibold text-zinc-600">Participantes</h2> */}
+		<div className="mx-auto flex h-full max-h-[65vh] w-full flex-col gap-6 rounded-lg bg-white p-4 shadow-md sm:h-[55vh] sm:max-h-[55vh] sm:w-[70%] sm:p-6 ">
 			<div className="flex w-full flex-row gap-4">
 				<input
 					id="add-participant"
@@ -75,7 +74,7 @@ export default function UserList({ onClickNext, onClickReturn }) {
 			</div>
 			<div className="flex flex-row items-center justify-between">
 				<button
-					className="font-medium text-red-600 hover:underline-offset-4 hover:opacity-50 "
+					className="px-4 py-2 font-medium text-red-600 hover:underline-offset-4 hover:opacity-50 "
 					onClick={onClickReturn}
 				>
 					Return
