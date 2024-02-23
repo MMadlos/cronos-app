@@ -48,7 +48,7 @@ export default function Modal({ buttonName, useCase, children }) {
 	return (
 		<>
 			<button
-				className="h-full w-full rounded px-2 py-2 text-left font-medium hover:bg-zinc-100 hover:font-semibold hover:text-zinc-600"
+				className="h-full w-full rounded px-2 py-2 text-left font-medium hover:bg-zinc-100 hover:font-semibold hover:text-zinc-600 "
 				onClick={handleOpen}
 			>
 				<i className={`fa-solid ${iconName[buttonName]} mr-3`} />
