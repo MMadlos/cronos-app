@@ -33,7 +33,7 @@ export default function UserList({ onClickNext, onClickReturn }) {
 	}
 
 	return (
-		<div className="mx-auto flex h-[55vh] max-h-[55vh] w-[70%] flex-col gap-6 rounded-lg bg-white p-6 shadow-md shadow-zinc-200">
+		<div className="mx-auto flex h-[55vh] max-h-[55vh] w-[70%] flex-col gap-6 rounded-lg bg-white p-6 shadow-md ">
 			{/* <h2 className=" font-semibold text-zinc-600">Participantes</h2> */}
 			<div className="flex w-full flex-row gap-4">
 				<input
@@ -59,7 +59,7 @@ export default function UserList({ onClickNext, onClickReturn }) {
 					return (
 						<div
 							key={id}
-							className="flex w-full flex-row items-center justify-between rounded bg-zinc-50 pl-4"
+							className="flex w-[98%] flex-row items-center justify-between rounded bg-zinc-50 pl-4"
 						>
 							<p className="text-zinc-800">{name}</p>
 							<button
