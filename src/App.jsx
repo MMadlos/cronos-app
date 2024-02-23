@@ -102,7 +102,7 @@ function App() {
 							{stage !== calendarProcess.init && (
 								<Progress stage={stage} />
 							)}
-							<div className="flex h-full w-full items-center justify-center">
+							<div className="mt-10">
 								{stage === calendarProcess.init && (
 									<Instructions
 										onClickAddCalendar={() =>
