@@ -36,7 +36,7 @@ export default function Table() {
 					/>
 				</table>
 			</div>
-			<div className="mt-2 max-h-[70vh] w-full sm:mt-6 sm:hidden sm:max-h-[60vh]">
+			<div className=" my-2 max-h-[70vh] w-full sm:hidden">
 				<TableXS
 					confirmed={confirmed}
 					onClickConfirm={handleConfirmation}

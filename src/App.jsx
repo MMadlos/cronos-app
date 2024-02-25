@@ -90,7 +90,7 @@ function App() {
 				)}
 
 				{stage === calendarProcess.table && (
-					<section className="container mx-auto mt-2 flex h-full flex-col gap-2 px-2 sm:mt-10 sm:w-[80vw] sm:p-0">
+					<section className="container mx-auto my-2 flex h-full flex-col gap-2 px-2 pb-2 sm:mt-10 sm:w-[80vw] sm:p-0">
 						<h2 className="text-md font-semibold text-zinc-600 sm:text-lg">
 							Fechas propuestas
 						</h2>
