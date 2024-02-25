@@ -2,28 +2,9 @@ import { useContext, useState } from "react"
 import { ParticipantsContext, SelectedDatesContext } from "../../App"
 import TableData from "./TableData"
 
-export default function TableBody() {
-	const [confirmed, setConfirmed] = useState([])
+export default function TableBody({ confirmed, onClickData }) {
 	const { participants } = useContext(ParticipantsContext)
 	const { selectedDates } = useContext(SelectedDatesContext)
-
-	function handleConfirmArray(id, dateTime) {
-		const isIncluded =
-			confirmed.find(
-				(data) => data.id === id && data.dateTime === dateTime
-			) !== undefined
-
-		if (!isIncluded) setConfirmed((prev) => [...prev, { id, dateTime }])
-		if (isIncluded) {
-			const dataToRemove = confirmed.find(
-				(data) => data.id === id && data.dateTime === dateTime
-			)
-			const newConfirmedArray = confirmed.filter(
-				(data) => data !== dataToRemove
-			)
-			setConfirmed(newConfirmedArray)
-		}
-	}
 
 	return (
 		<tbody>
@@ -47,7 +28,7 @@ export default function TableBody() {
 									headers={`${dateTime} ${id}`}
 									isSelected={isSelected}
 									onClick={() => {
-										handleConfirmArray(id, dateTime)
+										onClickData(id, dateTime)
 									}}
 								/>
 							)
