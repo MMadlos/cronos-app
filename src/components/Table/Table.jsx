@@ -7,7 +7,7 @@ import TableXS from "./TableXS"
 export default function Table() {
 	const [confirmed, setConfirmed] = useState([])
 
-	function handleConfirmArray(id, dateTime) {
+	function handleConfirmation(id, dateTime) {
 		const isIncluded =
 			confirmed.find(
 				(data) => data.id === id && data.dateTime === dateTime
@@ -32,12 +32,15 @@ export default function Table() {
 					<TableHead />
 					<TableBody
 						confirmed={confirmed}
-						onClickData={handleConfirmArray}
+						onClickData={handleConfirmation}
 					/>
 				</table>
 			</div>
-			<div className="mt-2 max-h-[70vh] w-full overflow-x-auto overflow-y-auto sm:mt-6 sm:hidden sm:max-h-[60vh]">
-				<TableXS />
+			<div className="mt-2 max-h-[70vh] w-full sm:mt-6 sm:hidden sm:max-h-[60vh]">
+				<TableXS
+					confirmed={confirmed}
+					onClickConfirm={handleConfirmation}
+				/>
 			</div>
 		</>
 	)

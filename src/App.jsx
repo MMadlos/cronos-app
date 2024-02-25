@@ -27,9 +27,9 @@ export const SelectedDatesContext = createContext({
 })
 
 function App() {
-	const [stage, setStage] = useState(calendarProcess.init)
-	const [selectedDates, setSelectedDates] = useState([])
-	const [participants, setParticipants] = useState([])
+	const [stage, setStage] = useState(calendarProcess.table)
+	const [selectedDates, setSelectedDates] = useState(mockSelectedDates)
+	const [participants, setParticipants] = useState(mockParticipants)
 
 	return (
 		<div className="flex h-screen w-screen flex-row">
@@ -37,11 +37,11 @@ function App() {
 				<Header />
 				{stage !== calendarProcess.table && (
 					<section className="flex h-full w-full items-center justify-center">
-						<div className="flex h-full w-full flex-col bg-zinc-100  p-4 sm:h-[90%] sm:w-[70%] sm:items-center sm:rounded-lg sm:p-6">
+						<div className="flex h-full w-full flex-col bg-zinc-100 p-4 sm:h-[90%] sm:w-[70%] sm:items-center sm:rounded-lg sm:p-6">
 							{stage !== calendarProcess.init && (
 								<Progress stage={stage} />
 							)}
-							<div className=" mt-4 flex h-fit w-full justify-center sm:mt-0 sm:h-full sm:items-center">
+							<div className=" mt-2 flex h-full w-full justify-center sm:mt-0 sm:h-full sm:items-center">
 								{stage === calendarProcess.init && (
 									<Instructions
 										onClickAddCalendar={() =>
@@ -90,8 +90,8 @@ function App() {
 				)}
 
 				{stage === calendarProcess.table && (
-					<section className="container mx-auto mt-10 flex max-h-full w-[80vw] flex-col gap-2">
-						<h2 className="text-lg font-semibold text-zinc-600">
+					<section className="container mx-auto mt-2 flex h-full flex-col gap-2 px-2 sm:mt-10 sm:w-[80vw] sm:p-0">
+						<h2 className="text-md font-semibold text-zinc-600 sm:text-lg">
 							Fechas propuestas
 						</h2>
 						<div className="h-[1px] w-full bg-zinc-200"></div>
