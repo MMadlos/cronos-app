@@ -24,6 +24,7 @@ export default function TableXS({ confirmed, onClickConfirm }) {
 		const { id } = participant
 		mappedConfirmation[id] = []
 	})
+
 	confirmed.forEach((confirmation) => {
 		const { id, dateTime } = confirmation
 		mappedConfirmation[id].push(dateTime)
@@ -32,8 +33,9 @@ export default function TableXS({ confirmed, onClickConfirm }) {
 	return (
 		<>
 			<button
-				className="sticky top-4 flex w-full flex-row items-center justify-between rounded border border-violet-700 bg-white p-4 font-semibold text-violet-700"
+				className="sticky top-4 flex w-full flex-row items-center justify-between rounded border border-violet-300 bg-white px-4 py-2 font-semibold text-violet-700 data-[open=true]:bg-violet-50"
 				onClick={() => setListOpen(!isListOpen)}
+				data-open={isListOpen}
 			>
 				{selectedPerson?.name ?? "Select participant"}
 				{isListOpen && <i className="fa-solid fa-chevron-up" />}

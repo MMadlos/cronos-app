@@ -90,12 +90,7 @@ function App() {
 				)}
 
 				{stage === calendarProcess.table && (
-					<section className="container mx-auto my-2 flex h-full flex-col gap-2 px-2 pb-2 sm:mt-10 sm:w-[80vw] sm:p-0">
-						<h2 className="text-md font-semibold text-zinc-600 sm:text-lg">
-							Fechas propuestas
-						</h2>
-						<div className="h-[1px] w-full bg-zinc-200"></div>
-
+					<section className="container mx-auto flex h-full flex-col gap-2 p-2 sm:w-[80vw] sm:p-0">
 						<ParticipantsContext.Provider
 							value={{ participants, setParticipants }}
 						>
