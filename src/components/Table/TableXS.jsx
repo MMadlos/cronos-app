@@ -32,7 +32,7 @@ export default function TableXS({ confirmed, onClickConfirm }) {
 	return (
 		<>
 			<button
-				className="sticky top-4 flex w-full flex-row items-center justify-between rounded bg-violet-700 p-4 font-semibold text-zinc-50"
+				className="sticky top-4 flex w-full flex-row items-center justify-between rounded border border-violet-700 bg-white p-4 font-semibold text-violet-700"
 				onClick={() => setListOpen(!isListOpen)}
 			>
 				{selectedPerson?.name ?? "Select participant"}
@@ -63,11 +63,15 @@ export default function TableXS({ confirmed, onClickConfirm }) {
 					<div className="h-4"></div>
 				</>
 			)}
+
 			{!isListOpen && selectedPerson !== undefined && (
-				<div className="flex flex-col gap-1">
+				<div className="mt-2 flex flex-col gap-2 rounded ">
 					{Object.keys(mappedDates).map((monthName) => {
 						return (
-							<Fragment key={monthName}>
+							<div
+								key={monthName}
+								className="my-2 flex flex-col gap-2 "
+							>
 								<p className="my-2 text-center">{monthName}</p>
 								{mappedDates[monthName].map((dateTime) => {
 									const weekday =
@@ -83,7 +87,7 @@ export default function TableXS({ confirmed, onClickConfirm }) {
 									return (
 										<button
 											key={dateTime}
-											className="group flex w-full flex-row items-center justify-between rounded-md border px-4 py-2 data-[selected=true]:border-green-500"
+											className="group flex w-full flex-row items-center justify-between rounded-md  bg-zinc-50 px-4 py-2  text-zinc-900 data-[selected=true]:border-violet-50 data-[selected=true]:bg-violet-50 "
 											data-selected={isSelected}
 											onClick={() =>
 												onClickConfirm(
@@ -92,13 +96,13 @@ export default function TableXS({ confirmed, onClickConfirm }) {
 												)
 											}
 										>
-											<p className="group-data-[selected=true]:font-semibold">{`${weekday} ${date}`}</p>
+											<p className="group-data-[selected=true]:font-semibold group-data-[selected=true]:text-violet-700">{`${weekday} ${date}`}</p>
 
-											<i className="fa-solid fa-circle-check text-2xl text-zinc-200 group-data-[selected=true]:text-green-500 " />
+											<i className="fa-solid fa-circle-check text-2xl text-zinc-300 group-data-[selected=true]:text-green-500 " />
 										</button>
 									)
 								})}
-							</Fragment>
+							</div>
 						)
 					})}
 				</div>
