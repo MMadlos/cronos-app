@@ -12,7 +12,7 @@ const displayContent = {
 }
 
 export default function ScreenXS({ confirmed, onClickConfirm }) {
-	const [content, setContent] = useState(displayContent.options)
+	const [content, setContent] = useState(displayContent.default)
 
 	return (
 		<div className="h-full w-full bg-zinc-50 p-2 sm:hidden ">

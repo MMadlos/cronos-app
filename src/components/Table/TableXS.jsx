@@ -26,6 +26,8 @@ export default function TableXS({ confirmed, onClickConfirm }) {
 		mappedConfirmation[id] = []
 	})
 
+	// TODO - Revisar proceso cuando se eliminan tanto fechas como participantes
+	// No ocurre si sólo se cambia un parámetro.
 	confirmed.forEach((confirmation) => {
 		const { id, dateTime } = confirmation
 		mappedConfirmation[id].push(dateTime)
