@@ -1,7 +1,12 @@
 import { useState, useContext } from "react"
 import { ParticipantsContext } from "../../App"
 
-export default function UserList({ onClickNext, onClickReturn }) {
+export default function UserList({
+	onClickNext,
+	onClickReturn,
+	showReturn = true,
+	screenXS = false,
+}) {
 	const { participants, setParticipants } = useContext(ParticipantsContext)
 	const [inputValue, setInputValue] = useState("")
 
@@ -33,7 +38,10 @@ export default function UserList({ onClickNext, onClickReturn }) {
 	}
 
 	return (
-		<div className="mx-auto flex h-full max-h-[65vh] w-full flex-col gap-6 rounded-lg bg-white p-4 shadow-md sm:h-[55vh] sm:max-h-[55vh] sm:w-[70%] sm:p-6 ">
+		<div
+			className="mx-auto flex h-full max-h-[65vh] w-full flex-col gap-6 rounded-lg bg-white p-4 shadow-md data-[screenxs=true]:max-h-full sm:h-[55vh] sm:max-h-[55vh] sm:w-[70%] sm:p-6"
+			data-screenxs={screenXS}
+		>
 			<div className="flex w-full flex-row gap-4">
 				<input
 					id="add-participant"
@@ -73,14 +81,17 @@ export default function UserList({ onClickNext, onClickReturn }) {
 				})}
 			</div>
 			<div className="flex flex-row items-center justify-between">
+				{showReturn && (
+					<button
+						className="px-4 py-2 font-medium text-red-600 hover:underline-offset-4 hover:opacity-50 "
+						onClick={onClickReturn}
+					>
+						Return
+					</button>
+				)}
+
 				<button
-					className="px-4 py-2 font-medium text-red-600 hover:underline-offset-4 hover:opacity-50 "
-					onClick={onClickReturn}
-				>
-					Return
-				</button>
-				<button
-					className="min-w-[150px] rounded bg-zinc-900 px-10 py-2 font-semibold text-zinc-50 hover:opacity-50 disabled:opacity-30"
+					className="min-w-[150px] grow rounded bg-zinc-900 px-10 py-2 font-semibold text-zinc-50 hover:opacity-50 disabled:opacity-30 sm:grow-0"
 					onClick={onClickNext}
 					disabled={participants.length === 0}
 				>

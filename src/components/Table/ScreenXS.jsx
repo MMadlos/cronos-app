@@ -45,22 +45,20 @@ export default function ScreenXS({ confirmed, onClickConfirm }) {
 			)}
 
 			{content === displayContent.editDates && (
-				<>
-					<HeaderEdit
-						onClick={() => setContent(displayContent.options)}
-					/>
+				<div className="grid h-full content-center">
 					<DatePicker
 						onClick={() => setContent(displayContent.default)}
 					/>
-				</>
+				</div>
 			)}
 
 			{content === displayContent.editList && (
 				<>
-					<HeaderEdit
-						onClick={() => setContent(displayContent.options)}
+					<UserList
+						onClickNext={() => setContent(displayContent.default)}
+						showReturn={false}
+						screenXS
 					/>
-					<UserList onClickNext={() => {}} onClickReturn={() => {}} />
 				</>
 			)}
 		</div>
