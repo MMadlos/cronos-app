@@ -6,7 +6,7 @@ import Table from "./components/Table/Table"
 import UserList from "./components/UserList/UserList"
 import Header from "./components/Header/Header"
 import Instructions from "./components/InitialSetup/Instructions"
-import DatePicker from "./components/Calendar/DatePicker"
+import DatePicker from "./components/DatePicker/DatePicker"
 import Progress from "./components/InitialSetup/Progress"
 
 const calendarProcess = {

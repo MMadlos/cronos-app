@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 import TableXS from "./TableXS"
-import DatePicker from "../Calendar/DatePicker"
+import DatePicker from "../DatePicker/DatePicker"
 import UserList from "../UserList/UserList"
 
 const displayContent = {

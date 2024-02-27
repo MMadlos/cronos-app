@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react"
-import DatePicker from "../Calendar/DatePicker"
+import DatePicker from "../DatePicker/DatePicker"
 import UserList from "../UserList/UserList"
 
 const isClickInsideDialog = (e, element) => {
