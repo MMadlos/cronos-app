@@ -3,8 +3,7 @@ import { useState } from "react"
 import TableHead from "./TableHead"
 import TableBody from "./TableBody"
 import TableXS from "./TableXS"
-
-import { mockConfirmedData } from "../../mockData"
+import ScreenXS from "./ScreenXS"
 
 export default function Table() {
 	const [confirmed, setConfirmed] = useState([])
@@ -49,19 +48,10 @@ export default function Table() {
 				</div>
 			</div>
 			<div className="w-full sm:hidden ">
-				<div className="flex flex-row justify-between gap-2 px-2 py-4">
-					<h2 className="text-md font-semibold text-zinc-800 sm:text-lg">
-						Calendario de disponibilidad
-					</h2>
-					<button>Editar</button>
-				</div>
-
-				<div className="bg-violet-100  p-2 sm:hidden">
-					<TableXS
-						confirmed={confirmed}
-						onClickConfirm={handleConfirmation}
-					/>
-				</div>
+				<ScreenXS
+					confirmed={confirmed}
+					onClickConfirm={handleConfirmation}
+				/>
 			</div>
 		</>
 	)
