@@ -29,7 +29,7 @@ export default function Table() {
 		<>
 			<div className="mt-8 hidden sm:block ">
 				<h2 className="text-lg font-semibold text-zinc-600">
-					Fechas propuestas
+					Calendario de disponibilidad
 				</h2>
 				<div className="h-[1px] w-full bg-zinc-200"></div>
 				<div className="mt-6 max-h-[60vh] w-full overflow-x-auto  overflow-y-auto">

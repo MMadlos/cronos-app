@@ -86,7 +86,7 @@ export default function UserList({
 						className="px-4 py-2 font-medium text-red-600 hover:underline-offset-4 hover:opacity-50 "
 						onClick={onClickReturn}
 					>
-						Return
+						Volver
 					</button>
 				)}
 
@@ -95,7 +95,7 @@ export default function UserList({
 					onClick={onClickNext}
 					disabled={participants.length === 0}
 				>
-					Done
+					Hecho
 				</button>
 			</div>
 		</div>

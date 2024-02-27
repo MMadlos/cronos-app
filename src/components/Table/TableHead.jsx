@@ -33,10 +33,10 @@ export default function TableHead() {
 		<thead className="">
 			<tr className="">
 				<th className="p-1">
-					<Modal buttonName="Participants" useCase="UserList" />
+					<Modal buttonName="Listado" useCase="UserList" />
 				</th>
 				<th colSpan={datesCountByMonth.total + 1} className="p-1">
-					<Modal buttonName="Dates" useCase="DatePicker" />
+					<Modal buttonName="Fechas" useCase="DatePicker" />
 				</th>
 			</tr>
 			<tr>

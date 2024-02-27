@@ -182,14 +182,14 @@ export default function DatePicker({ onClick }) {
 					className="font-medium text-red-600 hover:underline-offset-4 hover:opacity-50 enabled:hover:underline disabled:opacity-30"
 					disabled={selectedDates.length === 0}
 				>
-					Reset dates
+					Deseleccionar todo
 				</button>
 				<button
 					className="min-w-[150px] rounded bg-zinc-900 px-6 py-2 font-semibold text-zinc-50 hover:opacity-50 disabled:opacity-30"
 					onClick={onClick}
 					disabled={selectedDates.length === 0}
 				>
-					Done
+					Hecho
 				</button>
 			</div>
 		</div>
