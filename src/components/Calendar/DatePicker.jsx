@@ -40,12 +40,13 @@ export default function DatePicker({ onClick }) {
 
 		const isSelected = selectedDates.includes(newDateTime)
 
-		if (!isSelected) setSelectedDates((prev) => [...prev, newDateTime])
+		if (!isSelected)
+			setSelectedDates((prev) => [...prev, newDateTime].sort())
 
 		if (isSelected) {
-			const newSelectedDates = selectedDates.filter(
-				(date) => date !== newDateTime
-			)
+			const newSelectedDates = selectedDates
+				.filter((date) => date !== newDateTime)
+				.sort()
 			setSelectedDates(newSelectedDates)
 		}
 	}
