@@ -1,30 +1,66 @@
 import { useState } from "react"
 
 import TableXS from "./TableXS"
+import DatePicker from "../Calendar/DatePicker"
+import UserList from "../UserList/UserList"
 
-// TODO
-// Al hacer click en calendario disponibilidad, se tiene que abrir un selector para abrir o editar participantes o editar calendario.
+const displayContent = {
+	default: "default",
+	options: "options",
+	editList: "editList",
+	editDates: "editDates",
+}
 
 export default function ScreenXS({ confirmed, onClickConfirm }) {
-	const [isEdit, setIsEdit] = useState(true)
+	const [content, setContent] = useState(displayContent.default)
 
 	return (
 		<div className="h-full w-full bg-zinc-50 sm:hidden ">
-			{isEdit ? (
+			{content === displayContent.default && (
 				<>
-					<HeaderEdit onClick={() => setIsEdit(false)} />
-					<EditOptions
-						onClickEditList={() => {}}
-						onClickEditDates={() => {}}
+					<HeaderDefault
+						onClick={() => setContent(displayContent.options)}
 					/>
-				</>
-			) : (
-				<>
-					<HeaderDefault onClick={() => setIsEdit(true)} />
 					<TableXS
 						confirmed={confirmed}
 						onClickConfirm={onClickConfirm}
 					/>
+				</>
+			)}
+
+			{content === displayContent.options && (
+				<>
+					<HeaderEdit
+						onClick={() => setContent(displayContent.default)}
+					/>
+					<EditOptions
+						onClickEditList={() =>
+							setContent(displayContent.editList)
+						}
+						onClickEditDates={() =>
+							setContent(displayContent.editDates)
+						}
+					/>
+				</>
+			)}
+
+			{content === displayContent.editDates && (
+				<>
+					<HeaderEdit
+						onClick={() => setContent(displayContent.options)}
+					/>
+					<DatePicker
+						onClick={() => setContent(displayContent.default)}
+					/>
+				</>
+			)}
+
+			{content === displayContent.editList && (
+				<>
+					<HeaderEdit
+						onClick={() => setContent(displayContent.options)}
+					/>
+					<UserList onClickNext={() => {}} onClickReturn={() => {}} />
 				</>
 			)}
 		</div>
