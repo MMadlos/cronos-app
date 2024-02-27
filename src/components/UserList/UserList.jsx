@@ -80,10 +80,10 @@ export default function UserList({
 					)
 				})}
 			</div>
-			<div className="flex flex-row items-center justify-between">
+			<div className="flex flex-row items-center justify-between gap-4">
 				{showReturn && (
 					<button
-						className="px-4 py-2 font-medium text-red-600 hover:underline-offset-4 hover:opacity-50 "
+						className="px-8 py-2 font-medium text-red-600 hover:underline-offset-4 hover:opacity-50 "
 						onClick={onClickReturn}
 					>
 						Volver
@@ -91,7 +91,7 @@ export default function UserList({
 				)}
 
 				<button
-					className="min-w-[150px] grow rounded bg-zinc-900 px-10 py-2 font-semibold text-zinc-50 hover:opacity-50 disabled:opacity-30 sm:grow-0"
+					className="w-[150px] grow rounded bg-zinc-900 px-10 py-2 font-semibold text-zinc-50 hover:opacity-50 disabled:opacity-30 sm:grow-0"
 					onClick={onClickNext}
 					disabled={participants.length === 0}
 				>
