@@ -32,49 +32,56 @@ export default function TableXS({ confirmed, onClickConfirm }) {
 
 	return (
 		<>
-			<button
-				className="sticky top-4 flex w-full flex-row items-center justify-between rounded border border-violet-300 bg-white px-4 py-2 font-semibold text-violet-700 data-[open=true]:bg-violet-50"
-				onClick={() => setListOpen(!isListOpen)}
-				data-open={isListOpen}
-			>
-				{selectedPerson?.name ?? "Select participant"}
-				{isListOpen && <i className="fa-solid fa-chevron-up" />}
-				{!isListOpen && <i className="fa-solid fa-chevron-right" />}
-			</button>
-			{isListOpen && (
-				<>
-					<div className="flex flex-col justify-center gap-2 divide-y divide-violet-300 rounded bg-violet-50 p-4">
-						{participants.map((personData) => {
-							const { id, name } = personData
+			<div className="flex flex-col gap-2">
+				<button
+					className="flex w-full flex-row items-center justify-between rounded border-2 border-violet-700 bg-white px-4 py-2 font-semibold text-violet-700 data-[open=true]:bg-violet-50"
+					onClick={() => setListOpen(!isListOpen)}
+					data-open={isListOpen}
+				>
+					{selectedPerson?.name ?? "Select participant"}
+					{isListOpen && <i className="fa-solid fa-chevron-up" />}
+					{!isListOpen && <i className="fa-solid fa-chevron-right" />}
+				</button>
 
-							return (
-								<button
-									className="rounded-sm p-4 text-left data-[selected=true]:font-bold data-[selected=true]:text-violet-700"
-									data-selected={selectedPerson?.id === id}
-									key={id}
-									onClick={() => {
-										setSelectedPerson(personData)
-										setListOpen(false)
-									}}
-								>
-									{name}
-								</button>
-							)
-						})}
-					</div>
-					<div className="h-4"></div>
-				</>
-			)}
+				{isListOpen && (
+					<>
+						<div className="flex flex-col justify-center gap-2 divide-y rounded bg-white p-4">
+							{participants.map((personData) => {
+								const { id, name } = personData
+
+								return (
+									<button
+										className="rounded-sm px-2 py-4 text-left data-[selected=true]:font-bold data-[selected=true]:text-violet-700"
+										data-selected={
+											selectedPerson?.id === id
+										}
+										key={id}
+										onClick={() => {
+											setSelectedPerson(personData)
+											setListOpen(false)
+										}}
+									>
+										{name}
+									</button>
+								)
+							})}
+						</div>
+						<div className="h-4"></div>
+					</>
+				)}
+			</div>
 
 			{!isListOpen && selectedPerson !== undefined && (
-				<div className="mt-2 flex flex-col gap-2 rounded ">
+				<div className="my-4 flex flex-col gap-2 rounded  bg-white pb-8">
 					{Object.keys(mappedDates).map((monthName) => {
 						return (
 							<div
 								key={monthName}
-								className="my-2 flex flex-col gap-2 "
+								className=" flex flex-col gap-2 p-4"
 							>
-								<p className="my-2 text-center">{monthName}</p>
+								<p className="my-2 text-left font-bold text-zinc-900">
+									{monthName.toLocaleUpperCase()}
+								</p>
 								{mappedDates[monthName].map((dateTime) => {
 									const weekday =
 										getIntlWeekdayShort(dateTime)

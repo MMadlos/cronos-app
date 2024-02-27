@@ -29,7 +29,7 @@ export default function Table() {
 
 	return (
 		<>
-			<div className="mt-8 hidden sm:block">
+			<div className="mt-8 hidden sm:block ">
 				{/* Table SCREEN */}
 				<h2 className="text-md font-semibold text-zinc-600 sm:text-lg">
 					Fechas propuestas
@@ -48,18 +48,20 @@ export default function Table() {
 					</table>
 				</div>
 			</div>
-			<div className="w-full sm:hidden">
-				<div className="flex flex-row justify-between gap-2 py-4">
+			<div className="w-full sm:hidden ">
+				<div className="flex flex-row justify-between gap-2 px-2 py-4">
 					<h2 className="text-md font-semibold text-zinc-800 sm:text-lg">
 						Calendario de disponibilidad
 					</h2>
 					<button>Editar</button>
 				</div>
 
-				<TableXS
-					confirmed={confirmed}
-					onClickConfirm={handleConfirmation}
-				/>
+				<div className="bg-violet-100  p-2 sm:hidden">
+					<TableXS
+						confirmed={confirmed}
+						onClickConfirm={handleConfirmation}
+					/>
+				</div>
 			</div>
 		</>
 	)

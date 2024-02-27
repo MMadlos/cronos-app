@@ -90,7 +90,7 @@ function App() {
 				)}
 
 				{stage === calendarProcess.table && (
-					<section className="container mx-auto flex h-full flex-col gap-2 p-2 sm:w-[80vw] sm:p-0">
+					<section className="container mx-auto flex h-full flex-col gap-2 sm:w-[80vw] sm:p-0">
 						<ParticipantsContext.Provider
 							value={{ participants, setParticipants }}
 						>
