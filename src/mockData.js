@@ -57,50 +57,12 @@ const mockConfirmedList = [
 	mockParticipants[3].id,
 ]
 
-// * Unused
-const mockSummaryData = [
-	{
-		monthName: "febrero",
-		monthIndex: 1,
-		selectedDates: [
-			{
-				date: 7,
-				confirmedList: mockConfirmedList,
-				ratio: mockConfirmedList.length / mockParticipants.length,
-			},
-			{
-				date: 8,
-				confirmedList: [],
-				ratio: 0,
-			},
-		],
-	},
-	{
-		monthName: "marzo",
-		monthIndex: 2,
-		selectedDates: [
-			{
-				date: 1,
-				confirmedList: [],
-				ratio: 0,
-			},
-			{
-				date: 9,
-				confirmedList: [],
-				ratio: 0,
-			},
-			{
-				date: 10,
-				confirmedList: [],
-				ratio: 0,
-			},
-		],
-	},
-]
+const mockSelectedPerson = mockParticipants[0]
 
 export {
 	mockSelectedDates,
 	mockParticipants,
 	mockConfirmedData,
-	mockSummaryData,
+	mockConfirmedList,
+	mockSelectedPerson,
 }

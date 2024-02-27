@@ -1,14 +1,15 @@
 import { useContext, useState } from "react"
 import { ParticipantsContext, SelectedDatesContext } from "../../App"
 import { getIntlMonthLong, getIntlWeekdayShort } from "../../utils"
-import { Fragment } from "react"
+
+import { mockSelectedPerson } from "../../mockData"
 
 export default function TableXS({ confirmed, onClickConfirm }) {
 	const { participants } = useContext(ParticipantsContext)
 	const { selectedDates } = useContext(SelectedDatesContext)
 
-	const [selectedPerson, setSelectedPerson] = useState(undefined)
-	const [isListOpen, setListOpen] = useState(true)
+	const [selectedPerson, setSelectedPerson] = useState(mockSelectedPerson)
+	const [isListOpen, setListOpen] = useState(selectedPerson === undefined)
 
 	const mappedDates = {}
 	selectedDates.forEach((dateTime) => {
@@ -32,47 +33,52 @@ export default function TableXS({ confirmed, onClickConfirm }) {
 
 	return (
 		<>
-			<div className="flex flex-col gap-2">
-				<button
-					className="flex w-full flex-row items-center justify-between rounded border-2 border-violet-700 bg-white px-4 py-2 font-semibold text-violet-700 data-[open=true]:bg-violet-50"
-					onClick={() => setListOpen(!isListOpen)}
-					data-open={isListOpen}
-				>
-					{selectedPerson?.name ?? "Select participant"}
-					{isListOpen && <i className="fa-solid fa-chevron-up" />}
-					{!isListOpen && <i className="fa-solid fa-chevron-right" />}
-				</button>
+			<div className="m-2 flex flex-col gap-2 rounded-md border  bg-white p-2">
+				{selectedPerson !== undefined && (
+					<button
+						className="flex flex-row items-center justify-between rounded bg-zinc-100 px-4 py-2 text-zinc-400 data-[open=false]:bg-white data-[open=false]:font-semibold data-[open=false]:text-violet-800"
+						onClick={() => setListOpen(!isListOpen)}
+						data-open={isListOpen}
+					>
+						{selectedPerson.name}
+						{isListOpen && <i className="fa-solid fa-chevron-up" />}
+						{!isListOpen && (
+							<i className="fa-solid fa-chevron-right" />
+						)}
+					</button>
+				)}
+
+				{isListOpen && selectedPerson === undefined && (
+					<div className="rounded bg-zinc-100 px-4 py-2 text-zinc-400">
+						<p>Selecciona participante</p>
+					</div>
+				)}
 
 				{isListOpen && (
-					<>
-						<div className="flex flex-col justify-center gap-2 divide-y rounded bg-white p-4">
-							{participants.map((personData) => {
-								const { id, name } = personData
+					<div className="flex flex-col gap-2 divide-y">
+						{participants.map((personData) => {
+							const { id, name } = personData
 
-								return (
-									<button
-										className="rounded-sm px-2 py-4 text-left data-[selected=true]:font-bold data-[selected=true]:text-violet-700"
-										data-selected={
-											selectedPerson?.id === id
-										}
-										key={id}
-										onClick={() => {
-											setSelectedPerson(personData)
-											setListOpen(false)
-										}}
-									>
-										{name}
-									</button>
-								)
-							})}
-						</div>
-						<div className="h-4"></div>
-					</>
+							return (
+								<button
+									className="px-2 py-2 text-left data-[selected=true]:font-bold data-[selected=true]:text-violet-700"
+									data-selected={selectedPerson?.id === id}
+									key={id}
+									onClick={() => {
+										setSelectedPerson(personData)
+										setListOpen(false)
+									}}
+								>
+									{name}
+								</button>
+							)
+						})}
+					</div>
 				)}
 			</div>
 
 			{!isListOpen && selectedPerson !== undefined && (
-				<div className="my-4 flex flex-col gap-2 rounded  bg-white pb-8">
+				<div className="m-2 flex flex-col gap-2  rounded-md border bg-white pb-8">
 					{Object.keys(mappedDates).map((monthName) => {
 						return (
 							<div
