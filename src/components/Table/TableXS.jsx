@@ -33,7 +33,7 @@ export default function TableXS({ confirmed, onClickConfirm }) {
 
 	return (
 		<>
-			<div className="m-2 flex flex-col gap-2 rounded-md border  bg-white p-2">
+			<div className="flex flex-col gap-2 rounded-md border bg-white p-2">
 				{selectedPerson !== undefined && (
 					<button
 						className="flex flex-row items-center justify-between rounded bg-zinc-100 px-4 py-2 text-zinc-400 data-[open=false]:bg-white data-[open=false]:font-semibold data-[open=false]:text-violet-800"
@@ -78,7 +78,7 @@ export default function TableXS({ confirmed, onClickConfirm }) {
 			</div>
 
 			{!isListOpen && selectedPerson !== undefined && (
-				<div className="m-2 flex flex-col gap-2  rounded-md border bg-white pb-8">
+				<div className="mt-2 flex flex-col  gap-2 rounded-md border bg-white pb-8">
 					{Object.keys(mappedDates).map((monthName) => {
 						return (
 							<div

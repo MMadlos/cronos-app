@@ -32,8 +32,8 @@ function App() {
 	const [participants, setParticipants] = useState(mockParticipants)
 
 	return (
-		<div className="flex h-screen w-screen flex-row">
-			<main className="flex h-full w-full flex-col items-center">
+		<div className="mw-screen flex min-h-dvh flex-row sm:h-screen">
+			<main className="flex min-h-full w-full flex-col items-center">
 				<Header />
 				{stage !== calendarProcess.table && (
 					<section className="flex h-full w-full items-center justify-center">

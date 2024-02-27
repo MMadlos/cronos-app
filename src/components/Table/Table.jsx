@@ -47,7 +47,7 @@ export default function Table() {
 					</table>
 				</div>
 			</div>
-			<div className="w-full sm:hidden ">
+			<div className="h-full w-full sm:hidden ">
 				<ScreenXS
 					confirmed={confirmed}
 					onClickConfirm={handleConfirmation}
