@@ -103,7 +103,7 @@ export default function DatePicker({ onClick }) {
 				id="calendar-header"
 				className="flex flex-col items-center sm:gap-2"
 			>
-				<h4 className="text-sm font-medium text-zinc-400">{year}</h4>
+				<h4 className="text-sm font-medium text-stone-400">{year}</h4>
 				<div className="flex w-full flex-row items-center justify-between">
 					<button
 						className="group"
@@ -115,11 +115,11 @@ export default function DatePicker({ onClick }) {
 						onClick={handleClickArrow}
 					>
 						<i
-							className={`fa-solid fa-arrow-left text-2xl text-zinc-700 group-enabled:hover:opacity-50 group-disabled:text-zinc-200 sm:p-2`}
+							className={`fa-solid fa-arrow-left text-2xl text-stone-700 group-enabled:hover:opacity-50 group-disabled:text-stone-200 sm:p-2`}
 						/>
 					</button>
 					<div className="rounded  px-6 py-2 ">
-						<h3 className="text-xl font-semibold text-zinc-600 sm:text-2xl">
+						<h3 className="text-xl font-semibold text-stone-600 sm:text-2xl">
 							{monthName}
 						</h3>
 					</div>
@@ -130,21 +130,21 @@ export default function DatePicker({ onClick }) {
 						onClick={handleClickArrow}
 					>
 						<i
-							className={`fa-solid fa-arrow-right text-2xl text-zinc-700 hover:opacity-50 group-disabled:text-zinc-200 sm:p-2`}
+							className={`fa-solid fa-arrow-right text-2xl text-stone-700 hover:opacity-50 group-disabled:text-stone-200 sm:p-2`}
 						/>
 					</button>
 				</div>
 			</div>
 
 			<div className="flex flex-col items-center justify-center gap-2 ">
-				<div className="grid w-full grid-cols-7 items-center justify-items-center gap-1 border-b-2 border-zinc-200 pb-2">
+				<div className="grid w-full grid-cols-7 items-center justify-items-center gap-1 border-b-2 border-stone-200 pb-2">
 					{getWeekdays().map((weekday, index) => {
 						return (
 							<button
 								onClick={handleClickWeekday}
 								key={weekday}
 								data-index={index + 1}
-								className="flex size-10 items-center justify-center rounded-md border-2 border-transparent bg-zinc-50 font-medium text-zinc-600 hover:cursor-pointer hover:bg-zinc-200 sm:bg-zinc-100"
+								className="flex size-10 items-center justify-center rounded-md border-2 border-transparent bg-stone-50 font-medium text-stone-600 hover:cursor-pointer hover:bg-stone-200 sm:bg-stone-100"
 							>
 								{weekday}
 							</button>
@@ -165,7 +165,7 @@ export default function DatePicker({ onClick }) {
 								onClick={() => handleClickDate(content)}
 								key={index}
 								data-type={type}
-								className="flex size-10 items-center justify-center rounded-md bg-zinc-50 font-medium enabled:hover:bg-zinc-200 disabled:text-zinc-300 data-[type=selected]:border-zinc-200 data-[type=selected]:bg-zinc-900 data-[type=selected]:font-medium data-[type=selected]:text-zinc-50 data-[type=selected]:hover:bg-zinc-500 md:bg-zinc-100"
+								className="flex size-10 items-center justify-center rounded-md bg-stone-50 font-medium enabled:hover:bg-stone-200 disabled:text-stone-300 data-[type=selected]:border-stone-200 data-[type=selected]:bg-stone-900 data-[type=selected]:font-medium data-[type=selected]:text-stone-50 data-[type=selected]:hover:bg-stone-500 md:bg-stone-100"
 								disabled={isDisabled}
 								data-date={isDisabled ? null : content}
 							>
@@ -185,7 +185,7 @@ export default function DatePicker({ onClick }) {
 					Deseleccionar todo
 				</button>
 				<button
-					className="min-w-[150px] rounded bg-zinc-900 px-6 py-2 font-semibold text-zinc-50 hover:opacity-50 disabled:opacity-30"
+					className="min-w-[150px] rounded bg-stone-800 px-6 py-2 font-semibold text-stone-50 hover:opacity-50 disabled:opacity-30"
 					onClick={onClick}
 					disabled={selectedDates.length === 0}
 				>
