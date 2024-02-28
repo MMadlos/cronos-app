@@ -20,7 +20,7 @@ function getMockSelectedDates(length) {
 	return mockSelectedDates
 }
 
-const mockSelectedDates = getMockSelectedDates(20)
+const mockSelectedDates = getMockSelectedDates(8)
 
 const NAMES = [
 	"Alejandro Sanz",
@@ -29,12 +29,6 @@ const NAMES = [
 	"María",
 	"Almudena",
 	"Rocío",
-	"test",
-	"test",
-	"test",
-	"test",
-	"test",
-	"test",
 ]
 
 const mockParticipants = NAMES.map((name) => {

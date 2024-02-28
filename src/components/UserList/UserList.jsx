@@ -15,7 +15,6 @@ export default function UserList({
 	}
 
 	function handleClickAdd() {
-		// TODO - Add message for empty input
 		if (inputValue === "") return
 
 		const newPerson = { id: crypto.randomUUID(), name: inputValue }
