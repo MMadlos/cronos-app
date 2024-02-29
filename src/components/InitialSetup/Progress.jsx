@@ -4,7 +4,7 @@ export default function Progress({ stage }) {
 			className="group flex flex-row items-center justify-center gap-2 py-2 sm:gap-4"
 			data-stage={stage}
 		>
-			<span className="flex size-5 items-center justify-center rounded-full bg-violet-700 p-4 font-semibold text-violet-50 group-data-[stage=list]:bg-zinc-900  sm:size-10">
+			<span className="flex size-5 items-center justify-center rounded-full bg-violet-700 p-4 font-semibold text-violet-50 group-data-[stage=list]:bg-zinc-900 sm:size-10">
 				1
 			</span>
 			<p className="text-nowrap font-semibold text-violet-700 group-data-[stage=list]:text-zinc-900">
