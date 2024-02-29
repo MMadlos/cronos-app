@@ -15,7 +15,7 @@ export default function ScreenXS({ confirmed, onClickConfirm }) {
 	const [content, setContent] = useState(displayContent.default)
 
 	return (
-		<div className="h-full w-full bg-zinc-50 p-2 sm:hidden ">
+		<div className="h-full w-full p-2 backdrop-blur-sm sm:hidden ">
 			{content === displayContent.default && (
 				<>
 					<HeaderDefault
@@ -69,9 +69,9 @@ function HeaderEdit({ onClick }) {
 	return (
 		<div className="flex flex-row items-center gap-1 px-2 py-2">
 			<button className="px-3 py-2" onClick={onClick}>
-				<i className="fa-solid fa-chevron-left text-lg text-zinc-500" />
+				<i className="fa-solid fa-chevron-left text-lg text-zinc-800" />
 			</button>
-			<h2 className="text-lg font-medium text-zinc-800 ">Editar</h2>
+			<h2 className="text-lg font-semibold text-zinc-800 ">Editar</h2>
 		</div>
 	)
 }
@@ -79,11 +79,11 @@ function HeaderEdit({ onClick }) {
 function HeaderDefault({ onClick }) {
 	return (
 		<div className="flex flex-row items-center justify-between gap-2 px-2 py-2">
-			<h2 className="text-lg font-medium text-zinc-800 ">
+			<h2 className="font-semibold text-zinc-800 ">
 				Calendario de disponibilidad
 			</h2>
 			<button className=" px-3 py-2" onClick={onClick}>
-				<i className="fa-solid fa-pen text-lg text-zinc-500" />
+				<i className="fa-solid fa-pen text-lg text-zinc-800" />
 			</button>
 		</div>
 	)

@@ -38,7 +38,7 @@ export default function TableXS({ confirmed, onClickConfirm }) {
 			<div className="flex flex-col gap-2 rounded-md border bg-white p-2">
 				{selectedPerson !== undefined && (
 					<button
-						className="flex flex-row items-center justify-between rounded bg-zinc-100 px-4 py-2 text-zinc-400 data-[open=false]:bg-white data-[open=false]:font-semibold data-[open=false]:text-violet-800"
+						className="flex flex-row items-center justify-between rounded bg-zinc-100 px-2 py-2 text-zinc-400 data-[open=false]:bg-white data-[open=false]:font-semibold data-[open=false]:text-violet-800"
 						onClick={() => setListOpen(!isListOpen)}
 						data-open={isListOpen}
 					>
