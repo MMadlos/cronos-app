@@ -30,7 +30,7 @@ export const SelectedDatesContext = createContext({
 })
 
 function App() {
-	const [stage, setStage] = useState(calendarProcess.init)
+	const [stage, setStage] = useState(calendarProcess.pickDates)
 	const [selectedDates, setSelectedDates] = useState(mockSelectedDates)
 	const [participants, setParticipants] = useState(mockParticipants)
 
@@ -62,22 +62,42 @@ function App() {
 					)}
 
 					{stage === calendarProcess.pickDates && (
-						<SetupContainer>
-							<Progress stage={stage} />
+						<>
+							<SetupContainer>
+								{/* <Progress stage={stage} /> */}
 
-							<SelectedDatesContext.Provider
-								value={{
-									selectedDates,
-									setSelectedDates,
-								}}
-							>
-								<DatePicker
+								<SelectedDatesContext.Provider
+									value={{
+										selectedDates,
+										setSelectedDates,
+									}}
+								>
+									<DatePicker
+										onClick={() =>
+											setStage(calendarProcess.peopleList)
+										}
+									/>
+								</SelectedDatesContext.Provider>
+							</SetupContainer>
+							<div className="absolute bottom-0 left-0 grid w-full items-center gap-2 bg-white p-4 sm:hidden">
+								<button
+									className="rounded-md bg-gradient-to-br px-8 py-3  text-red-600  disabled:opacity-30"
+									onClick={() => setSelectedDates([])}
+									disabled={selectedDates.length === 0}
+								>
+									Deseleccionar todo
+								</button>
+								<button
+									className="rounded-md bg-stone-800 bg-gradient-to-br px-8 py-3 font-semibold text-zinc-50  disabled:opacity-30"
 									onClick={() =>
 										setStage(calendarProcess.peopleList)
 									}
-								/>
-							</SelectedDatesContext.Provider>
-						</SetupContainer>
+									disabled={selectedDates.length === 0}
+								>
+									Hecho
+								</button>
+							</div>
+						</>
 					)}
 
 					{stage === calendarProcess.peopleList && (

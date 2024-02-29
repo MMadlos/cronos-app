@@ -14,13 +14,13 @@ export default function Progress({ stage }) {
 
 	return (
 		<div
-			className="flex w-full flex-row items-center justify-start gap-2 p-4 sm:gap-4"
+			className="flex w-full flex-row items-center justify-center gap-2 p-4 opacity-45 sm:gap-4"
 			data-stage={stage}
 		>
 			<span className="flex size-5 items-center justify-center rounded-full bg-zinc-700 p-4 font-semibold text-zinc-50  sm:size-10">
 				{content[stage].step}
 			</span>
-			<p className="text-nowrap font-semibold text-zinc-700 group-data-[stage=list]:text-zinc-900">
+			<p className="text-nowrap text-4xl font-semibold text-zinc-700 group-data-[stage=list]:text-zinc-900">
 				{content[stage].text}
 			</p>
 		</div>
