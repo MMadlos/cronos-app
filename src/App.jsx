@@ -10,12 +10,14 @@ import Instructions from "./components/InitialSetup/Instructions"
 import DatePicker from "./components/DatePicker/DatePicker"
 import Progress from "./components/InitialSetup/Progress"
 
-const calendarProcess = {
+export const calendarProcess = {
 	init: "instructions",
 	pickDates: "calendar",
 	peopleList: "list",
 	table: "table",
 }
+
+Object.freeze(calendarProcess)
 
 export const ParticipantsContext = createContext({
 	participants: [],
