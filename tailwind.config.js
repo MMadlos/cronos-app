@@ -1,17 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 
-const defaultTheme = require("tailwindcss/defaultTheme")
+import theme from "tailwindcss/defaultTheme"
+
+// const defaultTheme = require("tailwindcss/defaultTheme")
 
 export default {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ["Inter", ...defaultTheme.fontFamily.sans],
+				sans: ["Inter", ...theme.fontFamily.sans],
 			},
+			backgroundImage: (theme) => ({
+				image: "url('src/images/header-calendar2.jpg')",
+			}),
 		},
 		fontFamily: {
-			passionOne: ["Passion One", ...defaultTheme.fontFamily.sans],
+			passionOne: ["Passion One", ...theme.fontFamily.sans],
 		},
 	},
 	plugins: [],
