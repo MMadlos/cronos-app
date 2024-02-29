@@ -32,12 +32,12 @@ function App() {
 	const [participants, setParticipants] = useState(mockParticipants)
 
 	return (
-		<div className="mw-screen flex min-h-dvh flex-row sm:h-screen">
+		<div className=" flex min-h-dvh flex-row sm:h-screen">
 			<main className="flex min-h-full w-full flex-col items-center">
 				<Header />
 				{stage !== calendarProcess.table && (
-					<section className="flex h-full w-full items-center justify-center">
-						<div className="flex h-full w-full flex-col bg-stone-50 p-4 sm:h-[90%] sm:w-[70%] sm:items-center sm:rounded-lg sm:p-6">
+					<section className="bg-image flex h-full w-full items-center justify-center bg-cover bg-center">
+						<div className="flex h-full w-full flex-col bg-stone-50/30 p-4 backdrop-blur-md sm:h-[90%] sm:w-[70%] sm:items-center sm:rounded-lg sm:p-6">
 							{stage !== calendarProcess.init && (
 								<Progress stage={stage} />
 							)}
