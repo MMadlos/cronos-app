@@ -176,7 +176,7 @@ export default function DatePicker({ onClick }) {
 				</div>
 			</div>
 
-			<div className="mt-4 hidden flex-col items-center justify-between gap-4 sm:flex">
+			<div className="mt-4 flex flex-col items-center justify-between gap-4 sm:flex">
 				<button
 					onClick={handleClickReset}
 					className="px-6 py-2 font-medium text-red-600 hover:underline-offset-4 hover:opacity-50 enabled:hover:underline disabled:opacity-30"

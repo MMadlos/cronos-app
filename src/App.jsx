@@ -30,7 +30,7 @@ export const SelectedDatesContext = createContext({
 })
 
 function App() {
-	const [stage, setStage] = useState(calendarProcess.init)
+	const [stage, setStage] = useState(calendarProcess.table)
 	const [selectedDates, setSelectedDates] = useState(mockSelectedDates)
 	const [participants, setParticipants] = useState(mockParticipants)
 
@@ -77,68 +77,27 @@ function App() {
 									/>
 								</SelectedDatesContext.Provider>
 							</SetupContainer>
-							<div className="absolute bottom-0 left-0 grid w-full items-center gap-2 bg-white p-4 sm:hidden">
-								<button
-									className="rounded-md bg-gradient-to-br px-8 py-3  font-medium  text-red-600 disabled:opacity-30"
-									onClick={() => setSelectedDates([])}
-									disabled={selectedDates.length === 0}
-								>
-									Deseleccionar todo
-								</button>
-								<button
-									className="rounded-md bg-stone-800 bg-gradient-to-br px-8 py-3 font-semibold text-zinc-50  disabled:opacity-30"
-									onClick={() =>
-										setStage(calendarProcess.peopleList)
-									}
-									disabled={selectedDates.length === 0}
-								>
-									Hecho
-								</button>
-							</div>
 						</>
 					)}
 
 					{stage === calendarProcess.peopleList && (
-						<>
-							<SetupContainer>
-								{/* <Progress stage={stage} /> */}
-
-								<ParticipantsContext.Provider
-									value={{
-										participants,
-										setParticipants,
-									}}
-								>
-									<UserList
-										onClickReturn={() =>
-											setStage(calendarProcess.pickDates)
-										}
-										onClickNext={() =>
-											setStage(calendarProcess.table)
-										}
-									/>
-								</ParticipantsContext.Provider>
-								{/* <div className=" bottom-0 left-0 grid w-full items-center gap-2 bg-white p-4 sm:hidden">
-									<button
-										className="rounded-md  px-8 py-3  font-medium  text-red-600"
-										onClick={() =>
-											setStage(calendarProcess.pickDates)
-										}
-									>
-										Volver al calendario
-									</button>
-									<button
-										className="rounded-md bg-stone-800 bg-gradient-to-br px-8 py-3 font-semibold text-zinc-50  disabled:opacity-30"
-										onClick={() =>
-											setStage(calendarProcess.table)
-										}
-										disabled={selectedDates.length === 0}
-									>
-										Hecho
-									</button>
-								</div> */}
-							</SetupContainer>
-						</>
+						<SetupContainer>
+							<ParticipantsContext.Provider
+								value={{
+									participants,
+									setParticipants,
+								}}
+							>
+								<UserList
+									onClickReturn={() =>
+										setStage(calendarProcess.pickDates)
+									}
+									onClickNext={() =>
+										setStage(calendarProcess.table)
+									}
+								/>
+							</ParticipantsContext.Provider>
+						</SetupContainer>
 					)}
 
 					{stage === calendarProcess.table && (

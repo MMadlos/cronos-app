@@ -38,7 +38,7 @@ export default function UserList({
 
 	return (
 		<div
-			className="mx-auto flex  w-full flex-col gap-6 rounded-md border border-red-400 bg-white p-4 data-[screenxs=true]:max-h-full sm:mb-0 sm:h-[55vh] sm:max-h-[55vh] sm:w-[70%] sm:bg-white sm:p-6 md:shadow-md"
+			className="mx-auto flex  w-full flex-col gap-6 rounded-md  bg-white p-4 data-[screenxs=true]:max-h-full sm:mb-0 sm:h-[55vh] sm:max-h-[55vh] sm:w-[70%] sm:bg-white sm:p-6 md:shadow-md"
 			data-screenxs={screenXS}
 		>
 			<div className="flex w-full flex-row gap-4">
@@ -59,7 +59,7 @@ export default function UserList({
 				</button>
 			</div>
 
-			<div className="flex grow flex-col items-start gap-2 border border-blue-500 bg-white sm:h-[70%] sm:overflow-y-auto">
+			<div className="flex grow flex-col items-start gap-2  bg-white sm:h-[70%] sm:overflow-y-auto">
 				{participants.map((person) => {
 					const { id, name } = person
 					return (
@@ -79,7 +79,7 @@ export default function UserList({
 					)
 				})}
 			</div>
-			<div className=" flex flex-col items-center justify-between gap-4 border border-red-600 sm:flex-row">
+			<div className=" flex flex-col items-center justify-between gap-4 sm:flex-row">
 				{showReturn && (
 					<button
 						className="w-full px-8 py-2 font-medium text-red-600 hover:underline-offset-4 hover:opacity-50 sm:w-fit "
