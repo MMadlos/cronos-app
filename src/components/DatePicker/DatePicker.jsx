@@ -176,16 +176,16 @@ export default function DatePicker({ onClick }) {
 				</div>
 			</div>
 
-			<div className="mt-4 hidden flex-row items-center justify-between sm:flex ">
+			<div className="mt-4 hidden flex-col items-center justify-between gap-4 sm:flex">
 				<button
 					onClick={handleClickReset}
-					className="font-medium text-red-600 hover:underline-offset-4 hover:opacity-50 enabled:hover:underline disabled:opacity-30"
+					className="px-6 py-2 font-medium text-red-600 hover:underline-offset-4 hover:opacity-50 enabled:hover:underline disabled:opacity-30"
 					disabled={selectedDates.length === 0}
 				>
 					Deseleccionar todo
 				</button>
 				<button
-					className="min-w-[150px] rounded bg-stone-800 px-6 py-2 font-semibold text-stone-50 hover:opacity-50 disabled:opacity-30"
+					className="w-full rounded bg-stone-800 px-6 py-2 font-semibold text-stone-50 hover:opacity-50 disabled:opacity-30"
 					onClick={onClick}
 					disabled={selectedDates.length === 0}
 				>

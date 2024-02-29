@@ -81,7 +81,7 @@ function App() {
 							</SetupContainer>
 							<div className="absolute bottom-0 left-0 grid w-full items-center gap-2 bg-white p-4 sm:hidden">
 								<button
-									className="rounded-md bg-gradient-to-br px-8 py-3  text-red-600  disabled:opacity-30"
+									className="rounded-md bg-gradient-to-br px-8 py-3  font-medium  text-red-600 disabled:opacity-30"
 									onClick={() => setSelectedDates([])}
 									disabled={selectedDates.length === 0}
 								>
