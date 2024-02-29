@@ -29,6 +29,12 @@ const NAMES = [
 	"María",
 	"Almudena",
 	"Rocío",
+	"Alejandro Sanz",
+	"Shakira",
+	"José Fernando Gutiérrez",
+	"María",
+	"Almudena",
+	"Rocío",
 ]
 
 const mockParticipants = NAMES.map((name) => {
