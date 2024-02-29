@@ -2,6 +2,7 @@ import "./App.css"
 import { useState, createContext } from "react"
 import { mockSelectedDates, mockParticipants } from "./mockData"
 
+import SetupContainer from "./components/InitialSetup/SetupContainer"
 import Table from "./components/Table/Table"
 import UserList from "./components/UserList/UserList"
 import Header from "./components/Header/Header"
@@ -32,65 +33,62 @@ function App() {
 	const [participants, setParticipants] = useState(mockParticipants)
 
 	return (
-		<div className=" flex min-h-dvh flex-row sm:h-screen">
-			<main className="flex min-h-full w-full flex-col items-center">
-				<Header />
-				{stage !== calendarProcess.table && (
-					<section className="bg-image flex h-full w-full items-center justify-center bg-cover bg-center">
-						<div className="flex h-full w-full flex-col bg-stone-50/30 p-4 backdrop-blur-md sm:h-[90%] sm:w-[70%] sm:items-center sm:rounded-lg sm:p-6">
-							{stage !== calendarProcess.init && (
-								<Progress stage={stage} />
-							)}
-							<div className=" mt-2 flex h-full w-full justify-center sm:mt-0 sm:h-full sm:items-center">
-								{stage === calendarProcess.init && (
-									<Instructions
-										onClickAddCalendar={() =>
-											setStage(calendarProcess.pickDates)
-										}
-									/>
-								)}
-								{stage === calendarProcess.pickDates && (
-									<SelectedDatesContext.Provider
-										value={{
-											selectedDates,
-											setSelectedDates,
-										}}
-									>
-										<DatePicker
-											onClick={() =>
-												setStage(
-													calendarProcess.peopleList
-												)
-											}
-										/>
-									</SelectedDatesContext.Provider>
-								)}
-								{stage === calendarProcess.peopleList && (
-									<ParticipantsContext.Provider
-										value={{
-											participants,
-											setParticipants,
-										}}
-									>
-										<UserList
-											onClickReturn={() =>
-												setStage(
-													calendarProcess.pickDates
-												)
-											}
-											onClickNext={() =>
-												setStage(calendarProcess.table)
-											}
-										/>
-									</ParticipantsContext.Provider>
-								)}
-							</div>
-						</div>
-					</section>
-				)}
+		<div className="flex h-dvh flex-col sm:h-screen">
+			<Header />
+			<main className="bg-image flex h-full w-full flex-col items-center bg-cover bg-center ">
+				<section>
+					{stage === calendarProcess.init && (
+						<SetupContainer>
+							<Instructions
+								onClick={() =>
+									setStage(calendarProcess.pickDates)
+								}
+							/>
+						</SetupContainer>
+					)}
 
-				{stage === calendarProcess.table && (
-					<section className="container mx-auto flex h-full flex-col gap-2 sm:w-[80vw] ">
+					{stage === calendarProcess.pickDates && (
+						<SetupContainer>
+							<Progress stage={stage} />
+
+							<SelectedDatesContext.Provider
+								value={{
+									selectedDates,
+									setSelectedDates,
+								}}
+							>
+								<DatePicker
+									onClick={() =>
+										setStage(calendarProcess.peopleList)
+									}
+								/>
+							</SelectedDatesContext.Provider>
+						</SetupContainer>
+					)}
+
+					{stage === calendarProcess.peopleList && (
+						<SetupContainer>
+							<Progress stage={stage} />
+
+							<ParticipantsContext.Provider
+								value={{
+									participants,
+									setParticipants,
+								}}
+							>
+								<UserList
+									onClickReturn={() =>
+										setStage(calendarProcess.pickDates)
+									}
+									onClickNext={() =>
+										setStage(calendarProcess.table)
+									}
+								/>
+							</ParticipantsContext.Provider>
+						</SetupContainer>
+					)}
+
+					{stage === calendarProcess.table && (
 						<ParticipantsContext.Provider
 							value={{ participants, setParticipants }}
 						>
@@ -100,8 +98,8 @@ function App() {
 								<Table />
 							</SelectedDatesContext.Provider>
 						</ParticipantsContext.Provider>
-					</section>
-				)}
+					)}
+				</section>
 			</main>
 		</div>
 	)
