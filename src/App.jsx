@@ -38,7 +38,7 @@ function App() {
 		<div className="flex h-dvh flex-col sm:h-screen">
 			<Header />
 			<main className="bg-image h-full w-full items-center bg-cover bg-center ">
-				<section className="relative h-full w-full">
+				<section className="relative h-full w-full sm:grid sm:items-center">
 					{stage === calendarProcess.init && (
 						<>
 							<SetupContainer>
