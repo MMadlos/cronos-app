@@ -27,15 +27,15 @@ export default function Table() {
 
 	return (
 		<>
-			<div className="mt-8 hidden sm:block ">
-				<h2 className="text-lg font-semibold text-zinc-600">
+			<div className="mx-auto hidden h-fit w-[85%] rounded-md bg-white/60 p-10 backdrop-blur-2xl sm:block">
+				<h2 className="text-lg font-semibold text-zinc-800">
 					Calendario de disponibilidad
 				</h2>
-				<div className="h-[1px] w-full bg-zinc-200"></div>
-				<div className="mt-6 max-h-[60vh] w-full overflow-x-auto  overflow-y-auto">
+				<div className="mb-10 h-[1px] w-full bg-zinc-800"></div>
+				<div className="max-h-[60vh] w-full overflow-x-auto  overflow-y-auto rounded-md">
 					<table
 						id="table"
-						className="w-full border-collapse bg-white"
+						className="w-full border-collapse  bg-white"
 					>
 						<TableHead />
 						<TableBody
@@ -45,6 +45,7 @@ export default function Table() {
 					</table>
 				</div>
 			</div>
+
 			<div className="h-full w-full sm:hidden ">
 				<ScreenXS
 					confirmed={confirmed}
