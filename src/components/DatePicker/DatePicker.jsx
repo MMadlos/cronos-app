@@ -7,13 +7,14 @@ import {
 	getWeekdays,
 } from "../../utils"
 import DatePickerHeader from "./DatePickerHeader"
+import DateButton from "./DateButton"
 
-const dateToday = new Date()
-const currentYear = dateToday.getFullYear()
-const currentMonthIndex = dateToday.getMonth()
+const dateNow = new Date()
+const yearNow = dateNow.getFullYear()
+const monthIndexNow = dateNow.getMonth()
 const initCalendar = {
-	year: currentYear,
-	monthIndex: currentMonthIndex,
+	year: yearNow,
+	monthIndex: monthIndexNow,
 }
 
 // AHORA, CUANDO SE HACE CLICK EN LA FECHA, SE AÑADE A selectedDates.
@@ -33,7 +34,7 @@ export default function DatePicker({ onClick }) {
 	function handleClickArrow(e) {
 		const monthIndex = Number(e.target.closest("button").dataset.index)
 
-		const date = new Date(dateToday.getTime())
+		const date = new Date(dateNow.getTime())
 		date.setMonth(monthIndex)
 
 		const year = date.getFullYear()
@@ -93,13 +94,9 @@ export default function DatePicker({ onClick }) {
 		setSelectedDates([])
 	}
 
-	const currentSelectedDates = selectedDates
-		.map((dateTime) => new Date(dateTime))
-		.filter((dateTime) => dateTime.getFullYear() === year)
-		.filter((dateTime) => dateTime.getMonth() === monthIndex)
-		.map((dateTime) => dateTime.getDate())
+	const gridCalendarData = getCalendarContent(calendar, selectedDates)
 
-	const gridCalendarData = getCalendarContent(calendar, currentSelectedDates)
+	// STEPS: Si hago click,
 
 	return (
 		<div
@@ -129,23 +126,12 @@ export default function DatePicker({ onClick }) {
 
 				<div className="grid w-full grid-cols-7 items-center justify-items-center gap-1 ">
 					{gridCalendarData.map((data, index) => {
-						const { content, type } = data
-
-						const isDisabled = ["empty", "unavailable"].includes(
-							type
-						)
-
 						return (
-							<button
-								onClick={() => handleClickDate(content)}
+							<DateButton
 								key={index}
-								data-type={type}
-								className="flex size-10 items-center justify-center rounded-md bg-stone-50 font-medium enabled:hover:bg-stone-200 disabled:text-stone-300 data-[type=selected]:border-stone-200 data-[type=selected]:bg-stone-900 data-[type=selected]:font-medium data-[type=selected]:text-stone-50 data-[type=selected]:hover:bg-stone-500 md:bg-stone-100"
-								disabled={isDisabled}
-								data-date={isDisabled ? null : content}
-							>
-								{content}
-							</button>
+								data={data}
+								onClick={() => handleClickDate(data.content)}
+							/>
 						)
 					})}
 				</div>
