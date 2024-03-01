@@ -4,9 +4,9 @@ import { SelectedDatesContext } from "../../App"
 import {
 	getAllSelectedWeekdayDates,
 	getCalendarContent,
-	getIntlMonthLong,
 	getWeekdays,
 } from "../../utils"
+import DatePickerHeader from "./DatePickerHeader"
 
 const dateToday = new Date()
 const currentYear = dateToday.getFullYear()
@@ -16,12 +16,19 @@ const initCalendar = {
 	monthIndex: currentMonthIndex,
 }
 
+// AHORA, CUANDO SE HACE CLICK EN LA FECHA, SE AÑADE A selectedDates.
+// QUIERO QUE: NO SE AÑADA A SELECTED_DATES HASTA QUE SE HAGA CLICK EN HECHO.
+
+// Guardar temporalmente las fechas seleccionadas
+// Actualizar selectedDates con las fechas actualizadas.
+
 export default function DatePicker({ onClick }) {
 	const [calendar, setCalendar] = useState(initCalendar)
 	const { selectedDates, setSelectedDates } = useContext(SelectedDatesContext)
 
+	const [currentDates, setCurrentDates] = useState(selectedDates)
+
 	const { year, monthIndex } = calendar
-	const monthName = getIntlMonthLong(new Date(year, monthIndex))
 
 	function handleClickArrow(e) {
 		const monthIndex = Number(e.target.closest("button").dataset.index)
@@ -99,42 +106,10 @@ export default function DatePicker({ onClick }) {
 			id="calendar"
 			className="mx-auto flex h-fit w-fit flex-col gap-2 rounded-md  bg-white p-4 shadow-md "
 		>
-			<div
-				id="calendar-header"
-				className="flex flex-col items-center sm:gap-2"
-			>
-				<h4 className="text-sm font-medium text-stone-400">{year}</h4>
-				<div className="flex w-full flex-row items-center justify-between">
-					<button
-						className="group"
-						data-index={monthIndex - 1}
-						disabled={
-							monthIndex - 1 < currentMonthIndex &&
-							year === currentYear
-						}
-						onClick={handleClickArrow}
-					>
-						<i
-							className={`fa-solid fa-arrow-left text-2xl text-stone-700 group-enabled:hover:opacity-50 group-disabled:text-stone-200 sm:p-2`}
-						/>
-					</button>
-					<div className="rounded  px-6 py-2 ">
-						<h3 className="text-xl font-semibold text-stone-600 sm:text-2xl">
-							{monthName}
-						</h3>
-					</div>
-
-					<button
-						className="group"
-						data-index={monthIndex + 1}
-						onClick={handleClickArrow}
-					>
-						<i
-							className={`fa-solid fa-arrow-right text-2xl text-stone-700 hover:opacity-50 group-disabled:text-stone-200 sm:p-2`}
-						/>
-					</button>
-				</div>
-			</div>
+			<DatePickerHeader
+				calendar={calendar}
+				onClickArrow={handleClickArrow}
+			/>
 
 			<div className="flex flex-col items-center justify-center gap-2 ">
 				<div className="grid w-full grid-cols-7 items-center justify-items-center gap-1 border-b-2 border-stone-200 pb-2">
