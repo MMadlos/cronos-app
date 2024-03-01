@@ -1,35 +1,43 @@
-import { useState } from "react"
-import SummaryCalendar from "../SummaryCalendar/SummaryCalendar"
-
-export default function Nav({ summaryData }) {
-	const [openNav, setOpenNav] = useState(false)
-
+export default function Nav({ onClickClose }) {
 	return (
-		<div
-			className=" border-r-2 border-zinc-200 bg-zinc-50 p-2"
-			id="aside-nav"
-		>
-			{openNav ? (
-				<>
-					<div className="flex flex-row items-center justify-between">
-						<h2 className="my-2 text-zinc-400">Summary</h2>
-						<button
-							className="size-8 rounded hover:bg-zinc-200"
-							onClick={() => setOpenNav(false)}
-						>
-							<i className="fa-solid fa-circle-chevron-left text-xl text-zinc-500 " />
-						</button>
-					</div>
-					<SummaryCalendar summaryData={summaryData} />
-				</>
-			) : (
+		<nav className="absolute top-0 z-10 flex h-screen max-h-screen flex-col gap-2  bg-zinc-50 p-6">
+			<div className="mx-auto w-fit">
 				<button
-					className="size-8 rounded hover:bg-zinc-200"
-					onClick={() => setOpenNav(true)}
+					className="rounded-full bg-zinc-200 px-6 py-4"
+					onClick={onClickClose}
 				>
-					<i className="fa-solid fa-circle-chevron-right text-xl text-zinc-500 " />
+					<i className="fa-solid fa-xmark text-zinc-600" />
 				</button>
-			)}
-		</div>
+			</div>
+			<div className="flex h-full flex-col justify-between gap-10">
+				<div>
+					<h2 className="mb-2 text-xl font-medium">About</h2>
+					<p>
+						Lorem ipsum, dolor sit amet consectetur adipisicing
+						elit. Magni inventore beatae deleniti assumenda
+						aspernatur debitis repudiandae sunt nihil odio!
+						Blanditiis asperiores mollitia labore? Eveniet placeat
+						ipsa aspernatur voluptatibus numquam facilis!
+					</p>
+				</div>
+
+				<div>
+					<h2 className="mb-2 text-xl font-medium">Credits</h2>
+					<p>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Deleniti rerum nobis reprehenderit laudantium distinctio
+						officiis, repudiandae labore dolor. Labore unde
+						blanditiis assumenda sit temporibus corrupti dolores
+						voluptas neque quo sunt!
+					</p>
+				</div>
+
+				<div className="flex flex-row items-center justify-between gap-4">
+					<button>LinkedIn</button>
+					<button>Github</button>
+					<button>Portfolio</button>
+				</div>
+			</div>
+		</nav>
 	)
 }
