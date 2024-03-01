@@ -12,7 +12,7 @@ export default {
 				sans: ["Inter", ...theme.fontFamily.sans],
 			},
 			backgroundImage: (theme) => ({
-				image: "url('src/images/header-calendar2.jpg')",
+				image: "url('/images/header-calendar2.jpg')",
 			}),
 		},
 		fontFamily: {
