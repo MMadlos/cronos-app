@@ -8,7 +8,6 @@ import UserList from "./components/UserList/UserList"
 import Header from "./components/Header/Header"
 import Instructions from "./components/InitialSetup/Instructions"
 import DatePicker from "./components/DatePicker/DatePicker"
-import Progress from "./components/InitialSetup/Progress"
 
 export const calendarProcess = {
 	init: "instructions",
@@ -30,7 +29,7 @@ export const SelectedDatesContext = createContext({
 })
 
 function App() {
-	const [stage, setStage] = useState(calendarProcess.init)
+	const [stage, setStage] = useState(calendarProcess.table)
 	const [selectedDates, setSelectedDates] = useState(mockSelectedDates)
 	const [participants, setParticipants] = useState(mockParticipants)
 
