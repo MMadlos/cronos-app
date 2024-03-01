@@ -31,7 +31,7 @@ export const SelectedDatesContext = createContext({
 
 function App() {
 	const [openNav, setOpenNav] = useState(false)
-	const [stage, setStage] = useState(calendarProcess.peopleList)
+	const [stage, setStage] = useState(calendarProcess.init)
 	const [selectedDates, setSelectedDates] = useState(mockSelectedDates)
 	const [participants, setParticipants] = useState(mockParticipants)
 
