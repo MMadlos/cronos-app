@@ -32,7 +32,6 @@ const DATE_TYPES = {
 	empty: "empty",
 	unavailable: "unavailable",
 	selected: "selected",
-	today: "today",
 	default: "default",
 }
 
@@ -51,6 +50,12 @@ function getCalendarContent(calendarData, selectedDates) {
 
 	const lastDate = date.getDate()
 
+	const currentSelectedDates = selectedDates
+		.map((dateTime) => new Date(dateTime))
+		.filter((dateTime) => dateTime.getFullYear() === year)
+		.filter((dateTime) => dateTime.getMonth() === monthIndex)
+		.map((dateTime) => dateTime.getDate())
+
 	const calendarArray = Array(35)
 		.fill("")
 		.map((_, index) => {
@@ -68,18 +73,13 @@ function getCalendarContent(calendarData, selectedDates) {
 			// TYPES
 			if (data.content === "") {
 				data.type = DATE_TYPES.empty
-			} else if (selectedDates.includes(data.content)) {
+			} else if (currentSelectedDates.includes(data.content)) {
 				data.type = DATE_TYPES.selected
 			} else if (
 				data.content < currentDate &&
 				monthIndex === currentMonth
 			) {
 				data.type = DATE_TYPES.unavailable
-			} else if (
-				data.content === currentDate &&
-				monthIndex === currentMonth
-			) {
-				data.type = DATE_TYPES.today
 			} else {
 				data.type = DATE_TYPES.default
 			}
