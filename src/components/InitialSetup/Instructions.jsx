@@ -5,10 +5,12 @@ export default function Instructions({ onClick }) {
 				Crea una tabla en 3 pasos para anotar y detectar de un vistazo
 				la mejor fecha para los participantes de tu evento.
 			</h3>
-			<section className="flex h-full flex-col gap-4">
+			<section className="flex h-full flex-col pb-10">
 				<Step num="1" text="Selecciona fechas" />
+				<StepLineV />
 				<Step num="2" text="Añade participantes" />
-				<Step num="3" text="Confirma la disponibilidad" />
+				<StepLineV />
+				<Step num="3" text="Confirma disponibilidad" />
 			</section>
 			<button
 				className="hidden w-full rounded-md bg-gradient-to-br from-blue-700 via-violet-600 to-purple-700 px-8 py-3 font-semibold text-zinc-50 hover:opacity-50 sm:block sm:w-fit "
@@ -23,10 +25,14 @@ export default function Instructions({ onClick }) {
 function Step({ num, text }) {
 	return (
 		<div className="flex flex-row items-center gap-4">
-			<div className="flex size-9 items-center justify-center rounded-full border border-stone-300 ">
+			<div className="bg-stone-1 flex size-9 items-center justify-center rounded-full border-2 border-stone-200">
 				<p className=" text-sm font-semibold text-stone-700">{num}</p>
 			</div>
 			<p className="font-medium text-stone-700">{text}</p>
 		</div>
 	)
+}
+
+function StepLineV() {
+	return <div className="ml-[1.125rem] h-4 w-[2px] bg-stone-200"></div>
 }
