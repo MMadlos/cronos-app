@@ -39,7 +39,7 @@ function App() {
 		<div className="relative flex min-h-[100vh] flex-col sm:h-screen">
 			{openNav && <Nav onClickClose={() => setOpenNav(false)} />}
 			<Header onClickOpenNav={() => setOpenNav(true)} />
-			<main className="bg-image flex h-full w-full grow bg-cover bg-center">
+			<main className="flex h-full w-full grow bg-zinc-50 bg-image bg-cover bg-center">
 				<section className="flex w-full grow sm:grid sm:items-center">
 					{stage === calendarProcess.init && (
 						<>
