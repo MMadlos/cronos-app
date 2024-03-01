@@ -1,15 +1,15 @@
 export default function Nav({ onClickClose }) {
 	return (
-		<nav className="absolute top-0 z-10 flex h-screen max-h-screen flex-col gap-2  bg-zinc-50 p-6">
+		<nav className="fixed top-0 z-10 flex h-screen max-h-screen flex-col gap-2  bg-zinc-50 p-6 md:right-0 md:w-[20vw]">
 			<div className="mx-auto w-fit">
 				<button
-					className="rounded-full bg-zinc-200 px-6 py-4"
+					className=" rounded-full bg-zinc-200 px-6 py-4 hover:bg-violet-200"
 					onClick={onClickClose}
 				>
-					<i className="fa-solid fa-xmark text-zinc-600" />
+					<i className="fa-solid fa-xmark text-zinc-800" />
 				</button>
 			</div>
-			<div className="flex h-full flex-col justify-between gap-10">
+			<div className="flex h-full flex-col justify-between gap-10 md:justify-normal">
 				<div>
 					<h2 className="mb-2 text-xl font-medium">About</h2>
 					<p>
@@ -32,7 +32,7 @@ export default function Nav({ onClickClose }) {
 					</p>
 				</div>
 
-				<div className="flex flex-row items-center justify-between gap-4">
+				<div className="flex flex-row items-center justify-between gap-4 md:h-full md:items-end">
 					<button>LinkedIn</button>
 					<button>Github</button>
 					<button>Portfolio</button>
