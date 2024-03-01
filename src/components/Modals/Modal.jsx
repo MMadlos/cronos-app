@@ -41,8 +41,8 @@ export default function Modal({ buttonName, useCase, children }) {
 	const handleEsc = (e) => e.key === "Escape" && handleClose()
 
 	const iconName = {
-		Participants: "fa-user",
-		Dates: "fa-calendar-check",
+		UserList: "fa-user",
+		DatePicker: "fa-calendar-check",
 	}
 
 	return (
@@ -51,7 +51,7 @@ export default function Modal({ buttonName, useCase, children }) {
 				className="h-full w-full rounded px-2 py-2 text-left font-medium hover:bg-zinc-100 hover:font-semibold hover:text-zinc-600"
 				onClick={handleOpen}
 			>
-				<i className={`fa-solid ${iconName[buttonName]} mr-3`} />
+				<i className={`fa-solid ${iconName[useCase]} mr-3`} />
 				{buttonName}
 			</button>
 
