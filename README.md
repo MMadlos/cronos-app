@@ -1,8 +1,19 @@
-# React + Vite
+# Cronos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Javascript Badge](https://img.shields.io/badge/Javascript-yellow?logo=Javascript)
+![React Badge](https://img.shields.io/badge/React-blue?logo=React)
+![Vite Badge](https://img.shields.io/badge/Vite-purple?logo=vite&logoColor=yellow)
+![Tailwind CSS Badge](https://img.shields.io/badge/Tailwind%20CSS-lightblue?logo=tailwindcss)
 
-Currently, two official plugins are available:
+![screenshot of Cronos website](src/images/screenshot.jpg)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+App to quickly check the most suitable date for an event for all (or most) participants. This project came to my mind when I was planning an event. As a group of 6, we were discussing our availability and which date was the best for the event and soon became chaotic. Then, I though to make this process easier.
+
+## Links & credits
+
+| Site                                                                                                                                    |                  Link                  |
+| :-------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------: |
+| ![Website Badge](https://img.shields.io/badge/Project_website-green)                                                                    | [Link](https://cronos-app.vercel.app/) |
+| ![Portfolio Badge](https://img.shields.io/badge/Portfolio-8A2BE2?link=www.michaelmadlos.com)                                            |     [Link](www.michaelmadlos.com)      |
+| ![LinkedIn Badge](https://img.shields.io/badge/LinkedIn-blue?logo=Linkedin&link=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fmichaelmadlos%2F) |  [Link](www.linkedin.com/in/mmadlos)   |
+| ![Static Badge](https://img.shields.io/badge/Fontawesome-yellow?label=Icons)                                                            |    [Link](https://fontawesome.com/)    |
